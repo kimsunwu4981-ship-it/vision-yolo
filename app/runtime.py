@@ -32,6 +32,21 @@ def render(frame,tracks,ppe,zones,width,model_ready):
         if not obj.observed:continue
         x1,y1,x2,y2=(int(v*scale) for v in obj.xyxy);color=colors[obj.class_name]
         text=f"{obj.class_name} {obj.confidence:.2f}"+(f" #{obj.track_id}" if obj.track_id is not None else "")
+        states=ppe.get(obj.key,{}) if obj.class_name=="person" and model_ready else {}
+        missing=[label for kind,label in (("helmet","No hard hat"),("safety_vest","No safety vest"))
+                 if states.get(kind,{}).get("state")=="missing"]
+        if missing:
+            color=(0,0,255)
+            cv2.rectangle(image,(x1,y1),(x2,y2),color,3)
+            lines=missing+[text]
+            font=cv2.FONT_HERSHEY_SIMPLEX;font_scale=.6;padding=6;line_height=24
+            label_width=min(w,max(cv2.getTextSize(line,font,font_scale,1)[0][0] for line in lines)+2*padding)
+            label_height=len(lines)*line_height+padding
+            left=max(0,min(x1,w-label_width));top=max(0,y1-label_height)
+            cv2.rectangle(image,(left,top),(left+label_width-1,min(h-1,top+label_height)),color,-1)
+            for index,line in enumerate(lines):
+                cv2.putText(image,line,(left+padding,top+(index+1)*line_height-5),font,font_scale,(255,255,255),1,cv2.LINE_AA)
+            continue
         if obj.key in ppe:
             text+=" H:"+ppe[obj.key]["helmet"]["state"]+" V:"+ppe[obj.key]["safety_vest"]["state"]
         cv2.rectangle(image,(x1,y1),(x2,y2),color,2);cv2.putText(image,text,(x1,max(16,y1-6)),cv2.FONT_HERSHEY_SIMPLEX,.45,color,1,cv2.LINE_AA)
