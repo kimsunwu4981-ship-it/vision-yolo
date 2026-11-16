@@ -6,6 +6,8 @@
 
 프레임은 camera/session/frame, 원본 크기, source PTS, UTC 수신시각, monotonic 수신시각, 변환 메타데이터를 가진다. Ultralytics `.boxes.xyxy`는 이미 원본 픽셀이므로 재복원하지 않는다. 일반 homography 변환과 letterbox 역변환 도구는 단위 검증한다. 임의 crop·회전 전처리는 기본 경로에 적용하지 않는다.
 
+회전 메타데이터가 있는 입력은 PyAV 프레임의 display rotation을 적용한 원본 표시 픽셀을 좌표 기준으로 삼는다. `source_width/height`, bbox, PPE 머리/상체, ROI, 증거 영상이 이 방향을 공유한다. 재인코딩하거나 원본 파일을 수정하지 않는다. `preprocess_transform`에 encoded 원본 크기, 회전각, encoded→display 및 display→encoded 행렬을 기록해 저장된 원본 픽셀 좌표로 역변환할 수 있다. 0/±90/180도 회전을 지원하며 임의 각도는 명시적으로 거부한다. 이는 파일의 표시 방향 보정이며 객체를 검출하기 위한 임의 증강 회전과 구분한다.
+
 추적은 내장 BYTETracker 하나만 사용한다. 프레임 드롭에 따른 TTL 오류를 피하기 위해 실제 관측시각으로 pool을 만료시킨다. camera/session/class가 다른 객체는 같은 pool에 들어가지 않는다. 관측하지 않은 Kalman 예측을 규칙 입력이나 현재 프레임 박스로 표시하지 않는다. 첫 관측으로 아직 활성화되지 않은 검출은 track_id 없이 표시한다.
 
 PPE는 머리/상체 영역·크기·거리 기반 Hungarian 일대일 할당을 사용한다. 사람이 너무 작거나 화면 끝에 걸치거나 어둡거나 다른 사람과 크게 겹치면 unknown이다. 장시간의 보이는 영역에서 부재가 지속되어야 missing 후보가 된다. 이 가시성 판단은 bbox 기반 근사이고 실제 가림 판별을 보장하지 않는다. 현장 평가가 필요하다.
