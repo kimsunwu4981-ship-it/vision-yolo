@@ -2,6 +2,8 @@
 
 기본은 127.0.0.1:8765, 단일 서버다. `start.ps1`은 서버와 브라우저를 열고 `-NoBrowser`는 서버만 시작한다. `stop.ps1`은 이 프로젝트 instance token으로 정상 종료를 요청한다. 종료 실패 시 로그를 확인하며 모든 python 프로세스를 일괄 종료하지 않는다.
 
+기본 runtime은 PyTorch CUDA FP16, 모델 입력640, 최대 microbatch4다. 이미 준비된 최신 프레임만 모으므로 느린 카메라가 batch를 채울 때까지 기다리지 않는다. batch1 기준선과 비교한 개발 PC 결과에 따른 선택이며 노트북에서 다시 측정해야 한다. 미리보기 목표12FPS와 실제 FPS는 구분해 표시한다.
+
 `configs/cameras.local.yaml`에 4개 이내 고유 ID를 지정한다. RTSP는 `url_env`만 기록하고 `.env`에 자격증명을 둔다. 파일 입력은 `source_type: file`, `path`, `loop`를 사용한다. 자동 재연결, loop, seek는 새 session이며 이전 추적 상태를 이어받지 않는다. DEMO 표시는 생성한 정지 이미지 시퀀스용이며 실제 현장 영상이 아니다.
 
 대시보드에서 ROI 편집 → 영상 위 꼭짓점 클릭 → 다각형 추가 → 구역 저장 순서로 여러 구역을 설정한다. 클릭 좌표는 영상 비율을 유지한 canvas의 CSS 크기로 나누고 canvas backing은 devicePixelRatio로 설정한다. 저장은 정규화 좌표이므로 확대/축소와 별개다. 고DPI 실제 브라우저 동작은 아직 미검증이다. 잘못된 자기교차·범위 밖·중복 ID 다각형은 API가 거부한다.

@@ -129,7 +129,8 @@ class Runtime:
 
     def run(self):
         try:self.detector.load()
-        except Exception as error:self.detector.error=type(error).__name__;self.error="model_load_failed"
+        except Exception as error:
+            self.detector.error=type(error).__name__;self.detector.degraded=True;self.error="model_load_failed"
         self.loading=False;last_health=0
         while not self.stop_event.is_set():
             worked=False;batch=[];camera_items=list(self.cameras.items())

@@ -7,6 +7,8 @@
 
 커밋 작성자는 자동화 주체 `Codex <codex@localhost>`이다. 사용자 이름을 임의로 추정하지 않았다. Git 전역 설정은 바꾸지 않았다. 시스템 Git의 접근 불가 전역 excludes 경로 때문에 커밋 명령에서 프로젝트의 빈 excludes 파일을 일회성으로 지정했다. 마지막 커밋 ID와 검증 결과는 최종 보고를 참조한다.
 
-재현 검증용으로 commit `ea38ce9`를 `git archive`하여 `outputs/clean-checkout`에 풀고, 새로운 별도 `.venv`에서 setup과 pytest 및 데이터 재구성을 수행했다. 기존 `.venv`나 legacy 프로젝트를 복사하지 않았다. checkout의 모델 파일은 Git에 없으므로 정상적으로 모델 미준비 상태를 표시한다. 이 프로젝트의 공식 초기 가중치 hash를 확인해 smoke 학습을 재현하며, 본 학습 전체 재수행은 이미 수행한 30 epoch run과 구분해 기록한다.
+재현 검증용으로 commit `ea38ce9`를 `git archive`하여 `outputs/clean-checkout`에 풀고, 새로운 별도 `.venv`에서 고정 의존성 설치, 데이터 3,174/930/685 재구성, 공식 초기 가중치의 CPU smoke 학습·validation을 완료했다. 이후 소스 archive `0d4639f`를 반영하여 setup, 31개 테스트, 실제 HTTP 실행을 확인했다. 기존 `.venv`나 legacy 프로젝트를 복사하지 않았다. checkout의 운영 모델은 Git에 없으므로 모델 미준비로 표시되며 실제 HTTP 생존·대시보드는 200이었다. CPU smoke `clean-smoke-v1`의 checkpoint SHA-256은 `87ba3aeeb1ab223cb784b07743135504c799fb1e380f22dfe8ed4f82b83e58e2`다. 본 학습 30 epoch 전체를 이 checkout에서 다시 수행한 것은 아니다. 이후 최종 소유 프로세스 확인·보고서 변경은 원래 프로젝트에서 검증했다.
 
 패키징 전 `git ls-files`로 `.env`, `.venv`, 원본/파생 이미지, `.pt`, `.db`, 증거가 추적되지 않는지 검사한다. `app/`에는 legacy 경로나 PYTHONPATH 조작이 없다. 데이터 접근 경로는 audit와 manifest에만 있고 실행 모델은 이 프로젝트 ROOT 안 registry 파일만 허용한다.
+
+`python -m scripts.package_release`는 현재 HEAD의 소스 ZIP과 hash 검증된 이번 학습 모델 ZIP을 `outputs/delivery`에 별도로 만든다. 같은 폴더에 두 ZIP을 풀고 setup을 실행한다. 데이터·인증정보·가상환경은 포함하지 않는다. 정확한 납품 commit과 ZIP hash는 `outputs/delivery/release-manifest.json`에 기록한다. remote와 push는 없으며 원격 주소·공개 범위가 정해진 후 별도 작업한다.

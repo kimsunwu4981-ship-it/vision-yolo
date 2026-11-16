@@ -19,7 +19,8 @@ if __name__=="__main__":
             fcntl.flock(lock.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)
     except OSError:raise SystemExit("This project's server is already running")
     instance=secrets.token_urlsafe(24);process=psutil.Process()
-    write_json(directory/"service.json",{"pid":os.getpid(),"create_time":process.create_time(),"root":str(ROOT),"instance":instance})
+    os.environ["SAFETY_INSTANCE_ID"]=instance
+    write_json(directory/"service.json",{"pid":os.getpid(),"create_time":process.create_time(),"root":str(ROOT),"instance":instance,"port":int(os.environ.get("SAFETY_PORT","8765"))})
     config=uvicorn.Config("app.api:create_app",factory=True,host=os.environ.get("SAFETY_HOST","127.0.0.1"),
                 port=int(os.environ.get("SAFETY_PORT","8765")),workers=1,access_log=False,log_level="warning")
     server=uvicorn.Server(config);done=threading.Event()

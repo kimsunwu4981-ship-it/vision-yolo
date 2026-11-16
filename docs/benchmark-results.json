@@ -1,0 +1,432 @@
+[
+  {
+    "run": "run-2026-11-16T094939-048648+0000",
+    "requested_duration_s": 30,
+    "last_sample_elapsed_s": 29.06,
+    "completed": true,
+    "channels": {
+      "cam1": {
+        "inference_fps_mean": 14.422,
+        "inference_fps_min": 13.86,
+        "preview_fps_mean": 9.349999999999998,
+        "decode_to_encoded_p95_max_ms": 141.00000000325963,
+        "observation_age_max_s": 0.14,
+        "queue_max": 1.0,
+        "total_drops": 147
+      },
+      "cam2": {
+        "inference_fps_mean": 14.135499999999999,
+        "inference_fps_min": 13.77,
+        "preview_fps_mean": 9.214999999999998,
+        "decode_to_encoded_p95_max_ms": 140.39999997476116,
+        "observation_age_max_s": 0.172,
+        "queue_max": 1.0,
+        "total_drops": 155
+      },
+      "cam3": {
+        "inference_fps_mean": 14.279,
+        "inference_fps_min": 13.86,
+        "preview_fps_mean": 9.2265,
+        "decode_to_encoded_p95_max_ms": 141.00000000325963,
+        "observation_age_max_s": 0.125,
+        "queue_max": 1.0,
+        "total_drops": 149
+      },
+      "cam4": {
+        "inference_fps_mean": 14.012499999999998,
+        "inference_fps_min": 13.37,
+        "preview_fps_mean": 8.989,
+        "decode_to_encoded_p95_max_ms": 141.00000000325963,
+        "observation_age_max_s": 0.125,
+        "queue_max": 1.0,
+        "total_drops": 166
+      }
+    },
+    "microbatch": 1,
+    "process_ram_start_gb": 2.346,
+    "process_ram_end_gb": 3.035,
+    "process_ram_peak_gb": 3.046,
+    "vram_peak_gb": 3.846,
+    "final_storage": {
+      "error": "ArgumentError",
+      "queued": 0,
+      "dropped": 0,
+      "compressed_buffer_bytes": 6373714
+    },
+    "final_error": null,
+    "real_camera_video": false,
+    "target_laptop": false,
+    "browser_display_latency_ms": null,
+    "acceptance": false
+  },
+  {
+    "run": "run-2026-11-16T095433-159734+0000",
+    "requested_duration_s": 30,
+    "last_sample_elapsed_s": 29.06,
+    "completed": true,
+    "channels": {
+      "cam1": {
+        "inference_fps_mean": 21.4455,
+        "inference_fps_min": 14.89,
+        "preview_fps_mean": 9.656000000000002,
+        "decode_to_encoded_p95_max_ms": 108.99999999674037,
+        "observation_age_max_s": 0.109,
+        "queue_max": 1.0,
+        "total_drops": 322
+      },
+      "cam2": {
+        "inference_fps_mean": 21.4035,
+        "inference_fps_min": 14.63,
+        "preview_fps_mean": 9.601999999999999,
+        "decode_to_encoded_p95_max_ms": 109.84999998763669,
+        "observation_age_max_s": 0.093,
+        "queue_max": 1.0,
+        "total_drops": 326
+      },
+      "cam3": {
+        "inference_fps_mean": 21.421,
+        "inference_fps_min": 14.43,
+        "preview_fps_mean": 9.424999999999997,
+        "decode_to_encoded_p95_max_ms": 108.99999999674037,
+        "observation_age_max_s": 0.11,
+        "queue_max": 1.0,
+        "total_drops": 332
+      },
+      "cam4": {
+        "inference_fps_mean": 20.585,
+        "inference_fps_min": 14.43,
+        "preview_fps_mean": 9.414499999999999,
+        "decode_to_encoded_p95_max_ms": 108.99999999674037,
+        "observation_age_max_s": 0.125,
+        "queue_max": 1.0,
+        "total_drops": 367
+      }
+    },
+    "microbatch": 1,
+    "process_ram_start_gb": 2.344,
+    "process_ram_end_gb": 3.063,
+    "process_ram_peak_gb": 3.063,
+    "vram_peak_gb": 3.863,
+    "final_storage": {
+      "error": null,
+      "queued": 0,
+      "dropped": 0,
+      "compressed_buffer_bytes": 6617449
+    },
+    "final_error": null,
+    "real_camera_video": false,
+    "target_laptop": false,
+    "browser_display_latency_ms": null,
+    "acceptance": false
+  },
+  {
+    "run": "run-2026-11-16T095620-259177+0000",
+    "requested_duration_s": 30,
+    "last_sample_elapsed_s": 29.02,
+    "completed": true,
+    "channels": {
+      "cam1": {
+        "inference_fps_mean": 24.904500000000002,
+        "inference_fps_min": 24.75,
+        "preview_fps_mean": 9.736,
+        "decode_to_encoded_p95_max_ms": 78.00000003771856,
+        "observation_age_max_s": 0.063,
+        "queue_max": 1.0,
+        "total_drops": 194
+      }
+    },
+    "microbatch": 1,
+    "process_ram_start_gb": 1.774,
+    "process_ram_end_gb": 2.05,
+    "process_ram_peak_gb": 2.063,
+    "vram_peak_gb": 3.419,
+    "final_storage": {
+      "error": null,
+      "queued": 0,
+      "dropped": 0,
+      "compressed_buffer_bytes": 2193829
+    },
+    "final_error": null,
+    "real_camera_video": false,
+    "target_laptop": false,
+    "browser_display_latency_ms": null,
+    "acceptance": false
+  },
+  {
+    "run": "run-2026-11-16T095658-607425+0000",
+    "requested_duration_s": 30,
+    "last_sample_elapsed_s": 29.03,
+    "completed": true,
+    "channels": {
+      "cam1": {
+        "inference_fps_mean": 24.843,
+        "inference_fps_min": 24.55,
+        "preview_fps_mean": 9.651,
+        "decode_to_encoded_p95_max_ms": 78.04999998188578,
+        "observation_age_max_s": 0.063,
+        "queue_max": 1.0,
+        "total_drops": 196
+      },
+      "cam2": {
+        "inference_fps_mean": 24.776999999999997,
+        "inference_fps_min": 24.3,
+        "preview_fps_mean": 9.656,
+        "decode_to_encoded_p95_max_ms": 78.00000003771856,
+        "observation_age_max_s": 0.11,
+        "queue_max": 1.0,
+        "total_drops": 197
+      }
+    },
+    "microbatch": 1,
+    "process_ram_start_gb": 1.995,
+    "process_ram_end_gb": 2.338,
+    "process_ram_peak_gb": 2.338,
+    "vram_peak_gb": 3.303,
+    "final_storage": {
+      "error": null,
+      "queued": 0,
+      "dropped": 0,
+      "compressed_buffer_bytes": 3943999
+    },
+    "final_error": null,
+    "real_camera_video": false,
+    "target_laptop": false,
+    "browser_display_latency_ms": null,
+    "acceptance": false
+  },
+  {
+    "run": "run-2026-11-16T095736-886106+0000",
+    "requested_duration_s": 1800,
+    "last_sample_elapsed_s": 62.16,
+    "completed": false,
+    "channels": {
+      "cam1": {
+        "inference_fps_mean": 22.40018867924528,
+        "inference_fps_min": 18.78,
+        "preview_fps_mean": 9.686226415094339,
+        "decode_to_encoded_p95_max_ms": 108.99999999674037,
+        "observation_age_max_s": 0.156,
+        "queue_max": 1.0,
+        "total_drops": 386
+      },
+      "cam2": {
+        "inference_fps_mean": 22.18792452830189,
+        "inference_fps_min": 18.63,
+        "preview_fps_mean": 9.667924528301887,
+        "decode_to_encoded_p95_max_ms": 94.0000000409782,
+        "observation_age_max_s": 0.094,
+        "queue_max": 1.0,
+        "total_drops": 403
+      },
+      "cam3": {
+        "inference_fps_mean": 22.226226415094345,
+        "inference_fps_min": 18.43,
+        "preview_fps_mean": 9.63245283018868,
+        "decode_to_encoded_p95_max_ms": 105.25000000779983,
+        "observation_age_max_s": 0.219,
+        "queue_max": 1.0,
+        "total_drops": 399
+      },
+      "cam4": {
+        "inference_fps_mean": 22.432075471698116,
+        "inference_fps_min": 18.83,
+        "preview_fps_mean": 9.496792452830189,
+        "decode_to_encoded_p95_max_ms": 108.99999999674037,
+        "observation_age_max_s": 0.125,
+        "queue_max": 1.0,
+        "total_drops": 391
+      }
+    },
+    "microbatch": 1,
+    "process_ram_start_gb": 2.395,
+    "process_ram_end_gb": 2.913,
+    "process_ram_peak_gb": 3.111,
+    "vram_peak_gb": 3.535,
+    "final_storage": null,
+    "final_error": null,
+    "real_camera_video": false,
+    "target_laptop": false,
+    "browser_display_latency_ms": null,
+    "acceptance": false
+  },
+  {
+    "run": "run-2026-11-16T095857-452736+0000",
+    "requested_duration_s": 45,
+    "last_sample_elapsed_s": 44.09,
+    "completed": true,
+    "channels": {
+      "cam1": {
+        "inference_fps_mean": 24.642,
+        "inference_fps_min": 23.69,
+        "preview_fps_mean": 9.529428571428573,
+        "decode_to_encoded_p95_max_ms": 98.65000003483142,
+        "observation_age_max_s": 0.093,
+        "queue_max": 1.0,
+        "total_drops": 326
+      },
+      "cam2": {
+        "inference_fps_mean": 24.566857142857145,
+        "inference_fps_min": 23.95,
+        "preview_fps_mean": 9.426285714285713,
+        "decode_to_encoded_p95_max_ms": 412.6000000047436,
+        "observation_age_max_s": 0.078,
+        "queue_max": 1.0,
+        "total_drops": 330
+      },
+      "cam3": {
+        "inference_fps_mean": 24.701142857142855,
+        "inference_fps_min": 24.05,
+        "preview_fps_mean": 9.491142857142856,
+        "decode_to_encoded_p95_max_ms": 112.24999998812561,
+        "observation_age_max_s": 0.078,
+        "queue_max": 1.0,
+        "total_drops": 332
+      },
+      "cam4": {
+        "inference_fps_mean": 24.699142857142856,
+        "inference_fps_min": 24.03,
+        "preview_fps_mean": 9.342571428571429,
+        "decode_to_encoded_p95_max_ms": 111.39999999722929,
+        "observation_age_max_s": 0.078,
+        "queue_max": 1.0,
+        "total_drops": 329
+      }
+    },
+    "microbatch": 4,
+    "process_ram_start_gb": 2.38,
+    "process_ram_end_gb": 3.063,
+    "process_ram_peak_gb": 3.105,
+    "vram_peak_gb": 3.074,
+    "final_storage": {
+      "error": null,
+      "queued": 0,
+      "dropped": 0,
+      "compressed_buffer_bytes": 5451144
+    },
+    "final_error": null,
+    "real_camera_video": false,
+    "target_laptop": false,
+    "browser_display_latency_ms": null,
+    "acceptance": false
+  },
+  {
+    "run": "run-2026-11-16T100045-014998+0000",
+    "requested_duration_s": 45,
+    "last_sample_elapsed_s": 44.11,
+    "completed": true,
+    "channels": {
+      "cam1": {
+        "inference_fps_mean": 24.55742857142857,
+        "inference_fps_min": 16.31,
+        "preview_fps_mean": 10.358285714285714,
+        "decode_to_encoded_p95_max_ms": 1744.3000000406755,
+        "observation_age_max_s": 0.094,
+        "queue_max": 1.0,
+        "total_drops": 379
+      },
+      "cam2": {
+        "inference_fps_mean": 24.299714285714288,
+        "inference_fps_min": 16.1,
+        "preview_fps_mean": 10.329714285714287,
+        "decode_to_encoded_p95_max_ms": 516.2500000005821,
+        "observation_age_max_s": 0.109,
+        "queue_max": 1.0,
+        "total_drops": 386
+      },
+      "cam3": {
+        "inference_fps_mean": 24.411142857142856,
+        "inference_fps_min": 15.69,
+        "preview_fps_mean": 10.246,
+        "decode_to_encoded_p95_max_ms": 98.0000000417931,
+        "observation_age_max_s": 0.109,
+        "queue_max": 1.0,
+        "total_drops": 383
+      },
+      "cam4": {
+        "inference_fps_mean": 24.42942857142857,
+        "inference_fps_min": 15.9,
+        "preview_fps_mean": 10.212285714285715,
+        "decode_to_encoded_p95_max_ms": 571.9000000215556,
+        "observation_age_max_s": 0.094,
+        "queue_max": 1.0,
+        "total_drops": 378
+      }
+    },
+    "microbatch": 4,
+    "process_ram_start_gb": 2.075,
+    "process_ram_end_gb": 2.948,
+    "process_ram_peak_gb": 3.193,
+    "vram_peak_gb": 3.389,
+    "final_storage": {
+      "error": null,
+      "queued": 0,
+      "dropped": 0,
+      "compressed_buffer_bytes": 7589673
+    },
+    "final_error": null,
+    "real_camera_video": false,
+    "target_laptop": false,
+    "browser_display_latency_ms": null,
+    "acceptance": false
+  },
+  {
+    "run": "run-2026-11-16T100324-011791+0000",
+    "requested_duration_s": 1800,
+    "last_sample_elapsed_s": 1799.89,
+    "completed": true,
+    "channels": {
+      "cam1": {
+        "inference_fps_mean": 24.207254351487926,
+        "inference_fps_min": 14.12,
+        "preview_fps_mean": 10.491207186973613,
+        "decode_to_encoded_p95_max_ms": 125.0,
+        "observation_age_max_s": 0.156,
+        "queue_max": 1.0,
+        "total_drops": 1623
+      },
+      "cam2": {
+        "inference_fps_mean": 24.168197641774285,
+        "inference_fps_min": 14.25,
+        "preview_fps_mean": 10.477422796181921,
+        "decode_to_encoded_p95_max_ms": 125.0,
+        "observation_age_max_s": 0.156,
+        "queue_max": 1.0,
+        "total_drops": 1712
+      },
+      "cam3": {
+        "inference_fps_mean": 24.19161706906233,
+        "inference_fps_min": 14.2,
+        "preview_fps_mean": 10.430645704660305,
+        "decode_to_encoded_p95_max_ms": 1143.599999987051,
+        "observation_age_max_s": 0.156,
+        "queue_max": 1.0,
+        "total_drops": 1680
+      },
+      "cam4": {
+        "inference_fps_mean": 24.19276249298147,
+        "inference_fps_min": 14.2,
+        "preview_fps_mean": 10.293032004491858,
+        "decode_to_encoded_p95_max_ms": 1852.5999999954365,
+        "observation_age_max_s": 0.156,
+        "queue_max": 1.0,
+        "total_drops": 1650
+      }
+    },
+    "microbatch": 4,
+    "process_ram_start_gb": 2.407,
+    "process_ram_end_gb": 2.712,
+    "process_ram_peak_gb": 3.244,
+    "vram_peak_gb": 5.131,
+    "final_storage": {
+      "error": null,
+      "queued": 0,
+      "dropped": 0,
+      "compressed_buffer_bytes": 8437890
+    },
+    "final_error": null,
+    "real_camera_video": false,
+    "target_laptop": false,
+    "browser_display_latency_ms": null,
+    "acceptance": false
+  }
+]

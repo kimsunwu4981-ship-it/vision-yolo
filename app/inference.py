@@ -32,8 +32,17 @@ class Detector:
             names=set(model.names.values())
             if names-set(CLASSES): raise ValueError("unapproved_model_class")
             if names & self.classes: raise ValueError("duplicate_class_models_not_supported")
-            sample=np.zeros((self.config.get("imgsz",640),self.config.get("imgsz",640),3),dtype=np.uint8)
-            model.predict(sample,device=self.device,verbose=False,imgsz=self.config.get("imgsz",640),quantize=16 if self.device.startswith("cuda") and self.config.get("half",True) else 32)
+            # Warm every supported ready-batch size and common source aspect ratio.
+            # A camera stopping changes the batch shape; its first CUDA kernels must
+            # not be initialized while other cameras are waiting for observations.
+            size=self.config.get("imgsz",640)
+            batch_limit=self.config.get('microbatch',1) if self.device.startswith('cuda') else 1
+            heights=sorted({size,int(size*9/16),int(size*3/4)}) if self.device.startswith('cuda') else [size]
+            for height in heights:
+                sample=np.zeros((height,size,3),dtype=np.uint8)
+                for count in range(1,batch_limit+1):
+                    model.predict([sample]*count,device=self.device,verbose=False,imgsz=size,rect=True,
+                        quantize=16 if self.device.startswith("cuda") and self.config.get("half",True) else 32)
             self.actual_device=str(next(model.model.parameters()).device)
             if self.device.startswith("cuda"):
                 torch.cuda.synchronize()
@@ -50,7 +59,7 @@ class Detector:
         output=[[] for _ in frames]
         for model in self.models:
             results=model.predict([frame.image for frame in frames],device=self.device,imgsz=self.config.get("imgsz",640),conf=self.config.get("confidence",.25),
-                quantize=16 if self.device.startswith("cuda") and self.config.get("half",True) else 32,verbose=False)
+                quantize=16 if self.device.startswith("cuda") and self.config.get("half",True) else 32,rect=True,verbose=False)
             if len(results)!=len(frames):raise RuntimeError("batch_result_count_mismatch")
             for index,(frame,result) in enumerate(zip(frames,results)):
                 if tuple(result.orig_shape)!=(frame.source_height,frame.source_width):raise RuntimeError("batch_frame_shape_mismatch")

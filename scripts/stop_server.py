@@ -4,10 +4,12 @@ from app.common import ROOT,read_json,write_json
 
 if __name__=="__main__":
     state=read_json(ROOT/".runtime/service.json",{})
-    if not state:raise SystemExit("No owned service is running")
+    if not state:
+        print("No owned service is running");raise SystemExit(0)
     if state.get("root")!=str(ROOT):raise SystemExit("Project ownership mismatch")
     try:process=psutil.Process(state["pid"])
-    except psutil.NoSuchProcess:raise SystemExit("Owned service has already exited")
+    except psutil.NoSuchProcess:
+        print("Owned service has already exited");raise SystemExit(0)
     if abs(process.create_time()-state["create_time"])>.01:raise SystemExit("PID reused; refusing shutdown")
     write_json(ROOT/".runtime/stop-request.json",{"instance":state["instance"]})
     try:process.wait(timeout=30)

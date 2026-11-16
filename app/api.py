@@ -43,7 +43,7 @@ def create_app(config=None,runtime=None):
     @app.get("/")
     async def index():return FileResponse(ROOT/"frontend/dashboard.html")
     @app.get("/health/live")
-    async def live():return {"alive":True}
+    async def live():return {"alive":True,"application":"industrial-safety-yolo","instance_id":os.environ.get("SAFETY_INSTANCE_ID")}
     @app.get("/health/ready")
     async def ready():
         ok=runtime.detector.ready and not runtime.detector.degraded and all(c["analysis_live"] for c in runtime.camera_status()) and len(runtime.cameras)==4

@@ -12,6 +12,11 @@ from app.common import ROOT,write_json,utc_now
 
 
 def run():
+    from app.common import read_json
+    import psutil
+    owned=read_json(ROOT/'.runtime/service.json',{})
+    if owned and psutil.pid_exists(owned.get('pid',-1)):
+        raise RuntimeError('Stop the existing project service before this integration test')
     directory=ROOT/"outputs/http-integration";directory.mkdir(parents=True,exist_ok=True)
     environment=os.environ.copy();environment["SAFETY_CAMERAS"]=str(ROOT/"configs/cameras.demo.local.yaml");environment["SAFETY_PORT"]="8766"
     environment["SAFETY_HOST"]="127.0.0.1";environment.pop("SAFETY_API_TOKEN",None)
@@ -51,11 +56,13 @@ def run():
         assert client.post('/api/cameras/cam4/stop').status_code==200
         time.sleep(1.5)
         stopped=client.get('/api/cameras').json();assert stopped[3]['status']=='stopped' and not stopped[3]['analysis_live']
+        result['stop_isolation_measurement']={'before':before,'after':{c['id']:c['inferred_frames'] for c in stopped},'observation_age_s':{c['id']:c['last_observation_age_s'] for c in stopped}}
         assert all(c['inferred_frames']>before[c['id']] for c in stopped[:3])
         result['checks']['stopped_camera_isolation']=True
         old_session=stopped[3]['session_id'];client.post('/api/cameras/cam4/start');time.sleep(1)
         assert client.get('/api/cameras').json()[3]['session_id']!=old_session
         result['checks']['restart_new_session']=True
+        prior_ids={e['id'] for e in client.get('/api/events').json()}
         zone=[dict(id='integration-zone',name='통합 시험 구역',points=[[.01,.01],[.99,.01],[.99,.99],[.01,.99]],enter_s=.1,exit_s=.1,margin=0)]
         assert client.put('/api/cameras/cam1/zones',json=zone).status_code==200
         assert client.get('/api/cameras/cam1/zones').json()['zones'][0]['id']=='integration-zone'
@@ -63,7 +70,7 @@ def run():
         deadline=time.monotonic()+15;found=None
         while time.monotonic()<deadline:
             events=client.get('/api/events',params={'kind':'zone_intrusion','camera':'cam1'}).json()
-            found=next((e for e in events if e.get('image_id') and e.get('clip_id')),None)
+            found=next((e for e in events if e['id'] not in prior_ids and e.get('source_mode')=='DEMO' and e.get('image_id') and e.get('clip_id')),None)
             if found:break
             time.sleep(.3)
         assert found,'No actual-model zone event with evidence'
@@ -84,7 +91,10 @@ def run():
         asyncio.run(websocket_checks());result['checks']['websocket_reconnect']=True
         result['final_state']=client.get('/api/system').json();result['passed']=True
     except Exception as error:
-        result['passed']=False;result['error']=repr(error);raise
+        result['passed']=False;result['error']=repr(error)
+        try:result['failure_state']=client.get('/api/system').json()
+        except Exception:pass
+        raise
     finally:
         client.close()
         subprocess.run([sys.executable,'-m','scripts.stop_server'],cwd=ROOT,capture_output=True,timeout=40)

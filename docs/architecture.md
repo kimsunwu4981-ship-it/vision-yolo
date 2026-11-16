@@ -1,6 +1,6 @@
 # 구조와 계약
 
-캡처 스레드 4개 → 카메라별 최신 슬롯 1개 → 단일 GPU round-robin 스케줄러(batch=1) → YOLO 원본 좌표 검출 → camera/session/class별 Ultralytics BYTETracker → PPE·구역·근접 규칙 → 제한 크기 저장 큐. 미리보기 인코더는 별도 스레드에서 처리하고 API는 완성된 JPEG만 공유한다. 확대·브라우저 탭 추가는 모델·RTSP 연결을 추가하지 않는다.
+캡처 스레드 4개 → 카메라별 최신 슬롯 1개 → 단일 GPU round-robin 스케줄러(batch1 기준선 측정 후 기본 최대4) → YOLO 원본 좌표 검출 → camera/session/class별 Ultralytics BYTETracker → PPE·구역·근접 규칙 → 제한 크기 저장 큐. 이미 도착한 프레임만 묶고 batch 대기는 추가하지 않는다. 미리보기 인코더는 별도 스레드에서 처리하고 API는 완성된 JPEG만 공유한다. 확대·브라우저 탭 추가는 모델·RTSP 연결을 추가하지 않는다.
 
 `app/capture.py`의 PyAV는 RTSP TCP, 4초 연결/읽기 timeout, 지수 재연결을 사용한다. 재연결·파일 loop·seek는 새 session UUID와 빈 최신 슬롯을 만든다. 파일은 원본 PTS를 따라 재생한다. PyAV 소프트웨어 디코딩이 기준선이며 하드웨어 디코딩·H.265 최적화는 미검증이다.
 
@@ -23,3 +23,6 @@ SQLite WAL 저장 큐 128, 증거 인코딩 대기 16, 카메라별 JPEG pre-rol
 기본 PyAV 경로의 received timestamp는 Python에 디코딩된 프레임이 준비된 시점이다. 실제 네트워크 패킷 도착시각과 FFmpeg 내부 지연은 포함하지 않는다. 따라서 대시보드 p50/p95/p99 이름은 `decode_ready_to_encoded_ms`이며 **host 패킷 수신→브라우저 지연으로 보고하지 않는다**. 카메라 센서/인코더/NVR/소켓/디코더/브라우저 지연의 전체 분리는 실제 장비 계측이 남아 있다.
 
 측정 후 microbatch=2/4를 선택할 수 있다. 현재 준비된 카메라에서 최대 1프레임씩만 모으고 별도 대기 없이 즉시 추론한다. cursor를 이동해 특정 카메라가 기아 상태가 되지 않도록 한다. batch 결과 개수와 원본 크기를 검증하고 원래 frame 객체와 같은 순서로 연결한다. 기본 설정은 기준선인 batch=1을 유지한다.
+## 최종 워밍업 보완
+
+CUDA 시작 시 최대 microbatch까지 모든 batch 크기(기본1–4)와1:1/16:9/4:3 입력을 미리 실행한다. 한 카메라 중단으로 batch가 바뀌는 경우의 최초 연산 지연을 줄이기 위한 조치다. 그 밖의 입력 비율이나 다른 GPU에서는 첫 shape 비용을 별도로 확인한다. 모델 ready는 이 워밍업 이후 설정된다.

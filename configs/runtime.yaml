@@ -1,5 +1,6 @@
 device: auto
-microbatch: 1
+# Batch=1 baseline was measured; ready-only batch<=4 improves the 4-channel desktop profile.
+microbatch: 4
 imgsz: 640
 confidence: 0.25
 half: true

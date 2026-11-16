@@ -42,7 +42,7 @@ Copy-Item .env.example .env
 
 | 목적 | 명령 |
 |---|---|
-| 1/2/4채널 성능 | `python -m scripts.benchmark --channels 4 --seconds 1800 --cameras configs/cameras.local.yaml` |
+| 1/2/4채널 성능 | `python -m scripts.benchmark --channels 4 --microbatch 4 --seconds 1800 --cameras configs/cameras.local.yaml` (batch1 기준선은 `--microbatch 1`) |
 | 2시간 시험 | 위 명령의 `--seconds 7200` |
 | 모든 프레임 오프라인 처리 | `python -m scripts.replay video1.mp4 video2.mp4 --output outputs/replay-001` |
 | 사건 단위 평가 | `python -m scripts.evaluate_events truth.json predicted.json --camera-hours 8 --output outputs/event-metrics.json` |
@@ -51,4 +51,4 @@ Copy-Item .env.example .env
 
 항상 `.venv\Scripts\python.exe`를 사용하세요. 선택 export에는 별도 ONNX/TensorRT 의존성이 필요하고, 동등성 검사에 통과해도 운영 provider로 자동 전환하지 않습니다.
 
-상세: [검증 결과](docs/verification.md), [학습 및 평가](docs/model-evaluation.md), [데이터 감사](docs/dataset-audit.md), [운영](docs/operation.md), [노트북 설치](docs/laptop-install.md), [카메라 네트워크](docs/c340i-network.md).
+상세: [납품 및 인수 조건](docs/delivery-report.md), [검증 결과](docs/verification.md), [4채널 실측](docs/benchmark-4ch.md), [학습 및 평가](docs/model-evaluation.md), [데이터 감사](docs/dataset-audit.md), [운영](docs/operation.md), [노트북 설치](docs/laptop-install.md), [카메라 네트워크](docs/c340i-network.md).
