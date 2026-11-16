@@ -25,7 +25,7 @@ class Metrics:
         values=list(self.latency)
         return {"inference_fps":fps(self.inference),"preview_fps":fps(self.preview),"inferred_frames":self.total,
             "last_observation_age_s":None if self.last is None else round(now-self.last,3),"frame_key":self.frame_key,
-            "host_receive_to_encoded_ms":dict(zip(("p50","p95","p99"),map(float,np.percentile(values,[50,95,99])))) if values else None,
+            "decode_ready_to_encoded_ms":dict(zip(("p50","p95","p99"),map(float,np.percentile(values,[50,95,99])))) if values else None,
             "browser_display_latency_ms":None,"physical_end_to_end_ms":None,"ppe_unknown_ratio":self.ppe_unknown,
             "observation_gap_p95_s":float(np.percentile(list(self.gaps),95)) if self.gaps else None,
             "processing_mean_ms":float(np.mean(list(self.process_ms))) if self.process_ms else None}

@@ -17,7 +17,8 @@ class Frame:
     received_at_utc: str
     received_monotonic: float
     image: np.ndarray = field(repr=False, compare=False)
-    preprocess_transform: dict = field(default_factory=lambda: {"coordinate_space":"original_pixels", "library_restores":True})
+    preprocess_transform: dict = field(default_factory=lambda: {"coordinate_space":"original_pixels", "library_restores":True,"received_timestamp_stage":"decoded_frame_ready"})
+    source_mode: str = "UNKNOWN"
 
     @property
     def key(self):

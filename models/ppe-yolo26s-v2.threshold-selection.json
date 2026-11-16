@@ -1,0 +1,16 @@
+{
+  "selection_split": "validation_only",
+  "validation_manifest_sha256": "61febcca19901bb92a59656d2efddf9b0fc67f5f7bc6ad271bd9a3f4e59a7ec7",
+  "criterion": "maximum macro bbox F1 at IoU 0.5 on validation confidence curve",
+  "confidence": 0.5365365365365365,
+  "macro_f1": 0.925067185419885,
+  "per_class_f1": {
+    "person": 0.9424937894387077,
+    "helmet": 0.892977394311725,
+    "safety_vest": 0.9397303725092222
+  },
+  "device": "cpu",
+  "runtime_baseline_confidence": 0.25,
+  "runtime_changed": false,
+  "reason": "bbox F1 optimum is recorded for comparison; PPE/event confidence and time thresholds still require field incident validation; measured pipeline baseline retained"
+}

@@ -21,10 +21,11 @@ class Store:
         self.evidence=(self.root/"evidence").resolve();self.evidence.mkdir(exist_ok=True)
         self.marker=self.evidence/".industrial-safety-owned";self.marker.touch(exist_ok=True)
         self.db=self.root/"events.sqlite3";self.config=config
-        self.jobs=queue.Queue(maxsize=128);self.stop=threading.Event();self.error=None;self.dropped=0
+        self.jobs=queue.Queue(maxsize=128);self.stop=threading.Event();self.error=None;self.dropped=0;self.failed=0
         self.buffers={};self.pending={};self.buffer_lock=threading.Lock();self.buffer_bytes=0
         self.thread=threading.Thread(target=self.run,name="storage",daemon=True)
-        self.initialize()
+        try:self.initialize()
+        except (sqlite3.Error,OSError) as error:self.error=type(error).__name__
 
     def connection(self):
         con=sqlite3.connect(self.db,timeout=.3);con.row_factory=sqlite3.Row;return con
@@ -164,7 +165,7 @@ class Store:
                             (payload["id"],payload["camera_id"],payload["type"],payload["status"],payload["started_at"],json.dumps(payload)))
                 elif kind in {"image","clip"}:self.write_evidence(payload[0],kind,payload[1])
                 if time.monotonic()-last_cleanup>60:self.retention();last_cleanup=time.monotonic()
-            except Exception as error:self.error=type(error).__name__
+            except Exception as error:self.error=type(error).__name__;self.failed+=1
             finally:self.jobs.task_done()
 
     def close(self):

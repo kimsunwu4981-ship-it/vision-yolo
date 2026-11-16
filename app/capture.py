@@ -80,7 +80,7 @@ class Capture:
                                 delay=base+pts-first_pts-time.monotonic()
                                 if delay>0 and self.stop_event.wait(delay): break
                             image=decoded.to_ndarray(format="bgr24"); now=time.monotonic();frame_id+=1
-                            frame=Frame(self.config["id"],self.session_id,frame_id,decoded.width,decoded.height,pts,utc_now(),now,image)
+                            frame=Frame(self.config["id"],self.session_id,frame_id,decoded.width,decoded.height,pts,utc_now(),now,image,source_mode=self.mode)
                             self.shape=(decoded.width,decoded.height);self.last_received=now;self.total+=1;self.times.append(now)
                             self.slot.put(frame);self.status="connected";self.error=None
                         if restart: continue

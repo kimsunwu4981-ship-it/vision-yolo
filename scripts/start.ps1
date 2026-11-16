@@ -1,4 +1,4 @@
-param([switch]$NoBrowser)
+param([switch]$NoBrowser, [switch]$Demo)
 $ErrorActionPreference = 'Stop'
 $ProjectRoot = (Resolve-Path (Split-Path $PSScriptRoot -Parent)).Path
 $ProjectPython = Join-Path $ProjectRoot '.venv/Scripts/python.exe'
@@ -11,6 +11,10 @@ if (Test-Path -LiteralPath (Join-Path $ProjectRoot '.env')) {
 if ($env:SAFETY_PORT) { $DashboardPort = [int]$env:SAFETY_PORT }
 $DashboardUrl = "http://127.0.0.1:$DashboardPort"
 if (!(Test-Path -LiteralPath $ProjectPython)) { throw 'Run scripts/setup.ps1 first.' }
+if ($Demo) {
+    if (!(Test-Path -LiteralPath (Join-Path $ProjectRoot 'configs/cameras.demo.local.yaml'))) { throw 'Run python -m scripts.make_demo_videos first.' }
+    $env:SAFETY_CAMERAS = Join-Path $ProjectRoot 'configs/cameras.demo.local.yaml'
+}
 $RuntimeDirectory = Join-Path $ProjectRoot '.runtime'
 New-Item -ItemType Directory -Path $RuntimeDirectory -Force | Out-Null
 $PidFile = Join-Path $RuntimeDirectory 'server.json'

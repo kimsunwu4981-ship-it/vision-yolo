@@ -31,7 +31,12 @@ class Rules:
                 dwell=old["dwell"]+dt if inside and old["inside"] else 0.
                 transition="entry" if inside and not old["inside"] else ("exit" if not inside and old["inside"] else "stay")
                 self.zone_state[key]={"inside":inside,"dwell":dwell,"last":now}
-                if inside: required.update(zone.get("required_ppe",[]))
+                for kind in zone.get("required_ppe",[]):
+                    status=ppe.get(person.key,{}).get(kind,{}).get("state","unknown")
+                    condition=(None if status=="unknown" else status=="missing") if inside else False
+                    observations.append(RuleObservation(f"{person.key}:zone:{zone['id']}:ppe:{kind}","ppe_violation",condition,
+                        [person.key],zone["id"],{"item":kind,"state":status,"inside":inside},
+                        confirm_s=zone.get("ppe_confirm_s",.5),clear_s=zone.get("ppe_clear_s",1.)))
                 observations.append(RuleObservation(key,"zone_intrusion",inside,[person.key],zone["id"],
                     {"transition":transition,"dwell_s":round(dwell,3),"anchor":zone.get("anchor","foot"),"signed_normalized_distance":distance},
                     "critical",zone.get("enter_s",1.),zone.get("exit_s",.8)))
@@ -50,7 +55,7 @@ class Rules:
                 if old and 0<now-old["time"]<self.config.get("max_observation_gap_s",.75): basis["approaching"]=relative<old["distance"]-.03
                 self.proximity_state[key]={"distance":relative,"time":now}
                 near=relative<self.config.get("proximity_person_heights",1.3) or overlap>.05
-                if calibration and calibration.get("validated") and calibration.get("unit")=="metres":
+                if calibration and calibration.get("validated") and calibration.get("unit")=="metres" and calibration.get("source_size")==[frame.source_width,frame.source_height]:
                     metres=projected_distance((px,py),(fx,fy),calibration["homography"])
                     basis["ground_distance_m"]=metres; near=metres<calibration.get("threshold_m",2.)
                 observations.append(RuleObservation(key,"forklift_proximity",near,[person.key,forklift.key],basis=basis,

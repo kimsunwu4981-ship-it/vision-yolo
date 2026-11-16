@@ -1,0 +1,8 @@
+# Apply these values to runtime.yaml only after measuring the actual target hardware.
+# Batch=1 remains the reproducible default. Missing cameras never block a batch.
+microbatch: 4
+max_batch_wait_ms: 0
+imgsz: 640
+half: true
+preview_width: 960
+preview_fps: 12

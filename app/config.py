@@ -33,6 +33,8 @@ class CameraConfig(BaseModel):
             projected_distance((0,0),(1,1),self.calibration.get("homography"))
             if self.calibration.get("validated") and (len(self.calibration.get("floor_points",[]))<4 or self.calibration.get("unit")!="metres"):
                 raise ValueError("calibration_requires_ground_points_and_metres")
+            if self.calibration.get("validated") and (len(self.calibration.get("source_size",[]))!=2 or min(self.calibration["source_size"])<=0):
+                raise ValueError("calibration_requires_source_resolution")
         return self
 
 
@@ -45,6 +47,8 @@ class ZoneConfig(BaseModel):
     exit_s:float=Field(default=.8,ge=0,le=60)
     margin:float=Field(default=.005,ge=0,le=.1)
     required_ppe:list[str]=Field(default_factory=list)
+    ppe_confirm_s:float=Field(default=.5,ge=0,le=60)
+    ppe_clear_s:float=Field(default=1.,ge=0,le=60)
     @field_validator("points")
     @classmethod
     def points_valid(cls,v):return validate_polygon(v)

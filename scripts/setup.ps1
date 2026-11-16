@@ -1,5 +1,6 @@
 param([string]$Python = 'python', [switch]$CpuOnly)
 $ErrorActionPreference = 'Stop'
+$env:PIP_DISABLE_PIP_VERSION_CHECK = '1'
 $ProjectRoot = Split-Path $PSScriptRoot -Parent
 Set-Location -LiteralPath $ProjectRoot
 if (!(Test-Path -LiteralPath '.venv/Scripts/python.exe')) {
@@ -17,3 +18,4 @@ if ($LASTEXITCODE -ne 0) { throw 'Dependency conflicts found.' }
 if (!(Test-Path -LiteralPath 'configs/cameras.local.yaml')) { Copy-Item -LiteralPath 'configs/cameras.example.yaml' -Destination 'configs/cameras.local.yaml' }
 & $ProjectPython -m scripts.diagnose
 Write-Host 'Ready. Run scripts/start.ps1. Configure .env and cameras.local.yaml for real input.'
+exit 0

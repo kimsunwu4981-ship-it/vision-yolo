@@ -2,6 +2,7 @@ from __future__ import annotations
 import threading
 import time
 import queue
+import os
 from dataclasses import asdict
 from pathlib import Path
 import cv2
@@ -60,12 +61,29 @@ class Runtime:
         self.evidence_render=queue.Queue(maxsize=16)
         self.evidence_requested=set()
         self.scheduler_cursor=0
+        self.started=False;self.ownership=None
+        self.rule_revision=None
 
     @property
-    def config_revision(self):return revision({"base":self.config["revision"],"zones":self.zones})
+    def config_revision(self):
+        with self.lock:return revision({"base":self.config["revision"],"zones":self.zones})
 
     def start(self):
+        if self.started:return
+        directory=ROOT/".runtime";directory.mkdir(exist_ok=True)
+        self.ownership=open(directory/"pipeline.lock","a+b");self.ownership.write(b"1");self.ownership.flush();self.ownership.seek(0)
+        try:
+            if os.name=="nt":
+                import msvcrt
+                msvcrt.locking(self.ownership.fileno(),msvcrt.LK_NBLCK,1)
+            else:
+                import fcntl
+                fcntl.flock(self.ownership.fileno(),fcntl.LOCK_EX|fcntl.LOCK_NB)
+        except OSError:
+            self.ownership.close();self.ownership=None
+            raise RuntimeError("another_process_owns_this_project_GPU_and_cameras_use_one_worker")
         self.store.thread.start();self.system.thread.start();self.renderer.start();self.thread.start()
+        self.started=True
         for capture in self.cameras.values():
             if capture.config.get("enabled"):capture.start()
 
@@ -73,6 +91,8 @@ class Runtime:
         self.stop_event.set()
         for capture in list(self.cameras.values()):capture.stop()
         self.thread.join(timeout=10);self.renderer.join(timeout=5);self.system.stop.set();self.system.thread.join(timeout=3);self.store.close()
+        if self.ownership:self.ownership.close();self.ownership=None
+        self.started=False
 
     def add_camera(self,config):
         with self.lock:
@@ -105,7 +125,7 @@ class Runtime:
     def snapshot(self):
         return {"time":utc_now(),"config_revision":self.config_revision,"cameras":self.camera_status(),"model":self.detector.status(),
             "system":self.system.value,"storage":{"error":self.store.error,"queued":self.store.jobs.qsize(),"dropped":self.store.dropped,
-            "compressed_buffer_bytes":self.store.buffer_bytes},"loading":self.loading,"error":self.error}
+            "failed_jobs":self.store.failed,"compressed_buffer_bytes":self.store.buffer_bytes},"loading":self.loading,"error":self.error}
 
     def run(self):
         try:self.detector.load()
@@ -138,26 +158,30 @@ class Runtime:
                 batch=[]
             for (cid,capture,frame),detections in zip(batch,predictions):
                 worked=True;tracks=[];ppe={};changes=[]
+                with self.lock:
+                    current_zones=list(self.zones[cid]);current_revision=self.config_revision
                 try:
                     if self.detector.ready:
                         tracks=self.tracker.update(frame,detections)
                         ppe=self.ppe.update(frame,tracks,self.detector.classes)
-                        observations=self.rules.update(frame,tracks,ppe,self.zones[cid],capture.config)
-                        current_revision=self.config_revision
+                        if self.rule_revision!=current_revision:
+                            self.rules=Rules(self.config["rules"]);self.rule_revision=current_revision
+                        observations=self.rules.update(frame,tracks,ppe,current_zones,capture.config)
                         for observation in observations:observation.key+=":"+current_revision
                         changes=self.events.update(frame,observations,";".join(self.detector.hashes),current_revision)
                         values=[item["state"] for person in ppe.values() for item in person.values()]
                         self.metrics[cid].ppe_unknown=sum(s=="unknown" for s in values)/len(values) if values else 0.
                         self.metrics[cid].record(frame,(time.perf_counter()-start)*1000)
                     for event in changes:
+                        event["source_mode"]=capture.mode
                         self.store.save_event(event)
                         if event["status"]=="active" and event["id"] not in self.evidence_requested:
                             try:
-                                self.evidence_render.put_nowait((frame,tracks,ppe,list(self.zones[cid]),[event]))
+                                self.evidence_render.put_nowait((frame,tracks,ppe,current_zones,[event]))
                                 self.evidence_requested.add(event["id"])
                             except queue.Full:self.store.error="evidence_render_queue_full"
                     if len(self.evidence_requested)>10000:self.evidence_requested={e["id"] for e in self.events.states.values()}
-                    self.render_slots[cid].put((frame,tracks,ppe,list(self.zones[cid]),[]))
+                    self.render_slots[cid].put((frame,tracks,ppe,current_zones,[]))
                 except Exception as error:
                     self.error=type(error).__name__
                     for event in self.events.suspend_camera(cid):self.store.save_event(event)
@@ -171,12 +195,13 @@ class Runtime:
             status=capture.status;offline=status in {"offline","stale"} or (status=="connected" and capture.last_received is not None and time.monotonic()-capture.last_received>2)
             if status!="connected" or offline:
                 for event in self.events.suspend_camera(cid):self.store.save_event(event)
-            frame=Frame(cid,"system",0,1,1,None,utc_now(),time.monotonic(),np.zeros((1,1,3),np.uint8))
+            frame=Frame(cid,"system",0,1,1,None,utc_now(),time.monotonic(),np.zeros((1,1,3),np.uint8),source_mode=capture.mode)
             observations=[RuleObservation(cid+":offline","camera_offline",offline if capture.source() and status!="stopped" else None,
                 basis={"connection":status},confirm_s=1.,clear_s=1.),
                 RuleObservation(cid+":degraded","inference_degraded",self.detector.degraded or not self.detector.ready or self.error is not None,
                 basis=self.detector.status(),confirm_s=0,clear_s=1.)]
-            for event in self.health_events.update(frame,observations,";".join(self.detector.hashes),self.config_revision):self.store.save_event(event)
+            for event in self.health_events.update(frame,observations,";".join(self.detector.hashes),self.config_revision):
+                event["source_mode"]=capture.mode;self.store.save_event(event)
 
     def render_loop(self):
         last={}

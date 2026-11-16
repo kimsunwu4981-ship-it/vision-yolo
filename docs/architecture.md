@@ -19,3 +19,7 @@ SQLite WAL 저장 큐 128, 증거 인코딩 대기 16, 카메라별 JPEG pre-rol
 `app.main`은 파일 lock으로 중복 서버를 차단한다. Uvicorn workers=1을 유지한다. `stop.ps1`은 현재 프로젝트 service record의 PID/생성시각/instance token을 검사해 정상 종료를 요청한다.
 
 오프라인 `replay`는 별도 경로로 모든 프레임을 처리한다. real-time FPS와 offline 처리량은 같은 지표가 아니다. browser 표시 지연과 카메라 물리 종단 지연은 측정하지 않은 경우 null이다.
+
+기본 PyAV 경로의 received timestamp는 Python에 디코딩된 프레임이 준비된 시점이다. 실제 네트워크 패킷 도착시각과 FFmpeg 내부 지연은 포함하지 않는다. 따라서 대시보드 p50/p95/p99 이름은 `decode_ready_to_encoded_ms`이며 **host 패킷 수신→브라우저 지연으로 보고하지 않는다**. 카메라 센서/인코더/NVR/소켓/디코더/브라우저 지연의 전체 분리는 실제 장비 계측이 남아 있다.
+
+측정 후 microbatch=2/4를 선택할 수 있다. 현재 준비된 카메라에서 최대 1프레임씩만 모으고 별도 대기 없이 즉시 추론한다. cursor를 이동해 특정 카메라가 기아 상태가 되지 않도록 한다. batch 결과 개수와 원본 크기를 검증하고 원래 frame 객체와 같은 순서로 연결한다. 기본 설정은 기준선인 batch=1을 유지한다.

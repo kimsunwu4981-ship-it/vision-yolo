@@ -15,7 +15,7 @@ class EventEngine:
             if state is None:
                 if obs.condition is not True: continue
                 state={"id":uuid.uuid4().hex,"key":obs.key,"type":obs.kind,"camera_id":frame.camera_id,
-                    "session_id":frame.session_id,"tracks":obs.tracks,"zone_id":obs.zone_id,"rule_version":"1",
+                    "session_id":frame.session_id,"source_mode":frame.source_mode,"tracks":obs.tracks,"zone_id":obs.zone_id,"rule_version":"1",
                     "model_hash":model_hash,"config_revision":config_revision,"status":"pending","acknowledged":False,
                     "started_at":frame.received_at_utc,"last_observed_at":frame.received_at_utc,"resolved_at":None,
                     "severity":obs.severity,"basis":obs.basis,"observation_state":"observed","image_id":None,"clip_id":None,

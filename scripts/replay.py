@@ -35,7 +35,7 @@ def replay(paths,output):
                 stream=container.streams.video[0]
                 for frame_id,raw in enumerate(container.decode(stream),1):
                     pts=float(raw.pts*raw.time_base) if raw.pts is not None else (frame_id-1)/float(stream.average_rate or 25)
-                    frame=Frame(cid,session,frame_id,raw.width,raw.height,pts,utc_now(),pts,raw.to_ndarray(format="bgr24"))
+                    frame=Frame(cid,session,frame_id,raw.width,raw.height,pts,utc_now(),pts,raw.to_ndarray(format="bgr24"),source_mode="REPLAY")
                     start=time.perf_counter();detections=detector.predict(frame)
                     # Serialize raw detections BEFORE tracking annotates association fields.
                     handles["detections"].write(json.dumps({**frame.metadata(),"detections":[asdict(d) for d in detections]})+"\n")
@@ -45,6 +45,7 @@ def replay(paths,output):
                     from app.common import read_json
                     zones=read_json(ROOT/"configs/zones"/(cid+".json"),[])
                     for event in events.update(frame,rules.update(frame,tracks,states,zones,camera),";".join(detector.hashes),config["revision"]):
+                        event['source_mode']='REPLAY'
                         handles["events"].write(json.dumps({**frame.metadata(),"event":event})+"\n")
                     writer.writerow({"camera_id":cid,"session_id":session,"frame_id":frame_id,"source_pts":pts,"processing_ms":(time.perf_counter()-start)*1000,"rss_bytes":psutil.Process().memory_info().rss})
     finally:

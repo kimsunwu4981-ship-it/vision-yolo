@@ -15,6 +15,7 @@ def run():
     directory=ROOT/"outputs/http-integration";directory.mkdir(parents=True,exist_ok=True)
     environment=os.environ.copy();environment["SAFETY_CAMERAS"]=str(ROOT/"configs/cameras.demo.local.yaml");environment["SAFETY_PORT"]="8766"
     environment["SAFETY_HOST"]="127.0.0.1";environment.pop("SAFETY_API_TOKEN",None)
+    environment["SAFETY_OUTPUT_DIR"]="outputs/http-integration/runtime"
     # Back up only this project's test ROI; restore even if an assertion fails.
     zone_path=ROOT/"configs/zones/cam1.json";prior_zone=zone_path.read_bytes() if zone_path.exists() else None
     result={"started_at":utc_now(),"fixture":"generated still-photo videos, not real surveillance video","checks":{}}

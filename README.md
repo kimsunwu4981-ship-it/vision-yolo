@@ -19,6 +19,8 @@ Copy-Item .env.example .env
 대시보드: <http://127.0.0.1:8765>. 중지: `.\scripts\stop.ps1`. 진단: `.\scripts\diagnose.ps1`.
 이미 생성된 `.venv`가 있으면 설치를 반복할 필요 없이 start를 실행합니다. `frontend/dashboard.html` 단독 실행은 서버 연결 안내만 제공합니다.
 
+현재 전달된 폴더에는 보유 test 사진으로 만든 전송 시험 영상도 있습니다. `.\scripts\start.ps1 -Demo`로 실제 신규 모델의 4분할 분석을 볼 수 있습니다. 화면에 DEMO로 표시되며 실물 카메라 영상이나 사건 정확도 시험이 아닙니다. 모드 변경 전에는 `stop.ps1`을 실행하세요.
+
 로컬 영상은 `configs/cameras.local-video.example.yaml`을 `configs/cameras.local.yaml`로 복사해 파일 경로를 지정합니다. RTSP 자격증명은 환경변수로만 읽으며 API에는 반환하지 않습니다. `stream1`은 카메라의 메인 스트림입니다.
 
 ## 재현

@@ -15,7 +15,10 @@ from app.runtime import Runtime
 
 
 def create_app(config=None,runtime=None):
-    config=config or load_config();runtime=runtime or Runtime(config)
+    config=config or load_config()
+    output=(ROOT/os.environ.get("SAFETY_OUTPUT_DIR","outputs/runtime")).resolve()
+    if not output.is_relative_to(ROOT):raise ValueError("runtime_output_must_be_inside_project")
+    runtime=runtime or Runtime(config,output)
     sessions={};token=os.environ.get("SAFETY_API_TOKEN","");host=os.environ.get("SAFETY_HOST","127.0.0.1")
     if host not in {"127.0.0.1","localhost","::1"} and len(token)<24:raise RuntimeError("LAN_requires_SAFETY_API_TOKEN_24_characters")
     def authorized(cookie):return not token or sessions.get(cookie,0)>time.monotonic()
@@ -123,7 +126,8 @@ def create_app(config=None,runtime=None):
         try:
             while True:
                 # One current snapshot; slow clients never accumulate a frame/event queue.
-                events=await asyncio.to_thread(runtime.store.list_events,None,None,None,30)
+                try:events=await asyncio.to_thread(runtime.store.list_events,None,None,None,100)
+                except Exception:events=[]
                 await asyncio.wait_for(ws.send_json({"state":runtime.snapshot(),"events":events}),timeout=2)
                 await asyncio.sleep(1)
         except (WebSocketDisconnect,asyncio.TimeoutError,RuntimeError):pass
