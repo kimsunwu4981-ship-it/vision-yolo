@@ -54,7 +54,7 @@ def replay(paths,output,source_mode='REPLAY',camera_file=None,no_zones=False):
                     start=time.perf_counter();detections=detector.predict(frame)
                     # Serialize raw detections BEFORE tracking annotates association fields.
                     handles["detections"].write(json.dumps({**frame.metadata(),"detections":[asdict(d) for d in detections]})+"\n")
-                    tracks=tracker.update(frame,detections);states=ppe.update(frame,tracks,detector.classes)
+                    tracks=tracker.update(frame,detections);states=ppe.update(frame,tracks,detector.classes|detector.auxiliary_classes)
                     handles["tracks"].write(json.dumps({**frame.metadata(),"tracks":[asdict(d) for d in tracks],"ppe":states})+"\n")
                     camera=config["cameras"][min(i,len(config["cameras"])-1)]
                     from app.common import read_json

@@ -4,6 +4,7 @@ from typing import Any
 import numpy as np
 
 CLASSES = ("person", "helmet", "safety_vest", "forklift")
+BODY_PART_CLASSES = ("head", "torso")
 
 
 @dataclass(frozen=True)
@@ -38,6 +39,7 @@ class Detection:
     last_observed_frame: int | None = None
     last_observed_monotonic: float | None = None
     key: str | None = None
+    localization_basis: str | None = None
 
 
 @dataclass

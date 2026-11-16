@@ -49,20 +49,16 @@ def render(frame,tracks,ppe,zones,width,model_ready):
         cv2.polylines(image,[points],True,(80,180,255),2)
     colors={"person":(235,195,60),"helmet":(80,220,160),"safety_vest":(90,220,240),"forklift":(70,130,250)}
     for obj in tracks:
-        if not obj.observed:continue
+        if not obj.observed or obj.class_name not in colors:continue
         x1,y1,x2,y2=(int(v*scale) for v in obj.xyxy);color=colors[obj.class_name]
         text=f"{obj.class_name} {obj.confidence:.2f}"+(f" #{obj.track_id}" if obj.track_id is not None else "")
         states=ppe.get(obj.key,{}) if obj.class_name=="person" and model_ready else {}
         if obj.class_name=="person":
             draw_labeled_box(image,(x1,y1,x2,y2),text.replace("person","PERSON",1),color,below=True)
-            # Display-only body regions derived from the person box. These are
-            # not independently detected head/torso objects and do not affect rules.
-            bw,bh=x2-x1,y2-y1
-            regions={"helmet":(x1+.05*bw,y1,x2-.05*bw,y1+.28*bh),
-                     "safety_vest":(x1+.08*bw,y1+.28*bh,x2-.08*bw,y1+.72*bh)}
             for kind,label in (("helmet","NO - HARD HAT"),("safety_vest","NO-VEST")):
-                if states.get(kind,{}).get("state")=="missing":
-                    draw_labeled_box(image,regions[kind],label,(0,0,255),below=kind=="safety_vest")
+                result=states.get(kind,{})
+                if result.get("state")=="missing" and result.get('region_xyxy') is not None:
+                    draw_labeled_box(image,[v*scale for v in result['region_xyxy']],label,(0,0,255),below=kind=="safety_vest")
             continue
         cv2.rectangle(image,(x1,y1),(x2,y2),color,2);cv2.putText(image,text,(x1,max(16,y1-6)),cv2.FONT_HERSHEY_SIMPLEX,.45,color,1,cv2.LINE_AA)
     stamp=f"{frame.camera_id} / {frame.session_id[:8]} / frame {frame.frame_id}"
@@ -194,7 +190,7 @@ class Runtime:
                 try:
                     if self.detector.ready:
                         tracks=self.tracker.update(frame,detections)
-                        ppe=self.ppe.update(frame,tracks,self.detector.classes)
+                        ppe=self.ppe.update(frame,tracks,self.detector.classes|self.detector.auxiliary_classes)
                         if self.rule_revision!=current_revision:
                             self.rules=Rules(self.config["rules"]);self.rule_revision=current_revision
                         observations=self.rules.update(frame,tracks,ppe,current_zones,capture.config)

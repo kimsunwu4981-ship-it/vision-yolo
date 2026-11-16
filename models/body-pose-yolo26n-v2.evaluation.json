@@ -1,0 +1,22 @@
+{
+  "run_id": "body-pose-yolo26n-v2",
+  "checkpoint_sha256": "f6db8b1b1eb46c639a1136a8406fc4f0a3b425cad837e5ff8a1385bb701bfe6c",
+  "keypoint_metrics": null,
+  "limitation": "No independent keypoint ground truth. Box metrics only.",
+  "splits": {
+    "val": {
+      "metrics/precision(B)": 0.9368222641739041,
+      "metrics/recall(B)": 0.9219708508805401,
+      "metrics/mAP50(B)": 0.9115153155104412,
+      "metrics/mAP50-95(B)": 0.3006130045071457,
+      "fitness": 0.3006130045071457
+    },
+    "test": {
+      "metrics/precision(B)": 0.9178722972222788,
+      "metrics/recall(B)": 0.8036072144288577,
+      "metrics/mAP50(B)": 0.8579528462551222,
+      "metrics/mAP50-95(B)": 0.4489529074326161,
+      "fitness": 0.4489529074326161
+    }
+  }
+}

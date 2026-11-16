@@ -198,6 +198,60 @@
         "confidence": 0.5365365365365365,
         "threshold_basis": "existing validation-only bbox F1 selection; operational event acceptance remains unverified"
       }
+    },
+    {
+      "run_id": "body-pose-yolo26n-v2",
+      "role": "body_pose",
+      "path": "models\\body-pose-yolo26n-v2.pt",
+      "sha256": "f6db8b1b1eb46c639a1136a8406fc4f0a3b425cad837e5ff8a1385bb701bfe6c",
+      "classes": [
+        "person"
+      ],
+      "active_classes": [
+        "head",
+        "torso"
+      ],
+      "enabled": true,
+      "evaluation_status": "development_evaluated",
+      "initial_weights_sha256": "eb3bb8268828aeaf515cec23a4bfafd793944a86fe9af94ba7823609c14522a9",
+      "initial_weights_source": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26n-pose.pt",
+      "manifest_sha256": {
+        "train": "1ed61a5b2736188e4c6b0b8093cab96d37b5cce6273e5daf3ac7dcf1febd8c4e",
+        "validation": "69cd7f2473c0e6d62f378eda08e28f86fa59c79870d7503821e71ebf81331e1b",
+        "test": "7a6ce1ffcff6df24ac3938abd0fa491dde999d39fbee1cd85696bbebab781a02"
+      },
+      "evaluation": {
+        "run_id": "body-pose-yolo26n-v2",
+        "checkpoint_sha256": "f6db8b1b1eb46c639a1136a8406fc4f0a3b425cad837e5ff8a1385bb701bfe6c",
+        "keypoint_metrics": null,
+        "limitation": "No independent keypoint ground truth. Box metrics only.",
+        "splits": {
+          "val": {
+            "metrics/precision(B)": 0.9368222641739041,
+            "metrics/recall(B)": 0.9219708508805401,
+            "metrics/mAP50(B)": 0.9115153155104412,
+            "metrics/mAP50-95(B)": 0.3006130045071457,
+            "fitness": 0.3006130045071457
+          },
+          "test": {
+            "metrics/precision(B)": 0.9178722972222788,
+            "metrics/recall(B)": 0.8036072144288577,
+            "metrics/mAP50(B)": 0.8579528462551222,
+            "metrics/mAP50-95(B)": 0.4489529074326161,
+            "fitness": 0.4489529074326161
+          }
+        }
+      },
+      "inference": {
+        "nms": false,
+        "confidence": 0.25,
+        "keypoint_confidence": 0.5,
+        "imgsz": 640,
+        "input": "current_frame_person_crops",
+        "threshold_basis": "explicit conservative development thresholds; not calibrated keypoint probabilities",
+        "output": "head/torso ROI estimates from visible landmarks; no part detector AP claim"
+      },
+      "license": "AGPL-3.0; training source CC-BY-4.0 attribution retained"
     }
   ],
   "status": "Separated newly trained person and PPE development models; no forklift or field acceptance"

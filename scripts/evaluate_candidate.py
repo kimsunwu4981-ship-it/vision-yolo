@@ -18,7 +18,12 @@ def evaluate(run_id):
         for index,cls in enumerate(metric.box.ap_class_index):
             precision,recall,ap50,ap=metric.box.class_result(index)
             classes[model.names[int(cls)]]={'precision':float(precision),'recall':float(recall),'AP50':float(ap50),'AP50_95':float(ap)}
-        return {'classes':classes,'aggregate':{k:float(v) for k,v in metric.results_dict.items()},'nms':nms,'precision_bits':16}
+        result={'classes':classes,'aggregate':{k:float(v) for k,v in metric.results_dict.items()},'nms':nms,'precision_bits':16}
+        if split=='val':
+            import numpy as np
+            f1=np.asarray(metric.box.f1_curve).mean(axis=0);best=int(f1.argmax())
+            result['validation_operating_point']={'confidence':float(metric.box.px[best]),'macro_f1':float(f1[best]),'selection':'validation bbox macro F1 only'}
+        return result
     for nms in (False,True):
         name='one_to_many' if nms else 'one_to_one'
         reports[name]=one('val',nms,'validation_'+name)

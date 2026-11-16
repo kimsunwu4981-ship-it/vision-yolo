@@ -4,13 +4,15 @@
 
 `app/capture.py`의 PyAV는 RTSP TCP, 4초 연결/읽기 timeout, 지수 재연결을 사용한다. 재연결·파일 loop·seek는 새 session UUID와 빈 최신 슬롯을 만든다. 파일은 원본 PTS를 따라 재생한다. PyAV 소프트웨어 디코딩이 기준선이며 하드웨어 디코딩·H.265 최적화는 미검증이다.
 
-프레임은 camera/session/frame, 원본 크기, source PTS, UTC 수신시각, monotonic 수신시각, 변환 메타데이터를 가진다. Ultralytics `.boxes.xyxy`는 이미 원본 픽셀이므로 재복원하지 않는다. 일반 homography 변환과 letterbox 역변환 도구는 단위 검증한다. 임의 crop·회전 전처리는 기본 경로에 적용하지 않는다.
+프레임은 camera/session/frame, 원본 크기, source PTS, UTC 수신시각, monotonic 수신시각, 변환 메타데이터를 가진다. Ultralytics `.boxes.xyxy`는 모델에 전달한 이미지의 픽셀이므로 letterbox를 다시 역변환하지 않는다. 전체 프레임 검출은 그대로 사용한다. 부위 위치 모델은 현재 사람 검출 crop을 입력하므로 결과에 crop의 좌상단 오프셋만 더해 전체 표시 프레임 픽셀로 복원한다. 서로 다른 camera/frame, crop 크기의 복원 계약을 검사한다.
 
 회전 메타데이터가 있는 입력은 PyAV 프레임의 display rotation을 적용한 원본 표시 픽셀을 좌표 기준으로 삼는다. `source_width/height`, bbox, PPE 머리/상체, ROI, 증거 영상이 이 방향을 공유한다. 재인코딩하거나 원본 파일을 수정하지 않는다. `preprocess_transform`에 encoded 원본 크기, 회전각, encoded→display 및 display→encoded 행렬을 기록해 저장된 원본 픽셀 좌표로 역변환할 수 있다. 0/±90/180도 회전을 지원하며 임의 각도는 명시적으로 거부한다. 이는 파일의 표시 방향 보정이며 객체를 검출하기 위한 임의 증강 회전과 구분한다.
 
 추적은 내장 BYTETracker 하나만 사용한다. 프레임 드롭에 따른 TTL 오류를 피하기 위해 실제 관측시각으로 pool을 만료시킨다. camera/session/class가 다른 객체는 같은 pool에 들어가지 않는다. 관측하지 않은 Kalman 예측을 규칙 입력이나 현재 프레임 박스로 표시하지 않는다. 첫 관측으로 아직 활성화되지 않은 검출은 track_id 없이 표시한다.
 
 PPE는 머리/상체 영역·크기·거리 기반 Hungarian 일대일 할당을 사용한다. 사람이 너무 작거나 화면 끝에 걸치거나 어둡거나 다른 사람과 크게 겹치면 unknown이다. 장시간의 보이는 영역에서 부재가 지속되어야 missing 후보가 된다. 이 가시성 판단은 bbox 기반 근사이고 실제 가림 판별을 보장하지 않는다. 현장 평가가 필요하다.
+
+현재 `body_pose` 역할의 `body-pose-yolo26n-v2`가 17개 COCO 관절을 출력한다. 얼굴의 코·눈·귀에서 머리 외곽을 추정하고 어깨·골반 네 점의 범위에 패딩을 더해 몸통 사각형을 만든다. 직접 학습한 부위 bbox나 segmentation이 아니며 `localization_basis=pose_landmarks`로 구분한다. PPE 착용 여부는 기존 보호구 모델과 시간 규칙이 판단한다. 사람/PPE 모델 이후 현재 사람 crop을 최대8개/프레임, 부위 추론 batch≤4로 처리한다. crop간 중복을 억제하고 부위를 사람에게 일대일 배정한다. 사람 간 소속이 모호하거나 필수 관절이 없으면 해당 PPE는 unknown이다. `region_xyxy`, `region_confidence`, `region_basis`가 PPE 관측에 저장되며 렌더러는 이 좌표만 사용한다. 전신 비율 기반 대체 박스나 이전 프레임 부위 박스를 표시하지 않는다. `body_parts` 직접 검출 역할도 코드상 지원하지만 이번 두 학습 후보는 성능 부족으로 등록하지 않았다.
 
 구역은 원본 영상 정규화 다각형, foot 또는 center anchor, 경계 margin, 진입/해제 확인 시간을 가진다. 진입·이탈 transition과 관측 체류시간을 event basis에 기록한다. 관측 공백 시간은 합산하지 않는다. 근접은 사람 높이로 정규화한 영상 거리/겹침을 기준으로 한다. driver exclusion은 항상 비활성이다. 바닥 4점 이상과 검증 표기가 있는 homography가 설정된 경우에만 지상 거리(m)를 사용한다.
 

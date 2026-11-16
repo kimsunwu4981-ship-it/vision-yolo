@@ -1,0 +1,1534 @@
+{
+  "images": {
+    "train": 878,
+    "validation": 254,
+    "test": 770
+  },
+  "objects": {
+    "train": {
+      "torso": 1402,
+      "head": 1402
+    },
+    "validation": {
+      "torso": 256,
+      "head": 257
+    },
+    "test": {
+      "head": 1952,
+      "torso": 1989
+    }
+  },
+  "groups": [
+    {
+      "group": "b55cc6e2788f24d4dc4a",
+      "split": "test",
+      "images": 655,
+      "before_cap": 655,
+      "families": [
+        "unidentified_numeric_source"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "3d4250c0c9ce3beba817",
+      "split": "train",
+      "images": 400,
+      "before_cap": 596,
+      "families": [
+        "Video"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "a9c6a8a6dbd83202597c",
+      "split": "validation",
+      "images": 254,
+      "before_cap": 254,
+      "families": [
+        "image"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "7b12d830dd5cc08c7e17",
+      "split": "train",
+      "images": 71,
+      "before_cap": 71,
+      "families": [
+        "KakaoTalk"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "9bffda7fbce3b3b469db",
+      "split": "test",
+      "images": 55,
+      "before_cap": 55,
+      "families": [
+        "ppe"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "b3de3b4a2d995881bea6",
+      "split": "train",
+      "images": 39,
+      "before_cap": 39,
+      "families": [
+        "TimePhoto",
+        "WhatsApp-Image-2023-07-29-at-11-16-02_958e521a",
+        "WhatsApp-Image-2023-10-10-at-11-18-26_a11a66e",
+        "WhatsApp-Image-2023-10-10-at-11-18-26_dc30399e"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "0fb017f71ffb4e61f063",
+      "split": "train",
+      "images": 37,
+      "before_cap": 37,
+      "families": [
+        "Aitin"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "636c92fdd2cf4754df4b",
+      "split": "train",
+      "images": 28,
+      "before_cap": 28,
+      "families": [
+        "thumb"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "cded90ca605c8f8600c2",
+      "split": "test",
+      "images": 25,
+      "before_cap": 25,
+      "families": [
+        "images"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "57ecd47e1961309fe272",
+      "split": "train",
+      "images": 23,
+      "before_cap": 23,
+      "families": [
+        "img"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "34739880c0c6f966c98e",
+      "split": "test",
+      "images": 19,
+      "before_cap": 19,
+      "families": [
+        "r"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "39f0bb333e80b809e82d",
+      "split": "train",
+      "images": 17,
+      "before_cap": 17,
+      "families": [
+        "Tan"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "4377bff54e2ee3d2bf77",
+      "split": "test",
+      "images": 16,
+      "before_cap": 16,
+      "families": [
+        "images-2022-07-04T"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "dbb9611b18ce76851a22",
+      "split": "train",
+      "images": 12,
+      "before_cap": 12,
+      "families": [
+        "IMG-20230705-WA"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "fddaeefaef3eabf8e92c",
+      "split": "train",
+      "images": 6,
+      "before_cap": 6,
+      "families": [
+        "IMG-20231220-WA"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "caece774356cfa1fad7e",
+      "split": "train",
+      "images": 5,
+      "before_cap": 5,
+      "families": [
+        "ppe_0397_jpg-rf"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "537d384113747187d857",
+      "split": "train",
+      "images": 4,
+      "before_cap": 4,
+      "families": [
+        "construction-work-mp4-frame"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "1c3683ba4b790ce2c5c5",
+      "split": "train",
+      "images": 4,
+      "before_cap": 4,
+      "families": [
+        "IMG-20230707-WA"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "2fec6821887b4d287047",
+      "split": "train",
+      "images": 4,
+      "before_cap": 4,
+      "families": [
+        "li-lin-rZcC9J5ZT6I-unsplash_jpg-rf"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "ea3402ec50c51bebddf5",
+      "split": "train",
+      "images": 4,
+      "before_cap": 4,
+      "families": [
+        "download"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "d244da375ca60c577a61",
+      "split": "train",
+      "images": 4,
+      "before_cap": 4,
+      "families": [
+        "ppe_0352_jpg-rf"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "4662ca65474241f7f00d",
+      "split": "train",
+      "images": 3,
+      "before_cap": 3,
+      "families": [
+        "construction-worker1_grande"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "86ed8d63ad58a6cfdf33",
+      "split": "train",
+      "images": 3,
+      "before_cap": 3,
+      "families": [
+        "AightOne"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "b4c3a182f630fd2a3c8f",
+      "split": "train",
+      "images": 3,
+      "before_cap": 3,
+      "families": [
+        "ppe_0185_jpg-rf"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "cebfe51eaf751808ff03",
+      "split": "train",
+      "images": 3,
+      "before_cap": 3,
+      "families": [
+        "077044675-construction-workers-leaving-s_mp"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "609ec662ebf67608d84f",
+      "split": "train",
+      "images": 3,
+      "before_cap": 3,
+      "families": [
+        "li-lin-rZcC9J5ZT6I-unsplash"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "a196fe2334588a9bdaa6",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "226993976-construction-workers-built-wal"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "c49d56633337ebced17a",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "img_05_jpg-rf"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "4463185c7c34cff4fc3c",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "WhatsApp-Image-2023-09-28-at-09-46-27_29a949a"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "811f6a3033d4cba59fd3",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "034373368-workers-detach-structural-elem"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "7bcdf8d4b1ef1d69f72a",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "TsirinOne"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "5a3602d1da80d98417a3",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "WhatsApp-Image-2023-10-10-at-11-18-27_bf71b"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "328963ee37eb648a17d3",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "img23-jpg_png-rf"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "b818f3999287ede2deae",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "108010668-workers-working-construction-s"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "3d7fc4983ed000970c16",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "IMG-20230710-WA"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "1a40ebad3f61734324e6",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "089914535-construction-workers-prefabric"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "42746c2db4202149c67a",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "sic"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "01be070bb9a9627a7b6c",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "021998235-construction-workers"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "a809d0d7aa779187514c",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "feliz-obrero-con-casco-y-chaleco-de-seguridad-eyggew"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "997bc5f8729e4f5fcded",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "043384033-construction-workers-road-work"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "9f6abf7d901e44e0a6a8",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "WhatsApp-Image-2023-09-26-at-09-44-25_eb984d"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "90e85c06595a9520257b",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "retrato-de-cuerpo-entero-de-ingeniero-con-casco-y-chaleco-reflectante-amarillo-drrbpk"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "b690636771203fa8a677",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "obreros-de-construccion-discuten-sobre-el-modelo-uno-ellos-muestra-signo-correcto-sitio"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "83ae82ba02f705148097",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "IMG-20230804-WA"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "c12a33884c72a4e324aa",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "obreros-de-construccion-parados-frente-al-modelo-comprobacion-gruas-sitio"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "5f8461eb28037dd19aa1",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "obreros-capacitados-el-oficial-destacado_png"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "9939f1fc79cf5fdfbae1",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "105_JPG"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "1655297b350575ca2220",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "reactiva-la-construccion_png"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "3480d9d12a624e0634ab",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "D_NQ_NP_656593-MLM31756388476_082019-O"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "4ab20527b1548879b524",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "037087273-construction-workers-repairing"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "645711322ef3c1fb44ac",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "img17_png"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "8910d39dae0ef6ff4e79",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "UVG-La-carrera-de-Ingenieria-Civil-es-dificil"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "6ec1dbaceea98c97f56c",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "049716184-construction-workers-build"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "e40fbfb2427514716ebe",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "img_03_jpg-rf"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "7256347661f25c51381f",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "istockphoto-183349218-612x"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "42f9b1d3a12749accd4a",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "gettyimages-632170387-612x"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "f964ff5296d00665203f",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "WhatsApp-Image-2023-10-10-at-11-18-27_78b942b"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "35a0fdbaa743ea951939",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "132999563-construction-workers-threading"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "d35e801f447ff3f55c65",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "055278306-workers-shoveling-runway-const"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "85050b4cb72b019bfda1",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "obrero-asiatico-gordo-chaleco-seguridad-naranja-casco-amarillo-haciendo-gesto-parada"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "f5294e83a138a7867452",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "seguridad-en-el-trabajo-1024x"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "c4c8dce46f3e5160692d",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "150863921-construction-site-workers"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "67ab0d42a9a82200cb17",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "165543508-group-three-industrial-workers"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "863fa0dec3ad00235beb",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "237177821-construction-workers-working-c"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "853bcf5f8275b80f71ec",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "058817280-construction-workers-framing-n"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "d0ad87e8fc029e183aa0",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "033896729-construction-workers-install-r"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "d26272fe417566a62e2a",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "049794480-workers-placing-pipe-sewer-lin"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "8203d1dd5c6fe8c6e784",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "098801149-manual-worker-helping-injured"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "512d22e369157b8455e6",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "img_11_jpg-rf"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "2abec135c1d9ef3b1477",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "articles-120308_foto_portada"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "9ff51ed076914b493476",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "OnAliat_7-motivos-para-considerar-estudiar-la-carrera-de-ingenieria-civil"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "bb5fb23a3ccfa582c316",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "helmet-industrial-security-logistic-work-clothes-industrial-safety-protective-goggles-vest-worker"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "6cb23cb85861256af5fc",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "WhatsApp-Image-2023-09-28-at-14-03-58_5cc64fc"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "9fb447647f67f56c661a",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "ppe_0146_jpg-rf"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "518764028e5150b546b6",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "044756509-construction-workers-installin"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "8b0714b60174e036ecd8",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "WhatsApp-Image-2023-09-22-at-16-27-30_7fb5694d"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "34ee1bac95ef723fb797",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "133637177-construction-workers-study-arc"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "974d3209ec7713cd18b2",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "128322924-workers-sit-around-fire-next-c"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "5523d0f5197ae1dde718",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "joven-obrero-con-casco-feliz-y-contando-con-dos-dedos-sobre-fondo-verde-pnb0ac"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "7814b04fa38689030850",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "236473417-workers-lifting-steel-bars-rei"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "b5d357381ccf5ca95140",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "WhatsApp-Image-2023-09-26-at-13-54-11_810dbecb"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "96d9358343ed1b7db407",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "istockphoto-462102317-612x"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "9871fe9abaf6643fb649",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "070977306-construction-workers"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "6431fbc034fc853437b0",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "ppe_0344_jpg-rf"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "8aaddd4c3ff7bc9c3169",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "3-obreros-reunidos-en-su-centro-de-trabajo"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "f333b6ee4c701bc6e92f",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "img18_png-rf"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "6a6c044869855e1693d2",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "img05_png"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "26901e03060ab75e4438",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "WhatsApp-Image-2023-09-28-at-13-38-34_f966a"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "9cceab9e115697b4515c",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "WhatsApp-Image-2023-09-22-at-10-54-57_14995c"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "d86e615516f7712b34e1",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "047127696-two-workers-pulling-large-hose"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "6cb24301d03b5deef136",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "IMG-20230803-WA"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "b27c3f0bcde112cc93d5",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "062527037-construction-workers-safety-ja"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "7877baf978ce4140b51a",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "074923043-civil-engineers-holding-plans"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "4e4de888937b95fe2b9a",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "ingeniero-civil-en-cascos-blancos-y-chaleco-amarillo-el-fondo-de-la-casa-construccion"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "064828b61efc926bc8b7",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "161950846-construction-site-workers-disc"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "25ff72c48dc6764d0db2",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "lv_0_20231018224623_mp"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "4f8baf7fe67f859e90b8",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "109610743-workers-pouring-concrete-high"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "4497ed2c2984a9d4512d",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "TNPDu"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "1a0b1b0258eb66563f97",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "133639751-construction-workers-wearing-s"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "778686d093f5910198ee",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "95_JPG"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "19285a131c3b64494a76",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "047499759-construction-workers-looking-l"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "ff0272d16ade5e94ce04",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "060275950-construction-workers-take-down"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "3714deacf945e155f79e",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "034134962-construction-workers-unload-pi"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "f4ff7ed8e0b37b1e7ebf",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "115782567-male-and-female-construction-w"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "ada4f8d3d797121ec289",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "asian-engineer-or-foreman-wearing-safety-vest-hard-hat-photo"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "3a4b5c8e5fb206841c12",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "109_JPG"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "fdc349854ea1a2467201",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "download-3-_jpeg"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "eb78da342f40d4f42f01",
+      "split": "train",
+      "images": 2,
+      "before_cap": 2,
+      "families": [
+        "490x_construccion-obreros-dreamstime-hablan"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "9bafe0959a2396821764",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "WhatsApp-Image-2023-09-28-at-09-46-28_20055c"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "11bd9c73e5426752e3d5",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "IMG-20230805-WA"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "bfdbf254f72fc6df3a3f",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "img10_png"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "b5682a2ee00d53e2d26a",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "124070161-three-workers-quarry-discussin"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "0459768da9595645767c",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "retrato-de-ingeniero-con-casco-y-chaleco-reflectante-amarillo-drrbr"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "d89a28ae1852050114a8",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "IMG-4274-1024x"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "1dabc9976d2a7824fb35",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "9417812-serious-male-construction-worker-in-safety-vest-and-hard-hat"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "fde1ebe0482e54d0d071",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "143777638-construction-workers-putting-a"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "c384a3e0be66c07e3e04",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "021559388-construction-workers-walked-to"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "00d8c66979595d4984cb",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "ppe_0511_jpg-rf"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "f1efc91282ccea657386",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "trabajador-pensando-sobre-fondo-blanco-aislado"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "fdc0cc4343ce5e9bfc03",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "gettyimages-1036354066-612x"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "d69867d662ad6e979146",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "WhatsApp-Image-2023-10-03-at-14-38-06_fbf34fe"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "426614deebd69f4d7f59",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "AightSird"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "6246f4cc920e48424ced",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "WhatsApp-Image-2023-10-10-at-11-17-30_61f"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "39a9e5d674b3065e7ff8",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "el-ingeniero-o-tecnico-asiatico-lleva-casco-de-seguridad-y-chaleco-reflectante-2gdrrx"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "24539bdf9e74ffd8821d",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "img_07_jpg-rf"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "b228457fc7aa1b55c457",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "WhatsApp-Image-2023-10-03-at-14-38-05_4cbb025c"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "f848a34089da158b058b",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "087206443-zoom-out-construction-workers"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "e8df1d8610e43e436702",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "029408225-group-construction-workers-wor"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "6069ef1ad722c845511d",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "087071347-construction-site-manager-givi"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "a20d46a09e6392041829",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "WhatsApp-Image-2023-09-28-at-13-38-32_597c77a"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "70c4e5be0e3fdee2e044",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "WhatsApp-Image-2023-10-03-at-14-38-06_6df8008d"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "610b9c09f41571f10980",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "download-1-_jpeg"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "224cd93b11b76aaf8eec",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "000342958W"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "10c6551990ad213258b4",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "190789411-end-day-wrap-during-covid19-pa"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "c987ebc0e6a0d6d1192c",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "ingeniero-civil-con-el-chaleco-de-la-seguridad"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "0834ff9e5bc636bae19e",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "4843_RolePlay_ConstructionWorker_BoyGirl"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "9d578f4843af6614ef1b",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "Obreros_valmetro"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "5ce984588d9cfdea8b43",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "WhatsApp-Image-2023-10-10-at-11-18-25_432b"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "c19f3bd06fa4054fa370",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "083402162-caucasian-worker-pours-sand-co"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "f2c066fbc167ba06b15f",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "126091912-workers-construction-site"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "36e3e98591c061e91adf",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "116409218-three-construction-workers-are"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "c345872282b33d0347df",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "img13_png"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "9e2b3d31dae697e152cc",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "133640235-construction-workers-using-sma"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "d79a95c3a0288cbc420e",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "gettyimages-650169013-612x"
+      ],
+      "pinned_to_existing_split": true
+    },
+    {
+      "group": "13580f431f1ecb8b5311",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "Ingenieria-Civil"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "4a8ad44cffabc1d1b22d",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "092200413-workers-activity-jakarta-mrt-c"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "fad657ba34c0f1cad515",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "58ff9e33784a"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "7d0175e002d3e6b809a1",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "160267228-switzerland-1971-workers-build"
+      ],
+      "pinned_to_existing_split": false
+    },
+    {
+      "group": "6641030fb498450f935e",
+      "split": "train",
+      "images": 1,
+      "before_cap": 1,
+      "families": [
+        "Image_ipg"
+      ],
+      "pinned_to_existing_split": false
+    }
+  ],
+  "excluded": [],
+  "source_mapping": {
+    "8": 0,
+    "9": 0,
+    "13": 0,
+    "14": 1,
+    "15": 1
+  },
+  "scope": "Anatomical localization only. Hat is not mapped to safety helmet; garment status labels are merged only to locate torso.",
+  "semantics_review": "32 negative-containing whole images visually reviewed; existing positive head/vest reviews retained. Not exhaustive label certification.",
+  "split_strategy": "Source family/stem/exact hash/dHash<=4 union; preserve prior model split near-duplicate assignments; reject conflicts; train group cap400",
+  "user_video_used_for_training": false,
+  "field_independent_test": false,
+  "manifest_sha256": {
+    "train": "447b396363c3b1a27c3043c06f11f88a28ac3966cd425c57caea8e8d289a1819",
+    "validation": "332fc4ccb9668918c271e0b044179fe4c1903a9aab5ee49d328afd455bb9b386",
+    "test": "436809fc164c89b52bec5b3e7c9a666b785aaaa78dde3b4a2184879f4eb0ca4c"
+  }
+}

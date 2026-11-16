@@ -3,6 +3,7 @@ from collections import defaultdict
 import numpy as np
 from scipy.optimize import linear_sum_assignment
 from app.geometry import overlap_fraction
+from app.body_parts import associate_body_parts
 
 
 class PPE:
@@ -13,12 +14,19 @@ class PPE:
     def update(self,frame,detections,available_classes):
         people=[d for d in detections if d.class_name=="person" and d.key and d.observed]
         state={p.key:{} for p in people}
+        parts=associate_body_parts(people,detections)
+        localized_mode={'head','torso'}.issubset(available_classes)
         for kind in ("helmet","safety_vest"):
+            part_name='head' if kind=='helmet' else 'torso'
             items=[d for d in detections if d.class_name==kind and d.observed]
             cost=np.full((len(people),len(items)),1e6)
             for i,p in enumerate(people):
                 x1,y1,x2,y2=p.xyxy; w=x2-x1; h=y2-y1
                 region=(x1,y1-h*.05,x2,y1+h*.32) if kind=="helmet" else (x1,y1+h*.22,x2,y1+h*.72)
+                observed_part=parts[p.key].get(part_name)
+                if localized_mode:
+                    if observed_part is None:continue
+                    region=observed_part.xyxy
                 for j,item in enumerate(items):
                     bx,by,ex,ey=item.xyxy; cx=(bx+ex)/2; cy=(by+ey)/2
                     scale=(ex-bx)/w
@@ -35,6 +43,8 @@ class PPE:
                 # Occlusion cannot be inferred reliably from bounding boxes; obvious overlap => unknown.
                 if any(q is not p and overlap_fraction(p.xyxy,q.xyxy)>.35 for q in people): visible=False
                 observable=visible and kind in available_classes
+                observed_part=parts[p.key].get(part_name)
+                if localized_mode and observed_part is None:observable=False
                 raw="equipped" if i in assigned and observable else ("missing" if observable else "unknown")
                 key=(p.key,kind); now=frame.received_monotonic
                 old=self.history.get(key)
@@ -45,7 +55,10 @@ class PPE:
                 threshold=self.clear if raw=="equipped" else self.confirm
                 final=raw if raw!="unknown" and old["elapsed"]>=threshold and old["hits"]>=3 else "unknown"
                 state[p.key][kind]={"state":final,"candidate":raw,"observed_s":round(old["elapsed"],3),"observable":observable,
-                                    "basis":"head_or_torso_unique_assignment" if i in assigned else "sustained_visible_absence"}
+                                    "basis":"body_part_not_observed" if localized_mode and observed_part is None else ("head_or_torso_unique_assignment" if i in assigned else "sustained_visible_absence"),
+                                    "region_xyxy":list(observed_part.xyxy) if observed_part is not None else None,
+                                    "region_confidence":observed_part.confidence if observed_part is not None else None,
+                                    "region_basis":(observed_part.localization_basis or "detected_"+part_name) if observed_part is not None else "unavailable"}
         now=frame.received_monotonic
         self.history={k:v for k,v in self.history.items() if now-v["last"]<30}
         return state

@@ -1,0 +1,15 @@
+{
+  "images": {
+    "train": 1350,
+    "validation": 256,
+    "test": 1890
+  },
+  "parent_dataset": "body-parts-yolo26n-v1",
+  "split_unchanged": true,
+  "user_video_used_for_training": false,
+  "manifest_sha256": {
+    "train": "185c83bd1b34f9d0fab9194b2b6318f0bb60877751e2c89c893fd3b428cd69bf",
+    "validation": "ebbff847aedd9c0e00b378b73067fc0c3dd471f21ccc2e29d8716ba480feb526",
+    "test": "1b2c80e5a7333430a9fb93ecbd77cb273abce0d873e2212e22abc8f00c7eaeea"
+  }
+}
