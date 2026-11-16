@@ -191,14 +191,15 @@ class Runtime:
             except Exception as error:self.store.error="evidence_render_"+type(error).__name__
             for cid,slot in list(self.render_slots.items()):
                 now=time.monotonic()
-                if now-last.get(cid,0)<1/self.config["runtime"]["preview_fps"]:continue
+                if now<last.get(cid,0):continue
                 item=slot.take()
                 if item is None:continue
                 worked=True;frame,tracks,ppe,zones,changes=item
                 if frame.session_id!=self.cameras[cid].session_id:continue
                 try:
                     jpeg=render(frame,tracks,ppe,zones,self.config["runtime"]["preview_width"],self.detector.ready)
-                    self.latest[cid]=(frame,jpeg);self.metrics[cid].preview.append(time.monotonic());last[cid]=time.monotonic()
+                    self.latest[cid]=(frame,jpeg);self.metrics[cid].preview.append(time.monotonic())
+                    last[cid]=max(now,last.get(cid,now))+1/self.config["runtime"]["preview_fps"]
                     self.metrics[cid].latency.append((time.monotonic()-frame.received_monotonic)*1000)
                     self.store.add_frame(frame,jpeg)
                     for event in changes:self.store.save_event(event,frame,jpeg)
