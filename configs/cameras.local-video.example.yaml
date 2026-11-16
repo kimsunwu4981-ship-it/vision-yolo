@@ -1,0 +1,5 @@
+cameras:
+  - {id: cam1, name: "리플레이 1", source_type: file, path: "D:/videos/camera1.mp4", enabled: true, loop: true}
+  - {id: cam2, name: "리플레이 2", source_type: file, path: "D:/videos/camera2.mp4", enabled: true, loop: true}
+  - {id: cam3, name: "리플레이 3", source_type: file, path: "D:/videos/camera3.mp4", enabled: true, loop: true}
+  - {id: cam4, name: "리플레이 4", source_type: file, path: "D:/videos/camera4.mp4", enabled: true, loop: true}

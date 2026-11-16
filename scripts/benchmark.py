@@ -1,0 +1,43 @@
+import argparse
+import csv
+import json
+import time
+from pathlib import Path
+from app.common import ROOT,utc_now,write_json,sha256
+from app.config import load_config
+from app.runtime import Runtime
+
+
+def benchmark(seconds,cameras,channels=4,microbatch=1):
+    cfg=load_config(cameras);cfg["cameras"]=cfg["cameras"][:channels]
+    cfg["runtime"]["microbatch"]=microbatch
+    if any(not c.get("enabled") for c in cfg["cameras"]):raise ValueError("enable_every_benchmark_camera")
+    run=ROOT/"outputs/benchmarks"/("run-"+utc_now().replace(":","").replace(".","-"));run.mkdir(parents=True)
+    inputs=[]
+    for c in cfg["cameras"]:
+        inputs.append({"camera_id":c["id"],"type":c["source_type"],"sha256":sha256(c["path"]) if c["source_type"]=="file" else None,"network_route":"not verified" if c["source_type"]=="rtsp" else "local file"})
+    write_json(run/"inputs_manifest.json",{"inputs":inputs})
+    runtime=Runtime(cfg,run/"runtime");runtime.start()
+    samples=[]
+    try:
+        deadline=time.monotonic()+120
+        while runtime.loading and time.monotonic()<deadline:time.sleep(.2)
+        if not runtime.detector.ready:raise RuntimeError(runtime.detector.error)
+        write_json(run/"run_manifest.json",{"duration_s":seconds,"channels":channels,"config":cfg,"backend":runtime.detector.status(),"hardware":runtime.system.value,"browser_connected":False,"physical_camera_latency":False})
+        start=time.monotonic()
+        with open(run/"performance.csv","w",newline="",encoding="utf-8") as stream:
+            fields=["elapsed_s","camera_id","capture_fps","inference_fps","preview_fps","p95_host_ms","observation_age_s","drops","queue","process_ram_gb","vram_gb"]
+            writer=csv.DictWriter(stream,fieldnames=fields);writer.writeheader()
+            while time.monotonic()-start<seconds:
+                snapshot=runtime.snapshot();samples.append(snapshot)
+                for c in snapshot["cameras"]:
+                    writer.writerow({"elapsed_s":round(time.monotonic()-start,2),"camera_id":c["id"],"capture_fps":c["capture_decode_fps"],"inference_fps":c["inference_fps"],"preview_fps":c["preview_fps"],
+                        "p95_host_ms":(c["host_receive_to_encoded_ms"] or {}).get("p95"),"observation_age_s":c["last_observation_age_s"],"drops":c["frame_drops"],"queue":c["queue_size"],
+                        "process_ram_gb":snapshot["system"].get("process_ram_gb"),"vram_gb":(snapshot["system"].get("gpu") or {}).get("vram_used_gb")})
+                stream.flush();time.sleep(1)
+        write_json(run/"summary.json",{"samples":len(samples),"final":samples[-1] if samples else {},"acceptance":False,"reason":"browser display, real camera event accuracy, and target laptop not verified"})
+    finally:runtime.close()
+    print(str(run))
+
+if __name__=="__main__":
+    p=argparse.ArgumentParser();p.add_argument("--seconds",type=int,default=1800);p.add_argument("--cameras",required=True);p.add_argument("--channels",type=int,choices=[1,2,4],default=4);p.add_argument("--microbatch",type=int,choices=[1,2,4],default=1);a=p.parse_args();benchmark(a.seconds,a.cameras,a.channels,a.microbatch)

@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "models": [
+    {
+      "run_id": "ppe-yolo26s-v2",
+      "path": "models\\ppe-yolo26s-v2.pt",
+      "sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+      "classes": [
+        "person",
+        "helmet",
+        "safety_vest"
+      ],
+      "enabled": true,
+      "evaluation_status": "development_evaluated",
+      "initial_weights_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+      "initial_weights_source": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26s.pt",
+      "manifest_sha256": {
+        "train": "c5eb2b777338dce36fcb403f627cf8ddadc99b080eb5c11881cf6b47e1e13f39",
+        "validation": "61febcca19901bb92a59656d2efddf9b0fc67f5f7bc6ad271bd9a3f4e59a7ec7",
+        "test": "d283172ec73be227debd3cc8cd992bcf3650f045054bd04bebb73c3e5707f31c"
+      },
+      "evaluation": {
+        "run_id": "ppe-yolo26s-v2",
+        "checkpoint_sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+        "evaluated_at": "2026-11-16T09:47:19.504471+00:00",
+        "splits": {
+          "val": {
+            "classes": {
+              "person": {
+                "precision": 0.9780733959864412,
+                "recall": 0.9088082901554404,
+                "AP50": 0.9599726604354977,
+                "AP50_95": 0.8145805312370455
+              },
+              "helmet": {
+                "precision": 0.940486065323662,
+                "recall": 0.8438538205980066,
+                "AP50": 0.8536714529018855,
+                "AP50_95": 0.5332772536052002
+              },
+              "safety_vest": {
+                "precision": 0.962842176077149,
+                "recall": 0.9162338371992603,
+                "AP50": 0.9798584531962665,
+                "AP50_95": 0.44397779281045624
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.9604672124624174,
+              "metrics/recall(B)": 0.8896319826509025,
+              "metrics/mAP50(B)": 0.9311675221778831,
+              "metrics/mAP50-95(B)": 0.5972785258842342,
+              "fitness": 0.5972785258842342
+            },
+            "images": 930
+          },
+          "test": {
+            "classes": {
+              "person": {
+                "precision": 0.9003404001092419,
+                "recall": 0.7762191048764195,
+                "AP50": 0.844531048006415,
+                "AP50_95": 0.600481764070741
+              },
+              "helmet": {
+                "precision": 0.6714986957574313,
+                "recall": 0.70411308001226,
+                "AP50": 0.7128486113346291,
+                "AP50_95": 0.3540291781864064
+              },
+              "safety_vest": {
+                "precision": 0.8239863488128655,
+                "recall": 0.8319451387057265,
+                "AP50": 0.8716404554047852,
+                "AP50_95": 0.5040190884409832
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.7986084815598461,
+              "metrics/recall(B)": 0.7707591078648021,
+              "metrics/mAP50(B)": 0.8096733715819431,
+              "metrics/mAP50-95(B)": 0.4861766768993769,
+              "fitness": 0.4861766768993769
+            },
+            "images": 685
+          }
+        },
+        "field_independent_test": false,
+        "night_occlusion_event_metrics": "not evaluated: no annotated source videos",
+        "small_object_metrics": "object-size annotations available; separate subset not yet evaluated",
+        "forklift": "not trained: complete labeled source missing",
+        "deployment_acceptance": false
+      },
+      "license": "AGPL-3.0; source dataset CC-BY-4.0 attribution also retained"
+    }
+  ],
+  "status": "PPE development only; forklift and field acceptance unavailable"
+}

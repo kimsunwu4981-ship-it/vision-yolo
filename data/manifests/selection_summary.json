@@ -1,0 +1,31 @@
+{
+  "images": {
+    "train": 3174,
+    "validation": 930,
+    "test": 685
+  },
+  "class_counts": {
+    "train": {
+      "safety_vest": 3190,
+      "helmet": 3161,
+      "person": 3300
+    },
+    "validation": {
+      "safety_vest": 905,
+      "helmet": 602,
+      "person": 965
+    },
+    "test": {
+      "helmet": 929,
+      "person": 1497,
+      "safety_vest": 1041
+    }
+  },
+  "excluded": {
+    "excluded_partial_or_mixed_ontology": 4043,
+    "zero_byte_incomplete": 1,
+    "download_temporary_incomplete": 1,
+    "no_ground_truth_or_prediction_overlay": 19,
+    "excluded_exact_duplicate": 13
+  }
+}

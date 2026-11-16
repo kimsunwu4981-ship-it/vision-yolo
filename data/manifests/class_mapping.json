@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "source": "construction_ppe_v3i",
+  "selected": {
+    "1": "helmet",
+    "2": "person",
+    "4": "safety_vest"
+  },
+  "visually_reviewed": [
+    "Helmet",
+    "Human",
+    "Safety Vest",
+    "vest",
+    "hat"
+  ],
+  "excluded": {
+    "hat": "ambiguous; not merged",
+    "helmet/vest": "PPE-only source without person annotations",
+    "no hat/no vest": "semantics and negative boxes unverified",
+    "forklift": "no complete labeled source"
+  },
+  "sample_review_limit": "spot review does not certify exhaustive annotation",
+  "target_classes": [
+    "person",
+    "helmet",
+    "safety_vest"
+  ]
+}

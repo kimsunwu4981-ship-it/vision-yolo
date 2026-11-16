@@ -1,0 +1,289 @@
+{
+  "strategy": "source-family + original-stem + SHA256 + dHash Hamming<=4 union; disjoint group assignment",
+  "groups": [
+    {
+      "group": "a3c4ea4314023324a749",
+      "split": "train",
+      "count": 2951,
+      "source_families": [
+        "KakaoTalk",
+        "Video"
+      ]
+    },
+    {
+      "group": "34f2d3bebef0a2ee9dfa",
+      "split": "validation",
+      "count": 930,
+      "source_families": [
+        "image"
+      ]
+    },
+    {
+      "group": "ddb0e644b16fc48cf54f",
+      "split": "test",
+      "count": 273,
+      "source_families": [
+        "ppe"
+      ]
+    },
+    {
+      "group": "5dbd15900ab69999ddc8",
+      "split": "test",
+      "count": 214,
+      "source_families": [
+        "r"
+      ]
+    },
+    {
+      "group": "cf13dc5a326a38f3df44",
+      "split": "test",
+      "count": 86,
+      "source_families": [
+        "images-2022-07-04T"
+      ]
+    },
+    {
+      "group": "d31207dded71be4aca43",
+      "split": "test",
+      "count": 57,
+      "source_families": [
+        "images"
+      ]
+    },
+    {
+      "group": "4bca75b160a8e932a266",
+      "split": "test",
+      "count": 55,
+      "source_families": [
+        "unidentified_numeric_source"
+      ]
+    },
+    {
+      "group": "f37bd47b614b77175f4a",
+      "split": "train",
+      "count": 44,
+      "source_families": [
+        "thumb"
+      ]
+    },
+    {
+      "group": "b8061ae21b2603f16e44",
+      "split": "train",
+      "count": 14,
+      "source_families": [
+        "Tan"
+      ]
+    },
+    {
+      "group": "610cb0c7528d2504c90b",
+      "split": "train",
+      "count": 12,
+      "source_families": [
+        "AightOne"
+      ]
+    },
+    {
+      "group": "5d8cec9791c86c0ac60e",
+      "split": "train",
+      "count": 12,
+      "source_families": [
+        "Aitin"
+      ]
+    },
+    {
+      "group": "5252f2d1daa4cb39e731",
+      "split": "train",
+      "count": 12,
+      "source_families": [
+        "TsirinOne"
+      ]
+    },
+    {
+      "group": "cbe3b9b7cdf218336875",
+      "split": "train",
+      "count": 10,
+      "source_families": [
+        "Nein"
+      ]
+    },
+    {
+      "group": "8e63780e1c1e7dc67d55",
+      "split": "train",
+      "count": 10,
+      "source_families": [
+        "TNPDu"
+      ]
+    },
+    {
+      "group": "138f85421d8d943270c7",
+      "split": "train",
+      "count": 10,
+      "source_families": [
+        "construction-worker1_grande"
+      ]
+    },
+    {
+      "group": "61e2e4cad1fb3f07f944",
+      "split": "train",
+      "count": 9,
+      "source_families": [
+        "download-1-_jpeg"
+      ]
+    },
+    {
+      "group": "0dff49a969ab8068caa9",
+      "split": "train",
+      "count": 9,
+      "source_families": [
+        "download-3-_jpeg"
+      ]
+    },
+    {
+      "group": "19acb7bff116ea23d068",
+      "split": "train",
+      "count": 7,
+      "source_families": [
+        "li-lin-rZcC9J5ZT6I-unsplash"
+      ]
+    },
+    {
+      "group": "c35aa3a242196e434db7",
+      "split": "train",
+      "count": 7,
+      "source_families": [
+        "sic"
+      ]
+    },
+    {
+      "group": "e93dfc05eb6bcaf55fe9",
+      "split": "train",
+      "count": 6,
+      "source_families": [
+        "51_JPG"
+      ]
+    },
+    {
+      "group": "8d8502c1eb4131af942a",
+      "split": "train",
+      "count": 6,
+      "source_families": [
+        "52_JPG"
+      ]
+    },
+    {
+      "group": "1e9711f806b9547a6abe",
+      "split": "train",
+      "count": 6,
+      "source_families": [
+        "59_JPG"
+      ]
+    },
+    {
+      "group": "ae67a135aa5a064345b7",
+      "split": "train",
+      "count": 6,
+      "source_families": [
+        "9417812-serious-male-construction-worker-in-safety-vest-and-hard-hat"
+      ]
+    },
+    {
+      "group": "6e493611e59332d6469b",
+      "split": "train",
+      "count": 6,
+      "source_families": [
+        "ThavantinDuo"
+      ]
+    },
+    {
+      "group": "823de6f88abe77b67c3c",
+      "split": "train",
+      "count": 6,
+      "source_families": [
+        "construction-crack"
+      ]
+    },
+    {
+      "group": "ece5f5a214c783d1fdae",
+      "split": "train",
+      "count": 6,
+      "source_families": [
+        "gettyimages-632170387-612x"
+      ]
+    },
+    {
+      "group": "912821abb121b5a8d5a4",
+      "split": "train",
+      "count": 4,
+      "source_families": [
+        "gettyimages-1036354066-612x"
+      ]
+    },
+    {
+      "group": "d6b22a12efdf90773669",
+      "split": "train",
+      "count": 3,
+      "source_families": [
+        "105_JPG"
+      ]
+    },
+    {
+      "group": "33ad999035ed9427a51e",
+      "split": "train",
+      "count": 3,
+      "source_families": [
+        "47_JPG"
+      ]
+    },
+    {
+      "group": "714abab1f3e0b53d3c7d",
+      "split": "train",
+      "count": 3,
+      "source_families": [
+        "4843_RolePlay_ConstructionWorker_BoyGirl"
+      ]
+    },
+    {
+      "group": "b58e9d418e5c31b9ceb9",
+      "split": "train",
+      "count": 3,
+      "source_families": [
+        "95_JPG"
+      ]
+    },
+    {
+      "group": "c7fa6498844aabf86edc",
+      "split": "train",
+      "count": 3,
+      "source_families": [
+        "download"
+      ]
+    },
+    {
+      "group": "ff75b6216acdd1ff8ccb",
+      "split": "train",
+      "count": 3,
+      "source_families": [
+        "gettyimages-650169013-612x"
+      ]
+    },
+    {
+      "group": "97f45edbfa01ec3b7f6e",
+      "split": "train",
+      "count": 2,
+      "source_families": [
+        "41_JPG"
+      ]
+    },
+    {
+      "group": "63b2ffacec2e90f630d1",
+      "split": "train",
+      "count": 1,
+      "source_families": [
+        "gettyimages-1051092562-612x"
+      ]
+    }
+  ],
+  "near_pairs": 17985,
+  "source_scene_time_metadata": "not available",
+  "field_test_independent": false
+}

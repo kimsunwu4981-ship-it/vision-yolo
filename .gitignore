@@ -1,0 +1,15 @@
+.venv/
+.env
+*.local.yaml
+__pycache__/
+.pytest_cache/
+*.egg-info/
+outputs/
+data/derived/
+models/*.pt
+models/*.onnx
+models/*.engine
+*.db*
+.runtime/
+.cache/
+*.log

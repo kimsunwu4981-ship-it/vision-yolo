@@ -1,0 +1,19 @@
+# 운영
+
+기본은 127.0.0.1:8765, 단일 서버다. `start.ps1`은 서버와 브라우저를 열고 `-NoBrowser`는 서버만 시작한다. `stop.ps1`은 이 프로젝트 instance token으로 정상 종료를 요청한다. 종료 실패 시 로그를 확인하며 모든 python 프로세스를 일괄 종료하지 않는다.
+
+`configs/cameras.local.yaml`에 4개 이내 고유 ID를 지정한다. RTSP는 `url_env`만 기록하고 `.env`에 자격증명을 둔다. 파일 입력은 `source_type: file`, `path`, `loop`를 사용한다. 자동 재연결, loop, seek는 새 session이며 이전 추적 상태를 이어받지 않는다. DEMO 표시는 생성한 정지 이미지 시퀀스용이며 실제 현장 영상이 아니다.
+
+대시보드에서 ROI 편집 → 영상 위 꼭짓점 클릭 → 다각형 추가 → 구역 저장 순서로 여러 구역을 설정한다. 클릭 좌표는 영상 비율을 유지한 canvas의 CSS 크기로 나누고 canvas backing은 devicePixelRatio로 설정한다. 저장은 정규화 좌표이므로 확대/축소와 별개다. 고DPI 실제 브라우저 동작은 아직 미검증이다. 잘못된 자기교차·범위 밖·중복 ID 다각형은 API가 거부한다.
+
+경보음은 사용자 클릭으로만 켠다. 이벤트의 ‘확인 처리’는 acknowledged이며 위험의 resolved와 다르다. 관측 불가 이벤트는 연결이 끊겨 안전해졌다는 뜻이 아니다. 영상 없이 마지막 박스를 LIVE로 남기지 않고 1초 TTL 후 현재 관측 없음 화면을 보낸다.
+
+이벤트 SQLite와 증거는 `outputs/runtime`에 있다. evidence는 JPEG 및 H.264 MP4, 기본 pre/post 3초이며 저장이 늦거나 입력이 끊기면 확보한 구간만 남긴다. DB에는 사용한 모델 hash·설정 revision·camera/session/track·판단 근거·시간이 남는다. 오류/큐 드롭/디스크 부족은 `/api/system`과 대시보드 경고에서 확인한다. 증거는 기본 14일/10GB, 최소 여유 2GB 정책을 적용하며 소유 폴더 밖 파일을 정리하지 않는다.
+
+LAN bind는 `SAFETY_HOST`와 길이 24자 이상의 `SAFETY_API_TOKEN`을 요구한다. 로그인은 HttpOnly SameSite cookie를 발급하고 API·MJPEG·WebSocket을 보호한다. 기본 HTTP는 신뢰할 수 있는 로컬 LAN용이며 원격망은 HTTPS reverse proxy 또는 VPN이 필요하다. Origin이 다른 변경 요청은 거부한다. 인터넷 노출은 수행하지 않았다.
+
+`/health/live`는 서버 생존, `/health/ready`는 4채널/모델 준비를 뜻한다. 개발 모델·미지원 지게차·미연결 카메라 상태에서는 ready=503이 정상이다. ready 응답이 현장 인수 인증을 뜻하지 않으며 별도 acceptance 기록이 필요하다.
+
+주요 API: `/api/system`, `/api/models`, `/api/metrics`, `/api/cameras`, `/api/cameras/{id}/start|stop|seek`, `/api/cameras/{id}/stream.mjpg`, `/api/cameras/{id}/zones`, `/api/events`, `/api/events/{id}/ack`, `/api/evidence/{id}`, `/ws/events`. Swagger는 `/docs`다.
+
+현재 제한: 사람/PPE bbox 기반 가시성은 부분 가림을 완전히 알 수 없다. 프레임 이동·역광·야간·작은 PPE·손에 든 안전모·걸어 둔 조끼·일반 모자·유사색 작업복에 대한 현장 정답 평가를 수행해야 한다. 지게차 앞 보행자나 탑승자를 임의로 제외하지 않는다. 자동 비상정지/PLC 제어에는 연결하지 않는다.

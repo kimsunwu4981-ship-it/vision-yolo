@@ -1,0 +1,17 @@
+device: auto
+microbatch: 1
+imgsz: 640
+confidence: 0.25
+half: true
+preview_width: 960
+preview_fps: 12
+observation_ttl_s: 1.0
+storage:
+  pre_seconds: 3
+  post_seconds: 3
+  buffer_mb: 64
+  clip_mb: 16
+  max_pending_clips: 8
+  retention_days: 14
+  max_gb: 10
+  min_free_gb: 2

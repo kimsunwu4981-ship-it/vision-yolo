@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "industrial-safety-yolo"
+version = "0.1.0"
+description = "Independent Windows YOLO industrial safety monitor"
+requires-python = ">=3.11,<3.13"
+license = "AGPL-3.0-only"
+dependencies = ["ultralytics", "fastapi", "uvicorn[standard]", "av", "psutil", "PyYAML", "scipy", "python-dotenv", "lap"]
+
+[tool.setuptools.packages.find]
+include = ["app*", "scripts*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
