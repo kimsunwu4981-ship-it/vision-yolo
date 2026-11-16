@@ -48,7 +48,7 @@ class Runtime:
         self.config=config;self.lock=threading.RLock();self.stop_event=threading.Event()
         self.cameras={c["id"]:Capture(c) for c in config["cameras"]}
         self.metrics={cid:Metrics() for cid in self.cameras};self.latest={};self.render_slots={cid:LatestSlot() for cid in self.cameras}
-        self.detector=Detector(config["runtime"]);self.tracker=TrackerBank(config["runtime"]["observation_ttl_s"])
+        self.detector=Detector(config["runtime"]);self.tracker=TrackerBank(config["runtime"]["observation_ttl_s"],config['runtime'].get('confidence',.25),config['runtime'].get('tracking_low_confidence',.1))
         rules=config["rules"]
         self.ppe=PPE(rules["ppe_confirm_s"],rules["ppe_clear_s"],rules["max_observation_gap_s"],rules["min_person_height"])
         self.rules=Rules(rules);self.events=EventEngine(rules["max_observation_gap_s"],rules["cooldown_s"])

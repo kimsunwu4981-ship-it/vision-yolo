@@ -1,5 +1,17 @@
 # 신규 학습 provenance
 
+## 사람 전용 재학습 및 후보 평가 (2026-11-16)
+
+기존 train 현장 편중을 줄이기 위해 그룹별 상한 180장, seed43으로 403장을 선택했다. 원본 train/validation/test 간 이미지를 이동하지 않았다. 첫 통합 후보 `ppe-yolo26s-balanced-v3`는 12epoch에서 조기 종료됐고 test mAP50 .7242 / mAP50–95 .3718로 기존 통합 모델보다 낮아 채택하지 않았다.
+
+이어 공식 초기 모델에서 새로 학습한 사람 전용 `person-yolo26s-v4`는 분류 출력만 학습했으나 박스 정확도가 낮았다. 채택한 `person-yolo26s-v5`는 backbone/neck/분류 특징은 동결하고 두 head의 사람 분류 출력과 box regression을 학습했다. 403장, 8epoch, 640, batch16, AdamW lr .0001, seed44, GPU0, AMP, mosaic0이다. 객체 클래스는 실제 person 하나이며 원본 사람 라벨을 유지했다. 파라미터 변경량은 provenance에 기록해 단순 클래스 이름 변경과 구별한다.
+
+v5 SHA256: `315fe5bb703f3761523333aa6bef56b2899c92779f7f9a720c75ee6618580f2b`. 공식 초기 SHA256: `646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b`. `models/person-yolo26s-v5.provenance.json`, `.evaluation.json`, `data/manifests/person-yolo26s-v5/`에 학습·평가·입력 hash를 보존한다. 크레인 영상은 어떤 학습에도 사용하지 않았다. 여러 후보를 확인한 개발 test는 blind 현장 평가가 아니다.
+
+재현: `python -m scripts.train_balanced`, `python -m scripts.train_person --run-id person-yolo26s-v5 --train-box-heads`, `python -m scripts.evaluate_candidate person-yolo26s-v5`. 실행 이력이 존재하면 다른 run-id를 사용한다. 현재 등록 모델은 사람 v5와 보호구 v2이며, 공식 초기 모델 또는 탈락 후보를 운영에 등록하지 않는다.
+
+## 최초 통합 모델 학습
+
 공식 초기 가중치: [Ultralytics assets YOLO26s](https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26s.pt).
 
 SHA256 `646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b`.

@@ -3,7 +3,7 @@ import re
 from pathlib import Path
 import yaml
 from dotenv import load_dotenv
-from app.common import ROOT,revision
+from app.common import ROOT,revision,sha256
 from app.geometry import validate_polygon
 from pydantic import BaseModel,Field,field_validator,model_validator
 
@@ -73,4 +73,6 @@ def load_config(camera_file=None):
     cameras=yaml.safe_load(path.read_text(encoding="utf-8"))["cameras"]
     cameras=[CameraConfig.model_validate(c).model_dump() for c in cameras]
     if len(cameras)>4 or len({c["id"] for c in cameras})!=len(cameras):raise ValueError("requires_up_to_four_unique_cameras")
-    return {"runtime":runtime,"rules":rules,"cameras":cameras,"revision":revision({"runtime":runtime,"rules":rules,"cameras":cameras})}
+    registry=ROOT/'models/model_registry.json';model_registry_sha256=sha256(registry) if registry.exists() else None
+    return {"runtime":runtime,"rules":rules,"cameras":cameras,"model_registry_sha256":model_registry_sha256,
+        "revision":revision({"runtime":runtime,"rules":rules,"cameras":cameras,"model_registry_sha256":model_registry_sha256})}

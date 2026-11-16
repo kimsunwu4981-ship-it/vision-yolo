@@ -2,6 +2,103 @@
   "schema_version": 1,
   "models": [
     {
+      "run_id": "person-yolo26s-v5",
+      "path": "models\\person-yolo26s-v5.pt",
+      "sha256": "315fe5bb703f3761523333aa6bef56b2899c92779f7f9a720c75ee6618580f2b",
+      "classes": [
+        "person"
+      ],
+      "active_classes": [
+        "person"
+      ],
+      "enabled": true,
+      "evaluation_status": "development_evaluated",
+      "initial_weights_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+      "initial_weights_source": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26s.pt",
+      "manifest_sha256": {
+        "train": "1ed61a5b2736188e4c6b0b8093cab96d37b5cce6273e5daf3ac7dcf1febd8c4e",
+        "validation": "69cd7f2473c0e6d62f378eda08e28f86fa59c79870d7503821e71ebf81331e1b",
+        "test": "7a6ce1ffcff6df24ac3938abd0fa491dde999d39fbee1cd85696bbebab781a02"
+      },
+      "evaluation": {
+        "run_id": "person-yolo26s-v5",
+        "checkpoint_sha256": "315fe5bb703f3761523333aa6bef56b2899c92779f7f9a720c75ee6618580f2b",
+        "evaluated_at": "2026-11-16T12:03:25.926495+00:00",
+        "validation_heads": {
+          "one_to_one": {
+            "classes": {
+              "person": {
+                "precision": 0.9926165575369379,
+                "recall": 0.9751992925568055,
+                "AP50": 0.9846949113002237,
+                "AP50_95": 0.5578268317704949
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.9926165575369379,
+              "metrics/recall(B)": 0.9751992925568055,
+              "metrics/mAP50(B)": 0.9846949113002237,
+              "metrics/mAP50-95(B)": 0.5578268317704949,
+              "fitness": 0.5578268317704949
+            },
+            "nms": false,
+            "precision_bits": 16
+          },
+          "one_to_many": {
+            "classes": {
+              "person": {
+                "precision": 0.9951445017061415,
+                "recall": 0.9813471502590674,
+                "AP50": 0.984538710393147,
+                "AP50_95": 0.5901927630992981
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.9951445017061415,
+              "metrics/recall(B)": 0.9813471502590674,
+              "metrics/mAP50(B)": 0.984538710393147,
+              "metrics/mAP50-95(B)": 0.5901927630992981,
+              "fitness": 0.5901927630992981
+            },
+            "nms": true,
+            "precision_bits": 16
+          }
+        },
+        "selected_head": "one_to_many",
+        "selected_nms": true,
+        "head_selection": "highest original validation mAP50-95; not diagnostic video or test",
+        "test": {
+          "classes": {
+            "person": {
+              "precision": 0.926102327725948,
+              "recall": 0.8770875083500334,
+              "AP50": 0.9346279953994375,
+              "AP50_95": 0.5535868373514715
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.926102327725948,
+            "metrics/recall(B)": 0.8770875083500334,
+            "metrics/mAP50(B)": 0.9346279953994375,
+            "metrics/mAP50-95(B)": 0.5535868373514715,
+            "fitness": 0.5535868373514715
+          },
+          "nms": true,
+          "precision_bits": 16
+        },
+        "field_independent_test": false,
+        "user_video_used_for_training": false,
+        "deployment_acceptance": false,
+        "test_scope": "Existing development image split, not a fresh blind acceptance set; multiple candidates are reported."
+      },
+      "inference": {
+        "nms": true,
+        "confidence": 0.25,
+        "head_basis": "highest original validation mAP50-95; not diagnostic video or test"
+      },
+      "license": "AGPL-3.0; source dataset CC-BY-4.0 attribution also retained"
+    },
+    {
       "run_id": "ppe-yolo26s-v2",
       "path": "models\\ppe-yolo26s-v2.pt",
       "sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
@@ -91,8 +188,17 @@
         "forklift": "not trained: complete labeled source missing",
         "deployment_acceptance": false
       },
-      "license": "AGPL-3.0; source dataset CC-BY-4.0 attribution also retained"
+      "license": "AGPL-3.0; source dataset CC-BY-4.0 attribution also retained",
+      "active_classes": [
+        "helmet",
+        "safety_vest"
+      ],
+      "inference": {
+        "nms": true,
+        "confidence": 0.5365365365365365,
+        "threshold_basis": "existing validation-only bbox F1 selection; operational event acceptance remains unverified"
+      }
     }
   ],
-  "status": "PPE development only; forklift and field acceptance unavailable"
+  "status": "Separated newly trained person and PPE development models; no forklift or field acceptance"
 }

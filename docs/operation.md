@@ -4,6 +4,8 @@
 
 기본 runtime은 PyTorch CUDA FP16, 모델 입력640, 최대 microbatch4다. 이미 준비된 최신 프레임만 모으므로 느린 카메라가 batch를 채울 때까지 기다리지 않는다. batch1 기준선과 비교한 개발 PC 결과에 따른 선택이며 노트북에서 다시 측정해야 한다. 미리보기 목표12FPS와 실제 FPS는 구분해 표시한다.
 
+검출 개선 구성은 사람 전용 v5와 보호구 v2를 함께 사용한다. `models/model_registry.json`의 `active_classes`가 각 모델의 출력 역할을 제한하고 `inference`가 head/신뢰도를 고정한다. v2의 사람 출력은 사용하지 않는다. 추론 CPU 스레드는 1개이며 GPU 작업은 기존 CUDA 배치를 사용한다. .10~.25 사람 관측은 기존 ID와 연결된 경우에만 표시하므로 낮은 신뢰도의 새 대상이 경보를 만들지 않는다. 설정 revision에는 모델 registry hash도 들어간다. 새 설정 적용에는 프로젝트 서버를 재시작한다.
+
 `configs/cameras.local.yaml`에 4개 이내 고유 ID를 지정한다. RTSP는 `url_env`만 기록하고 `.env`에 자격증명을 둔다. 파일 입력은 `source_type: file`, `path`, `loop`를 사용한다. 자동 재연결, loop, seek는 새 session이며 이전 추적 상태를 이어받지 않는다. DEMO 표시는 생성한 정지 이미지 시퀀스용이며 실제 현장 영상이 아니다.
 
 휴대전화처럼 회전 메타데이터가 있는 영상은 표시 방향으로 보정해 분석한다. ROI는 보정된 표시 영상의 정규화 좌표다. 이전 버전에서 옆으로 누운 영상에 ROI를 저장했다면 보정된 화면에서 다시 설정해야 한다. 원본 영상은 변경하지 않는다. 한 개 파일의 독립 전수 시험은 `python -m scripts.replay <영상> --output <새 결과 폴더> --no-zones`로 실행해 다른 카메라의 기존 구역을 적용하지 않을 수 있다.

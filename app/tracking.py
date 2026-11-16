@@ -5,11 +5,11 @@ from app.types import Detection
 
 
 class TrackerBank:
-    def __init__(self, ttl_s=1.0):
+    def __init__(self, ttl_s=1.0, high_confidence=.25, low_confidence=.1):
         self.ttl_s=ttl_s
         self.banks={}
         self.observed={}
-        self.args=SimpleNamespace(track_high_thresh=.25,track_low_thresh=.1,new_track_thresh=.25,
+        self.args=SimpleNamespace(track_high_thresh=high_confidence,track_low_thresh=low_confidence,new_track_thresh=high_confidence,
                                   track_buffer=30,match_thresh=.8,fuse_score=True)
 
     def reset_camera(self,camera):
@@ -51,7 +51,8 @@ class TrackerBank:
                 detection.key=f"{frame.camera_id}:{frame.session_id}:{name}:{detection.track_id}"
                 self.observed[(*key,detection.track_id)]=frame.received_monotonic
                 output.append(detection)
-            output.extend(d for i,d in enumerate(subset) if i not in assigned)
+            # Weak unmatched detections neither spawn displayed boxes nor hazards.
+            output.extend(d for i,d in enumerate(subset) if i not in assigned and d.confidence>=self.args.new_track_thresh)
             self.banks[key]=(tracker,frame.received_monotonic)
         self.observed={k:v for k,v in self.observed.items() if frame.received_monotonic-v<30 and (k[0]!=frame.camera_id or k[1]==frame.session_id)}
         return output

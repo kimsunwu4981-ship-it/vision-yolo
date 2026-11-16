@@ -33,7 +33,7 @@ def replay(paths,output,source_mode='REPLAY',camera_file=None,no_zones=False):
         "zones_disabled":no_zones,"entrypoint_sha256":sha256(__file__),
         "observation_clock":"virtual source PTS; received timestamps use replay origin plus PTS, actual decode time is in preprocess_transform",
         "source_code_sha256":{str(p.relative_to(ROOT)):sha256(p) for p in sorted((ROOT/'app').glob('*.py'))}})
-    settings=config['rules'];tracker=TrackerBank(config['runtime']['observation_ttl_s'])
+    settings=config['rules'];tracker=TrackerBank(config['runtime']['observation_ttl_s'],config['runtime'].get('confidence',.25),config['runtime'].get('tracking_low_confidence',.1))
     ppe=PPE(settings['ppe_confirm_s'],settings['ppe_clear_s'],settings['max_observation_gap_s'],settings['min_person_height'])
     rules=Rules(settings);events=EventEngine(settings['max_observation_gap_s'],settings['cooldown_s'])
     handles={name:open(output/(name+".jsonl"),"w",encoding="utf-8") for name in ["detections","tracks","events"]}
