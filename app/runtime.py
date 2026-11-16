@@ -19,6 +19,26 @@ from app.tracking import TrackerBank
 from app.types import Frame,RuleObservation
 
 
+def draw_labeled_box(image,box,label,color,below=False):
+    """Draw one display box; keep its label visible at frame boundaries."""
+    h,w=image.shape[:2]
+    x1,y1,x2,y2=(int(v) for v in box)
+    x1,x2=max(0,min(x1,w-1)),max(0,min(x2,w-1))
+    y1,y2=max(0,min(y1,h-1)),max(0,min(y2,h-1))
+    if x2<=x1 or y2<=y1:return
+    cv2.rectangle(image,(x1,y1),(x2,y2),color,2)
+    font=cv2.FONT_HERSHEY_SIMPLEX;font_scale=.55;padding=5
+    text_width,text_height=cv2.getTextSize(label,font,font_scale,1)[0]
+    label_width=min(w,text_width+2*padding);label_height=text_height+2*padding+3
+    left=max(0,min(x1,w-label_width))
+    top=y2+2 if below else y1-label_height-2
+    if top+label_height>h:top=y1-label_height-2
+    top=max(0,top)
+    cv2.rectangle(image,(left,top),(left+label_width-1,min(h-1,top+label_height)),color,-1)
+    ink=(255,255,255) if color==(0,0,255) else (15,20,25)
+    cv2.putText(image,label,(left+padding,top+padding+text_height),font,font_scale,ink,1,cv2.LINE_AA)
+
+
 def render(frame,tracks,ppe,zones,width,model_ready):
     source_h,source_w=frame.image.shape[:2]
     scale=min(1.,width/source_w)
@@ -33,22 +53,17 @@ def render(frame,tracks,ppe,zones,width,model_ready):
         x1,y1,x2,y2=(int(v*scale) for v in obj.xyxy);color=colors[obj.class_name]
         text=f"{obj.class_name} {obj.confidence:.2f}"+(f" #{obj.track_id}" if obj.track_id is not None else "")
         states=ppe.get(obj.key,{}) if obj.class_name=="person" and model_ready else {}
-        missing=[label for kind,label in (("helmet","No hard hat"),("safety_vest","No safety vest"))
-                 if states.get(kind,{}).get("state")=="missing"]
-        if missing:
-            color=(0,0,255)
-            cv2.rectangle(image,(x1,y1),(x2,y2),color,3)
-            lines=missing+[text]
-            font=cv2.FONT_HERSHEY_SIMPLEX;font_scale=.6;padding=6;line_height=24
-            label_width=min(w,max(cv2.getTextSize(line,font,font_scale,1)[0][0] for line in lines)+2*padding)
-            label_height=len(lines)*line_height+padding
-            left=max(0,min(x1,w-label_width));top=max(0,y1-label_height)
-            cv2.rectangle(image,(left,top),(left+label_width-1,min(h-1,top+label_height)),color,-1)
-            for index,line in enumerate(lines):
-                cv2.putText(image,line,(left+padding,top+(index+1)*line_height-5),font,font_scale,(255,255,255),1,cv2.LINE_AA)
+        if obj.class_name=="person":
+            draw_labeled_box(image,(x1,y1,x2,y2),text.replace("person","PERSON",1),color,below=True)
+            # Display-only body regions derived from the person box. These are
+            # not independently detected head/torso objects and do not affect rules.
+            bw,bh=x2-x1,y2-y1
+            regions={"helmet":(x1+.05*bw,y1,x2-.05*bw,y1+.28*bh),
+                     "safety_vest":(x1+.08*bw,y1+.28*bh,x2-.08*bw,y1+.72*bh)}
+            for kind,label in (("helmet","NO - HARD HAT"),("safety_vest","NO-VEST")):
+                if states.get(kind,{}).get("state")=="missing":
+                    draw_labeled_box(image,regions[kind],label,(0,0,255),below=kind=="safety_vest")
             continue
-        if obj.key in ppe:
-            text+=" H:"+ppe[obj.key]["helmet"]["state"]+" V:"+ppe[obj.key]["safety_vest"]["state"]
         cv2.rectangle(image,(x1,y1),(x2,y2),color,2);cv2.putText(image,text,(x1,max(16,y1-6)),cv2.FONT_HERSHEY_SIMPLEX,.45,color,1,cv2.LINE_AA)
     stamp=f"{frame.camera_id} / {frame.session_id[:8]} / frame {frame.frame_id}"
     cv2.putText(image,stamp,(12,24),cv2.FONT_HERSHEY_SIMPLEX,.5,(255,255,255),1,cv2.LINE_AA)
