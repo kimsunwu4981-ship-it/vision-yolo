@@ -1,0 +1,8 @@
+{
+  "run_id": "helmet-yolo26s-context-v6",
+  "status": "rejected_not_deployed",
+  "reason": "Native test AP50 decreased to .59035 and no useful far-field improvement.",
+  "user_video_used_for_training": false,
+  "field_acceptance": false,
+  "report": "docs/far-cctv-repair-20261117.md"
+}

@@ -1,0 +1,8 @@
+{
+  "run_id": "vest-state-yolo26s-v8",
+  "status": "rejected_not_deployed",
+  "reason": "Good archive test scores did not transfer: no direct no-vest boxes on 1092 frames; candidate vest boxes often localized heads or structures. Retain existing PPE v2.",
+  "user_video_used_for_training": false,
+  "field_acceptance": false,
+  "report": "docs/far-cctv-repair-20261117.md"
+}

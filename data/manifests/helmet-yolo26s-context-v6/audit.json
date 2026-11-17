@@ -1,0 +1,44 @@
+{
+  "run_id": "helmet-yolo26s-context-v6",
+  "audited_at": "2026-11-17T12:42:44.763128+00:00",
+  "splits": {
+    "train": {
+      "rows": 3746,
+      "unique_source_images": 1276,
+      "source_groups": 169,
+      "annotation_rows_in_manifest_labels": 5926,
+      "manifest_sha256": "2541bfc02ba95d4414da866d7d5110d0a3d7ce055ab65bf0bafa75390041c4ff"
+    },
+    "validation": {
+      "rows": 422,
+      "unique_source_images": 240,
+      "source_groups": 2,
+      "annotation_rows_in_manifest_labels": 358,
+      "manifest_sha256": "64903dcbf28e9dc840e8f937390b1b5c4115ff335c0d46dec2f0158b7a7435a6"
+    },
+    "test": {
+      "rows": 642,
+      "unique_source_images": 240,
+      "source_groups": 10,
+      "annotation_rows_in_manifest_labels": 906,
+      "manifest_sha256": "56ff1c2be103cb97b463434b7016570d6aaa6cece285123a173590e981d0c28a"
+    }
+  },
+  "pairwise_split_overlap": {
+    "train-validation": {
+      "image_hash_overlap": 0,
+      "source_group_overlap": 0
+    },
+    "train-test": {
+      "image_hash_overlap": 0,
+      "source_group_overlap": 0
+    },
+    "validation-test": {
+      "image_hash_overlap": 0,
+      "source_group_overlap": 0
+    }
+  },
+  "verified_files": 13132,
+  "user_video_used_for_training": false,
+  "limitation": "Verifies declared source isolation and file integrity; does not certify completeness or correctness of source annotations."
+}

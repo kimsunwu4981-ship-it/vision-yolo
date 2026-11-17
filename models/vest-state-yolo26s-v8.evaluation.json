@@ -1,0 +1,198 @@
+{
+  "run_id": "vest-state-yolo26s-v8",
+  "checkpoint_sha256": "3bcef8af117a6f99da132eec62e26d946d028d992fb3d6ce4379486a415be447",
+  "evaluated_at": "2026-11-17T13:43:04.251422+00:00",
+  "validation_heads": {
+    "one_to_many": {
+      "nms": true,
+      "classes": {
+        "safety_vest": {
+          "precision": 0.8606480647656393,
+          "recall": 0.8555240793201133,
+          "AP50": 0.9104125860252305,
+          "AP50_95": 0.6197439469407238,
+          "best_F1_threshold": 0.3993993993993994,
+          "fixed_thresholds": {
+            "0.25": {
+              "precision": 0.8147515338121984,
+              "recall": 0.8846930118176577
+            },
+            "0.5": {
+              "precision": 0.9072988285410011,
+              "recall": 0.8040604343720491
+            },
+            "0.7": {
+              "precision": 0.9726584604552038,
+              "recall": 0.6550531764058677
+            },
+            "0.85": {
+              "precision": 1.0,
+              "recall": 0.2053116147308782
+            }
+          }
+        },
+        "bare_torso": {
+          "precision": 0.7343073581741734,
+          "recall": 0.7573277112620727,
+          "AP50": 0.7696251296953258,
+          "AP50_95": 0.36191512203570164,
+          "best_F1_threshold": 0.32432432432432434,
+          "fixed_thresholds": {
+            "0.25": {
+              "precision": 0.6652406395796413,
+              "recall": 0.7973376401312344
+            },
+            "0.5": {
+              "precision": 0.8116094001378993,
+              "recall": 0.6592526690391459
+            },
+            "0.7": {
+              "precision": 0.9074825649471268,
+              "recall": 0.31416744146281517
+            },
+            "0.85": {
+              "precision": 1.0,
+              "recall": 0.0
+            }
+          }
+        }
+      },
+      "aggregate": {
+        "metrics/precision(B)": 0.7974777114699063,
+        "metrics/recall(B)": 0.806425895291093,
+        "metrics/mAP50(B)": 0.8400188578602781,
+        "metrics/mAP50-95(B)": 0.4908295344882127,
+        "fitness": 0.4908295344882127
+      }
+    },
+    "one_to_one": {
+      "nms": false,
+      "classes": {
+        "safety_vest": {
+          "precision": 0.824955107918242,
+          "recall": 0.8626062322946175,
+          "AP50": 0.8946782238054342,
+          "AP50_95": 0.596251939870595,
+          "best_F1_threshold": 0.24024024024024024,
+          "fixed_thresholds": {
+            "0.25": {
+              "precision": 0.8448465383484496,
+              "recall": 0.8561204711495453
+            },
+            "0.5": {
+              "precision": 0.9234895890015484,
+              "recall": 0.7522456356261834
+            },
+            "0.7": {
+              "precision": 0.9692621384456147,
+              "recall": 0.625304412060786
+            },
+            "0.85": {
+              "precision": 0.9904527076801678,
+              "recall": 0.29390934844192623
+            }
+          }
+        },
+        "bare_torso": {
+          "precision": 0.6364496403779164,
+          "recall": 0.6405693950177936,
+          "AP50": 0.6295381531326856,
+          "AP50_95": 0.30269591302428384,
+          "best_F1_threshold": 0.21021021021021022,
+          "fixed_thresholds": {
+            "0.25": {
+              "precision": 0.6638672713886897,
+              "recall": 0.6045981888635676
+            },
+            "0.5": {
+              "precision": 0.7636727688787186,
+              "recall": 0.31049822064056937
+            },
+            "0.7": {
+              "precision": 0.8745711440432238,
+              "recall": 0.12411032028469769
+            },
+            "0.85": {
+              "precision": 1.0,
+              "recall": 0.016651493834312674
+            }
+          }
+        }
+      },
+      "aggregate": {
+        "metrics/precision(B)": 0.7307023741480791,
+        "metrics/recall(B)": 0.7515878136562055,
+        "metrics/mAP50(B)": 0.7621081884690599,
+        "metrics/mAP50-95(B)": 0.44947392644743933,
+        "fitness": 0.44947392644743933
+      }
+    }
+  },
+  "selected_head": "one_to_many",
+  "selected_nms": true,
+  "test": {
+    "nms": true,
+    "classes": {
+      "safety_vest": {
+        "precision": 0.8430704057218708,
+        "recall": 0.8771087049148274,
+        "AP50": 0.9083614987218515,
+        "AP50_95": 0.6028231405036426,
+        "best_F1_threshold": 0.2702702702702703,
+        "fixed_thresholds": {
+          "0.25": {
+            "precision": 0.8198780359368684,
+            "recall": 0.8863131931094966
+          },
+          "0.5": {
+            "precision": 0.90422212744944,
+            "recall": 0.7871720116618076
+          },
+          "0.7": {
+            "precision": 0.9702509158421161,
+            "recall": 0.6369316109112029
+          },
+          "0.85": {
+            "precision": 1.0,
+            "recall": 0.17792165343185753
+          }
+        }
+      },
+      "bare_torso": {
+        "precision": 0.7200812211058113,
+        "recall": 0.7540032848940895,
+        "AP50": 0.8130782613111415,
+        "AP50_95": 0.40765181172641374,
+        "best_F1_threshold": 0.2552552552552553,
+        "fixed_thresholds": {
+          "0.25": {
+            "precision": 0.6998957388716278,
+            "recall": 0.7816091954022989
+          },
+          "0.5": {
+            "precision": 0.859263580150863,
+            "recall": 0.6298012571958934
+          },
+          "0.7": {
+            "precision": 0.9661793646364073,
+            "recall": 0.3283839874357116
+          },
+          "0.85": {
+            "precision": 1.0,
+            "recall": 0.0
+          }
+        }
+      }
+    },
+    "aggregate": {
+      "metrics/precision(B)": 0.7815758134138411,
+      "metrics/recall(B)": 0.8155559949044584,
+      "metrics/mAP50(B)": 0.8607198800164965,
+      "metrics/mAP50-95(B)": 0.5052374761150282,
+      "fitness": 0.5052374761150282
+    }
+  },
+  "user_video_used_for_training": false,
+  "field_acceptance": false,
+  "limitation": "Existing archive development split, sampled annotation review and hash-based grouping; source-site metadata incomplete. Not independent CCTV acceptance."
+}

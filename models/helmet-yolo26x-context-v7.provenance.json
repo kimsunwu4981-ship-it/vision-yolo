@@ -1,0 +1,85 @@
+{
+  "run_id": "helmet-yolo26x-context-v7",
+  "status": "stopped_not_deployed",
+  "started_at": "2026-11-17T12:50:01.342597+00:00",
+  "parameters": {
+    "data": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\data\\derived\\helmet-yolo26s-context-v6\\data.yaml",
+    "epochs": 10,
+    "imgsz": 640,
+    "batch": 12,
+    "device": 0,
+    "workers": 0,
+    "seed": 79,
+    "deterministic": true,
+    "optimizer": "AdamW",
+    "lr0": 0.0005,
+    "warmup_bias_lr": 0.0005,
+    "warmup_epochs": 1,
+    "weight_decay": 0.0001,
+    "freeze": 10,
+    "nms": false,
+    "patience": 10,
+    "project": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\outputs\\training",
+    "name": "helmet-yolo26x-context-v7",
+    "exist_ok": true,
+    "cache": false,
+    "plots": true,
+    "amp": true,
+    "mosaic": 0.0,
+    "mixup": 0.0,
+    "scale": 0.15,
+    "translate": 0.08,
+    "degrees": 25,
+    "shear": 2,
+    "perspective": 0.0002,
+    "fliplr": 0.5,
+    "close_mosaic": 0,
+    "max_det": 300,
+    "verbose": false
+  },
+  "manifest_sha256": {
+    "train": "2541bfc02ba95d4414da866d7d5110d0a3d7ce055ab65bf0bafa75390041c4ff",
+    "validation": "64903dcbf28e9dc840e8f937390b1b5c4115ff335c0d46dec2f0158b7a7435a6",
+    "test": "56ff1c2be103cb97b463434b7016570d6aaa6cece285123a173590e981d0c28a"
+  },
+  "manifest_paths": {
+    "train": "data/manifests/helmet-yolo26s-context-v6/train.json",
+    "validation": "data/manifests/helmet-yolo26s-context-v6/validation.json",
+    "test": "data/manifests/helmet-yolo26s-context-v6/test.json"
+  },
+  "statistics": {
+    "train": {
+      "rows": 3746,
+      "source_images": 1276,
+      "helmets": 5926,
+      "negative_crops": 346
+    },
+    "validation": {
+      "rows": 422,
+      "source_images": 240,
+      "helmets": 358,
+      "negative_crops": 3
+    },
+    "test": {
+      "rows": 642,
+      "source_images": 240,
+      "helmets": 906,
+      "negative_crops": 142
+    }
+  },
+  "initial_weights_sha256": "9fdd44a31c504547ffb81d2c6d9e6dac3493c8eaa8b0398d3f43bae6c7003e92",
+  "initial_weights_source": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26x.pt",
+  "strategy": "Official larger initialization; new one-class helmet head; freeze first 10 layers including BN statistics; same audited existing helmet/nohat labels.",
+  "packages": {
+    "torch": "2.10.0+cu128",
+    "torchvision": "0.25.0+cu128",
+    "ultralytics": "8.4.215"
+  },
+  "gpu": "NVIDIA GeForce RTX 5070 Ti",
+  "user_video_used_for_training": false,
+  "external_dataset_used": false,
+  "field_acceptance": false,
+  "stopped_at": "2026-11-17T13:04:44.227996+00:00",
+  "reason": "Existing additional annotated archive discovered; current context dataset candidate degraded validation and produced false helmet boxes in diagnostic samples. Redirect compute to broader existing labels.",
+  "saved_best_sha256": "9ecc8a5f762e3925205c44dd2bc01ddf801eb4be4adc8bdeb462d9340c042be1"
+}

@@ -4,7 +4,7 @@ from pathlib import Path
 import numpy as np
 from app.common import ROOT,read_json,sha256
 from app.geometry import validate_box
-from app.types import CLASSES,BODY_PART_CLASSES,Detection
+from app.types import CLASSES,BODY_PART_CLASSES,PPE_STATE_CLASSES,Detection
 
 
 class Detector:
@@ -22,7 +22,8 @@ class Detector:
         # Small CUDA inference batches benefit from avoiding CPU thread-pool overhead.
         torch.set_num_threads(max(1,int(self.config.get('inference_cpu_threads',1))))
         registry=read_json(self.registry_path,{"models":[]})
-        chosen=sorted([m for m in registry["models"] if m.get("enabled") and m.get("evaluation_status") in {"development_evaluated","accepted"}],key=lambda m:m.get('role') in {'body_parts','body_pose'})
+        order={'safety_detection':0,'person_detail':1,'ppe_detail':2,'ppe_state':2,'body_parts':3,'body_pose':3}
+        chosen=sorted([m for m in registry["models"] if m.get("enabled") and m.get("evaluation_status") in {"development_evaluated","accepted"}],key=lambda m:order.get(m.get('role','safety_detection'),99))
         if not chosen: self.error="no_newly_trained_evaluated_model";return
         requested=self.config.get("device","auto")
         self.device="cuda:0" if requested!="cpu" and torch.cuda.is_available() else "cpu"
@@ -35,19 +36,24 @@ class Detector:
             model=YOLO(str(path)); model.to(self.device)
             names=set(model.names.values())
             role=record.get('role','safety_detection')
-            if role not in {'safety_detection','body_parts','body_pose'}:raise ValueError('unapproved_model_role')
+            if role not in order:raise ValueError('unapproved_model_role')
             allowed=set(BODY_PART_CLASSES) if role=='body_parts' else ({'person'} if role=='body_pose' else set(CLASSES))
+            if role=='ppe_state':allowed={'helmet','safety_vest',*PPE_STATE_CLASSES}
             if names-allowed: raise ValueError("unapproved_model_class")
             active=set(record.get('active_classes',names))
             if role=='body_pose':
                 if model.task!='pose' or tuple(model.model.kpt_shape)!=(17,3):raise ValueError('invalid_pose_model')
                 if active!=set(BODY_PART_CLASSES):raise ValueError('invalid_pose_regions')
             elif not active or not active.issubset(names):raise ValueError('invalid_active_model_classes')
-            if active & (self.classes|self.auxiliary_classes): raise ValueError("duplicate_class_models_not_supported")
+            if role=='person_detail' and active!={'person'}:raise ValueError('invalid_person_detail_classes')
+            if role=='ppe_detail' and not active.issubset({'helmet','safety_vest'}):raise ValueError('invalid_ppe_detail_classes')
+            if role=='ppe_state' and active not in ({'helmet','bare_head'},{'safety_vest','bare_torso'}):raise ValueError('invalid_ppe_state_classes')
+            if active & (self.classes|self.auxiliary_classes) and role not in {'person_detail','ppe_detail','ppe_state'}: raise ValueError("duplicate_class_models_not_supported")
             policy={'active_classes':sorted(active),'nms':record.get('inference',{}).get('nms',self.config.get('nms',True)),
                 'confidence':float(record.get('inference',{}).get('confidence',self.config.get('confidence',.25))),
                 'imgsz':int(record.get('inference',{}).get('imgsz',self.config.get('imgsz',640))),'role':role,
-                'keypoint_confidence':float(record.get('inference',{}).get('keypoint_confidence',.5))}
+                'keypoint_confidence':float(record.get('inference',{}).get('keypoint_confidence',.5)),
+                'detail':record.get('inference',{}).get('detail',{})}
             if not 0<policy['confidence']<1:raise ValueError('invalid_model_confidence')
             if not isinstance(policy['nms'],bool):raise ValueError('explicit_boolean_head_policy_required')
             # Warm every supported ready-batch size and common source aspect ratio.
@@ -55,19 +61,25 @@ class Detector:
             # not be initialized while other cameras are waiting for observations.
             size=policy['imgsz']
             batch_limit=self.config.get('microbatch',1) if self.device.startswith('cuda') else 1
-            auxiliary=role in {'body_parts','body_pose'}
+            auxiliary=role in {'body_parts','body_pose','ppe_detail','ppe_state'}
             shapes=sorted({(size,size),(int(size*9/16),size),(int(size*3/4),size),(size,int(size*9/16)),(size,int(size*3/4))}) if self.device.startswith('cuda') and not auxiliary else [(size,size)]
-            for height,width in shapes:
+            warmups=[(size,height,width,count) for height,width in shapes for count in range(1,batch_limit+1)]
+            if role=='person_detail':
+                # Detail views only run on landscape sources. Bound expensive
+                # large-model batches independently from the camera microbatch.
+                limit=max(1,min(2,int(policy['detail'].get('microbatch',1)),batch_limit))
+                sizes={size,*map(int,policy['detail'].get('view_imgsz',{}).values())}
+                warmups=[(s,int(s*ratio),s,count) for s in sorted(sizes) for ratio in (1.,9/16,3/4) for count in range(1,limit+1)]
+            for input_size,height,width,count in warmups:
                 sample=np.zeros((height,width,3),dtype=np.uint8)
-                for count in range(1,batch_limit+1):
-                    model.predict([sample]*count,device=self.device,verbose=False,imgsz=size,rect=not auxiliary,nms=policy['nms'],
-                        quantize=16 if self.device.startswith("cuda") and self.config.get("half",True) else 32)
+                model.predict([sample]*count,device=self.device,verbose=False,imgsz=input_size,rect=not auxiliary,nms=policy['nms'],
+                    quantize=16 if self.device.startswith("cuda") and self.config.get("half",True) else 32)
             self.actual_device=str(model.predictor.model.device)
             if self.device.startswith("cuda"):
                 torch.cuda.synchronize()
                 if not self.actual_device.startswith("cuda"): raise RuntimeError("actual_gpu_execution_not_verified")
             self.models.append(model);self.policies.append(policy);self.hashes.append(record["sha256"])
-            self.classes.update(active & set(CLASSES));self.auxiliary_classes.update(active & set(BODY_PART_CLASSES))
+            self.classes.update(active & set(CLASSES));self.auxiliary_classes.update(active & (set(BODY_PART_CLASSES)|set(PPE_STATE_CLASSES)))
             if record["evaluation_status"]!="accepted": self.degraded=True
         self.ready=True;self.provider="PyTorch CUDA" if self.actual_device.startswith("cuda") else "PyTorch CPU"
         if self.classes!=set(CLASSES): self.degraded=True
@@ -78,6 +90,14 @@ class Detector:
     def predict_many(self,frames):
         output=[[] for _ in frames]
         for model,policy in zip(self.models,self.policies):
+            if policy.get('role')=='person_detail':
+                from app.detail_inference import detail_people
+                detail_people(self,model,policy,frames,output)
+                continue
+            if policy.get('role') in {'ppe_detail','ppe_state'}:
+                from app.detail_inference import context_ppe
+                context_ppe(self,model,policy,frames,output)
+                continue
             if policy.get('role') in {'body_parts','body_pose'}:
                 self.predict_body_parts(model,policy,frames,output)
                 continue
@@ -104,15 +124,24 @@ class Detector:
     def predict_body_parts(self,model,policy,frames,output):
         # Person crops are current-frame model detections, never hand-marked boxes.
         jobs=[];limit=max(1,min(16,int(self.config.get('max_body_people_per_frame',8))))
+        detail=policy.get('detail',{})
+        minimum=max(32,int(detail.get('min_person_height',self.config.get('body_min_person_height',90))))
+        median_max=max(0,int(detail.get('median_max_person_height',0)))
         for index,frame in enumerate(frames):
+            filtered=None
             people=sorted((d for d in output[index] if d.class_name=='person'),key=lambda d:-d.confidence)
             for person in people[:limit]:
                 x1,y1,x2,y2=person.xyxy
-                if y2-y1<self.config.get('body_min_person_height',90):continue
+                if y2-y1<minimum:continue
                 margin=max(8,.08*max(x2-x1,y2-y1))
                 left,top=max(0,int(np.floor(x1-margin))),max(0,int(np.floor(y1-margin)))
                 right,bottom=min(frame.source_width,int(np.ceil(x2+margin))),min(frame.source_height,int(np.ceil(y2+margin)))
-                jobs.append((index,left,top,frame.image[top:bottom,left:right]))
+                source=frame.image
+                if median_max and y2-y1<=median_max:
+                    import cv2
+                    if filtered is None:filtered=cv2.medianBlur(frame.image,3)
+                    source=filtered
+                jobs.append((index,left,top,source[top:bottom,left:right]))
         batch_size=max(1,min(4,int(self.config.get('microbatch',1))))
         candidates=[[] for _ in frames]
         for start in range(0,len(jobs),batch_size):
@@ -158,7 +187,8 @@ class Detector:
     def status(self):
         return {"ready":self.ready,"provider":self.provider,"device":self.device,"actual_device":self.actual_device,
                 "classes":sorted(self.classes),"missing_classes":sorted(set(CLASSES)-self.classes),"model_hashes":self.hashes,
-                "body_part_classes":sorted(self.auxiliary_classes),
+                "body_part_classes":sorted(self.auxiliary_classes & set(BODY_PART_CLASSES)),
+                "explicit_ppe_state_classes":sorted(self.auxiliary_classes & set(PPE_STATE_CLASSES)),
                 "body_part_input":"current_frame_person_crops" if self.auxiliary_classes else None,
                 "max_body_people_per_frame":self.config.get('max_body_people_per_frame',8),
                 "degraded":self.degraded,"error":self.error,

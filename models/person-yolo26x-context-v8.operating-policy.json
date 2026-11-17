@@ -1,0 +1,8 @@
+{
+  "run_id": "person-yolo26x-context-v8",
+  "status": "development_evaluated",
+  "reason": "Supplement small people with median 1280 + flipped median 1600; confidence floor .4. Preserve the near-range primary model.",
+  "user_video_used_for_training": false,
+  "field_acceptance": false,
+  "report": "docs/far-cctv-repair-20261117.md"
+}

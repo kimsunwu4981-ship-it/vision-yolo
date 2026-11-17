@@ -5,6 +5,7 @@ import numpy as np
 
 CLASSES = ("person", "helmet", "safety_vest", "forklift")
 BODY_PART_CLASSES = ("head", "torso")
+PPE_STATE_CLASSES = ("bare_head", "bare_torso")
 
 
 @dataclass(frozen=True)
@@ -40,6 +41,7 @@ class Detection:
     last_observed_monotonic: float | None = None
     key: str | None = None
     localization_basis: str | None = None
+    context_person_xyxy: tuple[float, float, float, float] | None = None
 
 
 @dataclass

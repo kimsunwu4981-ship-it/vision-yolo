@@ -45,3 +45,25 @@ def test_pose_crop_offset_restored_once(frame_factory):
         assert np.allclose(region.xyxy,np.array(original[region.class_name])+[68,68,68,68])
         assert region.localization_basis=='pose_landmarks'
         assert region.last_observed_frame==42 and region.last_observed_monotonic==.2
+
+
+def test_small_pose_preprocessing_preserves_near_pixels_and_source(frame_factory):
+    from types import SimpleNamespace
+    import cv2
+    from app.types import Detection
+    from app.inference import Detector
+    frame=frame_factory(.2,width=800,height=600)
+    rng=np.random.default_rng(7);frame.image[:]=rng.integers(0,256,frame.image.shape,dtype=np.uint8)
+    original=frame.image.copy();seen=[]
+    class Localizer:
+        def predict(self,images,**kwargs):
+            seen.extend(images)
+            return [SimpleNamespace(orig_shape=im.shape[:2],keypoints=None) for im in images]
+    detector=Detector({'microbatch':4});detector.device='cpu'
+    out=[[Detection('person',(100,100,140,170),.9),Detection('person',(300,100,400,400),.8),Detection('person',(500,100,520,130),.7)]]
+    detector.predict_body_parts(Localizer(),{'role':'body_pose','imgsz':640,'confidence':.25,'keypoint_confidence':.5,'nms':False,
+        'detail':{'min_person_height':48,'median_max_person_height':180}},[frame],out)
+    assert len(seen)==2
+    assert np.array_equal(seen[0],cv2.medianBlur(original,3)[92:178,92:148])
+    assert np.array_equal(seen[1],original[76:424,276:424])
+    assert np.array_equal(frame.image,original)

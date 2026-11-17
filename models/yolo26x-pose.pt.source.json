@@ -1,0 +1,5 @@
+{
+  "url": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26x-pose.pt",
+  "sha256": "08ed9e01d22a6f248b04f2f9992016aca9a32250b9ab57057d886a09d026700d",
+  "role": "official_pretrained_initialization_only"
+}

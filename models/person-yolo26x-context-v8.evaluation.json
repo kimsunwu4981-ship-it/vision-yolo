@@ -1,0 +1,198 @@
+{
+  "run_id": "person-yolo26x-context-v8",
+  "checkpoint_sha256": "61c99bc49a35988268ef7876b0380cea9516ee59008c34f1a3971fd962a170b4",
+  "evaluated_at": "2026-11-17T12:30:36.863668+00:00",
+  "kind": "person",
+  "validation_heads": {
+    "one_to_many": {
+      "classes": {
+        "person": {
+          "precision": 0.9445338016923056,
+          "recall": 0.9378238341968912,
+          "AP50": 0.9145950270343939,
+          "AP50_95": 0.31203223358700244
+        }
+      },
+      "aggregate": {
+        "metrics/precision(B)": 0.9445338016923056,
+        "metrics/recall(B)": 0.9378238341968912,
+        "metrics/mAP50(B)": 0.9145950270343939,
+        "metrics/mAP50-95(B)": 0.31203223358700244,
+        "fitness": 0.31203223358700244
+      },
+      "nms": true,
+      "precision_bits": 16,
+      "fixed_confidence_025": {
+        "person": {
+          "precision": 0.9209726352348575,
+          "recall": 0.9378238341968912,
+          "iou": 0.5
+        }
+      },
+      "operating_point": {
+        "confidence": 0.8598598598598598,
+        "macro_f1": 0.9431397494644048,
+        "basis": "unchanged native validation groups bbox macro F1; not video/test"
+      },
+      "class_operating_points": {
+        "person": {
+          "confidence": 0.8598598598598598,
+          "F1": 0.9431397494644048
+        }
+      }
+    },
+    "one_to_one": {
+      "classes": {
+        "person": {
+          "precision": 0.9526160022899047,
+          "recall": 0.9222797927461139,
+          "AP50": 0.9141452251918049,
+          "AP50_95": 0.30919939943934777
+        }
+      },
+      "aggregate": {
+        "metrics/precision(B)": 0.9526160022899047,
+        "metrics/recall(B)": 0.9222797927461139,
+        "metrics/mAP50(B)": 0.9141452251918049,
+        "metrics/mAP50-95(B)": 0.30919939943934777,
+        "fitness": 0.30919939943934777
+      },
+      "nms": false,
+      "precision_bits": 16,
+      "fixed_confidence_025": {
+        "person": {
+          "precision": 0.91166864236943,
+          "recall": 0.9398963730569948,
+          "iou": 0.5
+        }
+      },
+      "operating_point": {
+        "confidence": 0.8768768768768769,
+        "macro_f1": 0.9377863597893771,
+        "basis": "unchanged native validation groups bbox macro F1; not video/test"
+      },
+      "class_operating_points": {
+        "person": {
+          "confidence": 0.8768768768768769,
+          "F1": 0.9377863597893771
+        }
+      }
+    }
+  },
+  "selected_head": "one_to_many",
+  "selected_nms": true,
+  "selected_operating_point": {
+    "confidence": 0.8598598598598598,
+    "macro_f1": 0.9431397494644048,
+    "basis": "unchanged native validation groups bbox macro F1; not video/test"
+  },
+  "head_selection_reason": "Keep NMS and compare existing native validation; long-range diagnostic video is not independent acceptance.",
+  "diagnostic_video_used_for_head_policy": true,
+  "mixed_test": {
+    "classes": {
+      "person": {
+        "precision": 0.9331479638385008,
+        "recall": 0.9324254113833272,
+        "AP50": 0.9357800108816421,
+        "AP50_95": 0.48978159504121727
+      }
+    },
+    "aggregate": {
+      "metrics/precision(B)": 0.9331479638385008,
+      "metrics/recall(B)": 0.9324254113833272,
+      "metrics/mAP50(B)": 0.9357800108816421,
+      "metrics/mAP50-95(B)": 0.48978159504121727,
+      "fitness": 0.48978159504121727
+    },
+    "nms": true,
+    "precision_bits": 16,
+    "fixed_confidence_025": {
+      "person": {
+        "precision": 0.8891154806079364,
+        "recall": 0.9412187198760346,
+        "iou": 0.5
+      }
+    }
+  },
+  "native_test": {
+    "classes": {
+      "person": {
+        "precision": 0.9331479638385008,
+        "recall": 0.9324254113833272,
+        "AP50": 0.9357800108816421,
+        "AP50_95": 0.48978159504121727
+      }
+    },
+    "aggregate": {
+      "metrics/precision(B)": 0.9331479638385008,
+      "metrics/recall(B)": 0.9324254113833272,
+      "metrics/mAP50(B)": 0.9357800108816421,
+      "metrics/mAP50-95(B)": 0.48978159504121727,
+      "fitness": 0.48978159504121727
+    },
+    "nms": true,
+    "precision_bits": 16,
+    "fixed_confidence_025": {
+      "person": {
+        "precision": 0.8891154806079364,
+        "recall": 0.9412187198760346,
+        "iou": 0.5
+      }
+    }
+  },
+  "user_video_used_for_training": false,
+  "field_acceptance": false,
+  "limitation": "Synthetic composites have correlated source objects. Native development test has been inspected for previous candidates; not independent acceptance.",
+  "baseline_native_test": {
+    "classes": {
+      "person": {
+        "precision": 0.926102327725948,
+        "recall": 0.8770875083500334,
+        "AP50": 0.9345687045785489,
+        "AP50_95": 0.5535307256242362
+      }
+    },
+    "aggregate": {
+      "metrics/precision(B)": 0.926102327725948,
+      "metrics/recall(B)": 0.8770875083500334,
+      "metrics/mAP50(B)": 0.9345687045785489,
+      "metrics/mAP50-95(B)": 0.5535307256242362,
+      "fitness": 0.5535307256242362
+    },
+    "nms": true,
+    "precision_bits": 16,
+    "fixed_confidence_025": {
+      "person": {
+        "precision": 0.8783699613305948,
+        "recall": 0.8984748924333977,
+        "iou": 0.5
+      }
+    }
+  },
+  "baseline_mixed_test": {
+    "classes": {
+      "person": {
+        "precision": 0.926102327725948,
+        "recall": 0.8770875083500334,
+        "AP50": 0.9345687045785489,
+        "AP50_95": 0.5535307256242362
+      }
+    },
+    "aggregate": {
+      "metrics/precision(B)": 0.926102327725948,
+      "metrics/recall(B)": 0.8770875083500334,
+      "metrics/mAP50(B)": 0.9345687045785489,
+      "metrics/mAP50-95(B)": 0.5535307256242362,
+      "fitness": 0.5535307256242362
+    },
+    "nms": true,
+    "precision_bits": 16,
+    "fixed_confidence_025": {
+      "person": {
+        "precision": 0.8783699613305948,
+        "recall": 0.8984748924333977,
+        "iou": 0.5
+      }
+    }
+  }
+}

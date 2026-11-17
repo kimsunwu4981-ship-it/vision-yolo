@@ -1,0 +1,70 @@
+{
+  "run_id": "head-state-yolo26s-v8",
+  "status": "completed",
+  "started_at": "2026-11-17T13:15:50.278225+00:00",
+  "parameters": {
+    "data": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\data\\derived\\head-state-yolo26s-v8\\data.yaml",
+    "epochs": 12,
+    "imgsz": 640,
+    "batch": 24,
+    "device": 0,
+    "workers": 0,
+    "seed": 83,
+    "deterministic": true,
+    "optimizer": "AdamW",
+    "lr0": 0.0002,
+    "warmup_bias_lr": 0.0002,
+    "warmup_epochs": 1,
+    "weight_decay": 0.0001,
+    "freeze": 6,
+    "nms": false,
+    "patience": 12,
+    "project": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\outputs\\training",
+    "name": "head-state-yolo26s-v8",
+    "exist_ok": true,
+    "cache": false,
+    "plots": true,
+    "amp": true,
+    "mosaic": 0.1,
+    "mixup": 0.0,
+    "scale": 0.25,
+    "translate": 0.08,
+    "degrees": 15,
+    "fliplr": 0.5,
+    "close_mosaic": 3,
+    "max_det": 300,
+    "verbose": false
+  },
+  "manifest_sha256": {
+    "train": "22028bc19a8957c66216c90b131055aac38b9aba01f29a5b2e1f4c35ed58c04b",
+    "validation": "e8e1df7385d492f5fe33df8b46a206ac6f1ea916ab95d9d6aebe2c6174a850e9",
+    "test": "2a233524970c0a99aaa9e29c6ca6f3a69ad432c23dafbd7edc32c223ba7c3620"
+  },
+  "manifest_paths": {
+    "train": "data\\manifests\\head-state-yolo26s-v8\\train.json",
+    "validation": "data\\manifests\\head-state-yolo26s-v8\\validation.json",
+    "test": "data\\manifests\\head-state-yolo26s-v8\\test.json"
+  },
+  "initial_weights_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+  "initial_weights_source": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26s.pt",
+  "parent_checkpoint_sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+  "parent_run_id": "ppe-yolo26s-v2",
+  "strategy": "Retain project PPE positive class row; learn explicit existing bare-head/bare-torso labels. Native archive images; early feature layers and BN statistics frozen.",
+  "class_names": [
+    "helmet",
+    "bare_head"
+  ],
+  "packages": {
+    "torch": "2.10.0+cu128",
+    "torchvision": "0.25.0+cu128",
+    "ultralytics": "8.4.215"
+  },
+  "gpu": "NVIDIA GeForce RTX 5070 Ti",
+  "user_video_used_for_training": false,
+  "new_external_download": false,
+  "field_acceptance": false,
+  "completed_at": "2026-11-17T13:32:24.701006+00:00",
+  "checkpoint": "outputs\\training\\head-state-yolo26s-v8\\weights\\best.pt",
+  "checkpoint_sha256": "11fabaa10f295fe36997821d93689e3280a3a181589b940f74959b7b92b666c4",
+  "checkpoint_selection": "existing archive development validation fitness"
+}

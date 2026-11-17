@@ -1,0 +1,198 @@
+{
+  "run_id": "head-state-yolo26s-v8",
+  "checkpoint_sha256": "11fabaa10f295fe36997821d93689e3280a3a181589b940f74959b7b92b666c4",
+  "evaluated_at": "2026-11-17T13:33:17.989976+00:00",
+  "validation_heads": {
+    "one_to_many": {
+      "nms": true,
+      "classes": {
+        "helmet": {
+          "precision": 0.9568983620714919,
+          "recall": 0.9213698630136986,
+          "AP50": 0.9749758513929269,
+          "AP50_95": 0.6606212498146138,
+          "best_F1_threshold": 0.42542542542542544,
+          "fixed_thresholds": {
+            "0.25": {
+              "precision": 0.915626964401162,
+              "recall": 0.9441095890410959
+            },
+            "0.5": {
+              "precision": 0.9743477186313867,
+              "recall": 0.8962662662662663
+            },
+            "0.7": {
+              "precision": 0.9957696790183572,
+              "recall": 0.7738815185048064
+            },
+            "0.85": {
+              "precision": 0.9986414334162903,
+              "recall": 0.20142465753424643
+            }
+          }
+        },
+        "bare_head": {
+          "precision": 0.9033206569124506,
+          "recall": 0.9108378170637971,
+          "AP50": 0.9411657371854822,
+          "AP50_95": 0.6302651540155333,
+          "best_F1_threshold": 0.39039039039039036,
+          "fixed_thresholds": {
+            "0.25": {
+              "precision": 0.8672384752405681,
+              "recall": 0.9288825445627906
+            },
+            "0.5": {
+              "precision": 0.9202696542627766,
+              "recall": 0.8871850755871594
+            },
+            "0.7": {
+              "precision": 0.9547844178251015,
+              "recall": 0.7628477439776441
+            },
+            "0.85": {
+              "precision": 0.9857692217962764,
+              "recall": 0.2048039969254419
+            }
+          }
+        }
+      },
+      "aggregate": {
+        "metrics/precision(B)": 0.9301095094919712,
+        "metrics/recall(B)": 0.9161038400387478,
+        "metrics/mAP50(B)": 0.9580707942892046,
+        "metrics/mAP50-95(B)": 0.6454432019150736,
+        "fitness": 0.6454432019150736
+      }
+    },
+    "one_to_one": {
+      "nms": false,
+      "classes": {
+        "helmet": {
+          "precision": 0.9370229248994197,
+          "recall": 0.9087671232876713,
+          "AP50": 0.9669868364312009,
+          "AP50_95": 0.6518957577322314,
+          "best_F1_threshold": 0.3983983983983984,
+          "fixed_thresholds": {
+            "0.25": {
+              "precision": 0.9031353187636185,
+              "recall": 0.927945205479452
+            },
+            "0.5": {
+              "precision": 0.9677226297599981,
+              "recall": 0.8706849315068493
+            },
+            "0.7": {
+              "precision": 0.989891479672404,
+              "recall": 0.7780459020664501
+            },
+            "0.85": {
+              "precision": 0.9989036420020205,
+              "recall": 0.4992465753424657
+            }
+          }
+        },
+        "bare_head": {
+          "precision": 0.9030220337322791,
+          "recall": 0.8875027987249355,
+          "AP50": 0.9204428559721145,
+          "AP50_95": 0.610047497850043,
+          "best_F1_threshold": 0.35235235235235235,
+          "fixed_thresholds": {
+            "0.25": {
+              "precision": 0.857900594634296,
+              "recall": 0.9108378170637971
+            },
+            "0.5": {
+              "precision": 0.9244161222526264,
+              "recall": 0.8366641045349732
+            },
+            "0.7": {
+              "precision": 0.9448418473608938,
+              "recall": 0.7030692952752907
+            },
+            "0.85": {
+              "precision": 0.972609644953206,
+              "recall": 0.3821291314373558
+            }
+          }
+        }
+      },
+      "aggregate": {
+        "metrics/precision(B)": 0.9200224793158494,
+        "metrics/recall(B)": 0.8981349610063034,
+        "metrics/mAP50(B)": 0.9437148462016577,
+        "metrics/mAP50-95(B)": 0.6309716277911372,
+        "fitness": 0.6309716277911372
+      }
+    }
+  },
+  "selected_head": "one_to_many",
+  "selected_nms": true,
+  "test": {
+    "nms": true,
+    "classes": {
+      "helmet": {
+        "precision": 0.9568831183115267,
+        "recall": 0.9096419903901656,
+        "AP50": 0.9707259142958403,
+        "AP50_95": 0.6573575582196655,
+        "best_F1_threshold": 0.37237237237237236,
+        "fixed_thresholds": {
+          "0.25": {
+            "precision": 0.9176427470461399,
+            "recall": 0.938424106307318
+          },
+          "0.5": {
+            "precision": 0.9671733438694351,
+            "recall": 0.8933183604716451
+          },
+          "0.7": {
+            "precision": 0.9926307421391108,
+            "recall": 0.7561117827541186
+          },
+          "0.85": {
+            "precision": 1.0,
+            "recall": 0.18425042111173484
+          }
+        }
+      },
+      "bare_head": {
+        "precision": 0.931790023448685,
+        "recall": 0.9202279202279202,
+        "AP50": 0.9504682596642308,
+        "AP50_95": 0.6519925139039039,
+        "best_F1_threshold": 0.44844844844844844,
+        "fixed_thresholds": {
+          "0.25": {
+            "precision": 0.8829375254753207,
+            "recall": 0.9430199430199431
+          },
+          "0.5": {
+            "precision": 0.9421538200727799,
+            "recall": 0.9063301192930823
+          },
+          "0.7": {
+            "precision": 0.9738994663101441,
+            "recall": 0.7812678062678065
+          },
+          "0.85": {
+            "precision": 0.975291148950337,
+            "recall": 0.22492877492877492
+          }
+        }
+      }
+    },
+    "aggregate": {
+      "metrics/precision(B)": 0.9443365708801059,
+      "metrics/recall(B)": 0.9149349553090429,
+      "metrics/mAP50(B)": 0.9605970869800355,
+      "metrics/mAP50-95(B)": 0.6546750360617847,
+      "fitness": 0.6546750360617847
+    }
+  },
+  "user_video_used_for_training": false,
+  "field_acceptance": false,
+  "limitation": "Existing archive development split, sampled annotation review and hash-based grouping; source-site metadata incomplete. Not independent CCTV acceptance."
+}

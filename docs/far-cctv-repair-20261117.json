@@ -1,0 +1,414 @@
+{
+  "created_at": "2026-11-17T14:13:06.756650+00:00",
+  "status": "partial_field_repair_not_field_acceptance",
+  "user_video_used_for_training": false,
+  "existing_labeled_data_only": true,
+  "field_accuracy_evaluated": false,
+  "implemented": [
+    "supplementary newly trained person model with bounded median views",
+    "existing archive helmet/bare-head model on actual person crops",
+    "unique direct PPE association without requiring face landmarks",
+    "small-person pose inference without weakening PPE absence gate"
+  ],
+  "unresolved": [
+    "some small and occluded people still missed or partially localized",
+    "far-field PPE final states remain unknown; no reliable NO-VEST",
+    "prediction counts are not accuracy or recall",
+    "not real-camera/laptop/event acceptance"
+  ],
+  "registry_sha256": "bca0150d4b59446f744f95010ee8aaf7df0da82e71d600de6178b9e907ea339c",
+  "tested_candidate_registry_sha256": "7cdf93765199346125347350367602398de94a2a709691f88452e3300fd1cd0d",
+  "models": [
+    {
+      "run_id": "person-yolo26s-scale-v7",
+      "sha256": "3bd15c733eed1a9aa033719d2da2b3c889501f14c15ac1e668a6f2be5bcbcec9",
+      "inference": {
+        "nms": true,
+        "confidence": 0.25,
+        "head_basis": "Preserve NMS duplicate suppression after two near-identical person boxes appeared in full diagnostic replay; validation metrics for both heads are retained. Video is diagnostic, not a blind test.",
+        "threshold_basis": "existing person display threshold retained"
+      },
+      "evaluation_status": "development_evaluated"
+    },
+    {
+      "run_id": "ppe-yolo26s-v2",
+      "sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+      "inference": {
+        "nms": true,
+        "confidence": 0.5365365365365365,
+        "threshold_basis": "existing validation-only bbox F1 selection; operational event acceptance remains unverified"
+      },
+      "evaluation_status": "development_evaluated"
+    },
+    {
+      "run_id": "body-pose-yolo26n-v2",
+      "sha256": "f6db8b1b1eb46c639a1136a8406fc4f0a3b425cad837e5ff8a1385bb701bfe6c",
+      "inference": {
+        "nms": false,
+        "confidence": 0.25,
+        "keypoint_confidence": 0.5,
+        "imgsz": 640,
+        "input": "current_frame_person_crops",
+        "threshold_basis": "explicit conservative development thresholds; not calibrated keypoint probabilities",
+        "output": "head/torso ROI estimates from visible landmarks; no part detector AP claim",
+        "detail": {
+          "min_person_height": 48,
+          "median_max_person_height": 180
+        }
+      },
+      "evaluation_status": "development_evaluated"
+    },
+    {
+      "run_id": "person-yolo26x-context-v8",
+      "sha256": "61c99bc49a35988268ef7876b0380cea9516ee59008c34f1a3971fd962a170b4",
+      "inference": {
+        "confidence": 0.4,
+        "nms": true,
+        "imgsz": 1280,
+        "detail": {
+          "views": [
+            "median",
+            "median_flip"
+          ],
+          "view_imgsz": {
+            "median_flip": 1600
+          },
+          "microbatch": 1,
+          "min_source_width": 1000,
+          "min_person_height": 24,
+          "max_person_height": 180,
+          "tracking_low_confidence": 0.4
+        },
+        "threshold_basis": "Small-object diagnostic operating policy; existing development data only; not field acceptance"
+      },
+      "evaluation_status": "development_evaluated"
+    },
+    {
+      "run_id": "head-state-yolo26s-v8",
+      "sha256": "11fabaa10f295fe36997821d93689e3280a3a181589b940f74959b7b92b666c4",
+      "inference": {
+        "confidence": 0.5,
+        "nms": true,
+        "imgsz": 640,
+        "detail": {
+          "min_person_height": 32,
+          "max_person_height": 180,
+          "crop_margins": [
+            0.6,
+            1.0,
+            2.0
+          ],
+          "max_people": 12,
+          "person_confidence": 0.25
+        },
+        "threshold_basis": "Detection .5; direct positive/explicit negative state .7 plus unique assignment and temporal confirmation. Bare-torso validation recall is zero at .85; .7 retains evidence with validation precision above .90."
+      },
+      "evaluation_status": "development_evaluated"
+    }
+  ],
+  "unit_contract_checks": {
+    "passed": 63,
+    "warning": "Starlette testclient httpx deprecation; no test failures"
+  },
+  "http_integration": {
+    "started_at": "2026-11-17T14:08:43.371450+00:00",
+    "fixture": "generated still-photo videos, not real surveillance video",
+    "checks": {
+      "actual_cuda_model": true,
+      "partial_model_not_operational_ready": true,
+      "four_mjpeg_actual_model_frames": true,
+      "stopped_camera_isolation": true,
+      "restart_new_session": true,
+      "roi_save_reload": true,
+      "actual_model_event_ack": true,
+      "evidence_http_and_video_decode": true,
+      "websocket_reconnect": true
+    },
+    "passed": true
+  },
+  "accident": {
+    "before": {
+      "frames": 1092,
+      "person_frames": 28,
+      "multi_person_frames": 5,
+      "maximum_simultaneous_person_boxes": 2,
+      "person_observations": 33,
+      "observations": {
+        "person": 33,
+        "torso": 9
+      },
+      "ppe_states": {
+        "helmet": {
+          "unknown": 14
+        },
+        "safety_vest": {
+          "unknown": 14
+        }
+      },
+      "ppe_candidates": {
+        "helmet": {
+          "unknown": 14
+        },
+        "safety_vest": {
+          "unknown": 14
+        }
+      },
+      "three_box_frames": 0,
+      "person_with_head_and_torso_boxes_frames": 0,
+      "processing_ms": {
+        "mean": 11.755858699901152,
+        "p95": 17.863155019585975
+      },
+      "field_accuracy_evaluated": false,
+      "limitation": "Counts include prediction errors and are not accuracy/recall or unique-person counts. Processing excludes decode/load/render; concurrent workloads, if any, affect timing."
+    },
+    "after": {
+      "frames": 1092,
+      "person_frames": 683,
+      "multi_person_frames": 459,
+      "maximum_simultaneous_person_boxes": 7,
+      "person_observations": 1912,
+      "observations": {
+        "torso": 488,
+        "person": 1912,
+        "helmet": 696,
+        "head": 135
+      },
+      "ppe_states": {
+        "helmet": {
+          "unknown": 1842
+        },
+        "safety_vest": {
+          "unknown": 1842
+        }
+      },
+      "ppe_candidates": {
+        "helmet": {
+          "unknown": 1650,
+          "equipped": 187,
+          "missing": 5
+        },
+        "safety_vest": {
+          "unknown": 1822,
+          "missing": 20
+        }
+      },
+      "three_box_frames": 0,
+      "person_with_head_and_torso_boxes_frames": 0,
+      "processing_ms": {
+        "mean": 159.06220585966634,
+        "p95": 249.85432000539737
+      },
+      "field_accuracy_evaluated": false,
+      "limitation": "Counts include prediction errors and are not accuracy/recall or unique-person counts. Processing excludes decode/load/render; concurrent workloads, if any, affect timing."
+    },
+    "video_qa": {
+      "source_sha256_unchanged": "677ca613f67ab47455a23f911f3d9f3c1ca1a4011277b54c6024f7867c822cb6",
+      "before_video_sha256": "3818c07c1c038afdd71dab818e81afab6341b4b2ef2d173c1e14513a3995b9bb",
+      "videos": {
+        "crane-accident-analyzed.mp4": {
+          "frames": 1092,
+          "width": 1280,
+          "height": 720,
+          "duration_s": 45.97,
+          "audio_streams": 1,
+          "pts_increasing": true,
+          "sha256": "4fe3957c51d4373670c38851e0e6e11a0ca5125210ab4bd49989358be75fd341"
+        },
+        "crane-accident-before-after.mp4": {
+          "frames": 1092,
+          "width": 2560,
+          "height": 720,
+          "duration_s": 45.97,
+          "audio_streams": 1,
+          "pts_increasing": true,
+          "sha256": "0c8934aaf333b9d26d89976048001ca6795248274f4c6070cd2b45b05ddfe256"
+        }
+      }
+    },
+    "input": {
+      "camera_id": "cam1",
+      "path": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\크레인 재해.mp4",
+      "sha256": "677ca613f67ab47455a23f911f3d9f3c1ca1a4011277b54c6024f7867c822cb6"
+    },
+    "run_manifest_sha256": "cb3756d9c6f6435169c6854558b725c6a2098e908be6cfbbd7e0a0167699fe62",
+    "tracks_sha256": "d3b41569606af45637e3d24db3640ee305fe075013fd9fd8aaae1a4eb53f2232"
+  },
+  "inspection": {
+    "before": {
+      "frames": 546,
+      "person_frames": 546,
+      "multi_person_frames": 0,
+      "maximum_simultaneous_person_boxes": 1,
+      "person_observations": 546,
+      "observations": {
+        "torso": 546,
+        "head": 514,
+        "person": 546,
+        "helmet": 20
+      },
+      "ppe_states": {
+        "helmet": {
+          "unknown": 128,
+          "missing": 418
+        },
+        "safety_vest": {
+          "unknown": 36,
+          "missing": 510
+        }
+      },
+      "ppe_candidates": {
+        "helmet": {
+          "missing": 494,
+          "unknown": 32,
+          "equipped": 20
+        },
+        "safety_vest": {
+          "missing": 546
+        }
+      },
+      "three_box_frames": 418,
+      "person_with_head_and_torso_boxes_frames": 438,
+      "processing_ms": {
+        "mean": 18.98282252782154,
+        "p95": 19.823274968075566
+      },
+      "field_accuracy_evaluated": false,
+      "limitation": "Counts include prediction errors and are not accuracy/recall or unique-person counts. Processing excludes decode/load/render; concurrent workloads, if any, affect timing."
+    },
+    "after": {
+      "frames": 546,
+      "person_frames": 546,
+      "multi_person_frames": 0,
+      "maximum_simultaneous_person_boxes": 1,
+      "person_observations": 546,
+      "observations": {
+        "torso": 546,
+        "head": 514,
+        "person": 546,
+        "helmet": 20
+      },
+      "ppe_states": {
+        "helmet": {
+          "unknown": 128,
+          "missing": 418
+        },
+        "safety_vest": {
+          "unknown": 36,
+          "missing": 510
+        }
+      },
+      "ppe_candidates": {
+        "helmet": {
+          "missing": 494,
+          "unknown": 32,
+          "equipped": 20
+        },
+        "safety_vest": {
+          "missing": 546
+        }
+      },
+      "three_box_frames": 418,
+      "person_with_head_and_torso_boxes_frames": 438,
+      "processing_ms": {
+        "mean": 53.75081520154902,
+        "p95": 67.09702502121218
+      },
+      "field_accuracy_evaluated": false,
+      "limitation": "Counts include prediction errors and are not accuracy/recall or unique-person counts. Processing excludes decode/load/render; concurrent workloads, if any, affect timing."
+    },
+    "video_qa": {
+      "source_sha256_unchanged": "5b20c7c4175b7db1fd6482cd48ce68bdfacf4d7b615098c90c5885964cee5cd1",
+      "before_video_sha256": "d3a8ecf3d95d319b5547195431e18f2f93b0da5f8113a9e95324693718bb8d44",
+      "videos": {
+        "crane-inspection-analyzed.mp4": {
+          "frames": 546,
+          "width": 720,
+          "height": 1280,
+          "duration_s": 22.75,
+          "audio_streams": 1,
+          "pts_increasing": true,
+          "sha256": "d3a8ecf3d95d319b5547195431e18f2f93b0da5f8113a9e95324693718bb8d44"
+        },
+        "crane-inspection-before-after.mp4": {
+          "frames": 546,
+          "width": 1440,
+          "height": 1280,
+          "duration_s": 22.75,
+          "audio_streams": 1,
+          "pts_increasing": true,
+          "sha256": "abeb514899c9e223427d1eee35717523a5766782c598b04fadeae3807370a431"
+        }
+      }
+    },
+    "input": {
+      "camera_id": "cam1",
+      "path": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\크레인 점검.mp4",
+      "sha256": "5b20c7c4175b7db1fd6482cd48ce68bdfacf4d7b615098c90c5885964cee5cd1"
+    },
+    "run_manifest_sha256": "fd4512266cef7684649a4d450e02855ff9adca67ead766aa07cde9cf70c8aa41",
+    "tracks_sha256": "8a663f4f05a14d3efb0e047f1c210c375b1c37cd6b07fa0f01ddcc894730967f"
+  },
+  "source_code_sha256": {
+    "app\\__init__.py": "c9a720d8283d9d0b713e282cebace98c50061e50b927928c9983d2b6c945ec89",
+    "app\\api.py": "75bcbb876c88f71f9886913438f84cfd3a89a43d9007a6e646a6ceb01d6a28b8",
+    "app\\body_parts.py": "577072cba73e84b59ad1acc2b2b4f50bbfe9b4336acd1b8424e7dafd2224b1dc",
+    "app\\capture.py": "10504f8d1ddc8cc66f07b6cfd1695426d945c26133358c0efc21167331b6cf09",
+    "app\\common.py": "1af58ab0448c7e56b2b35ebf1631bb89711a52ce7961ab678aef484e1af76f04",
+    "app\\config.py": "cd99e9ee97da93af9c58daa0b5c136b61256b3312ffb3dff6ae81f42a9e2f865",
+    "app\\detail_inference.py": "5a691a8c60e884de4ac03089add1bae400a2a160326425043f31942b81780651",
+    "app\\events.py": "240db231427768e485bd67f82a77b824315fca71d8ac64045c05390b75ee0caa",
+    "app\\geometry.py": "dff90a82af6c82f837e817300da4bda0f1969553b6d616cd2b6ac042a85e8792",
+    "app\\inference.py": "09af002049ac47fe400d7a0cf12054269bef71fa6d49fc6d6edcc1a5571336a8",
+    "app\\main.py": "6042a0c436485d79ffe7be5594ea83f06faa790c4cf0901366f436a377339e0c",
+    "app\\monitoring.py": "c079ffb9cf20c139c077b6a8724d269245c29b023ca1ba3b014672cb2efdda04",
+    "app\\orientation.py": "5cbc99e3d68cc50c2dc2555ed6d9c21015627b35fb83949f77245e9c3976aa8a",
+    "app\\pose_regions.py": "5ccb15b74578bc3a604b8d459cf5101e06eec66f5145ab11a4d7638d58a30bc1",
+    "app\\ppe.py": "f3225fa4f22470b83f869eb6ab3187737429d49c2a3f8a096a076b88f08206cb",
+    "app\\rules.py": "f9e598da2f79c576e433a42c3d59f3b4870ce419772ff8975619b3a368a7536a",
+    "app\\runtime.py": "f1191dddbd009c77611a86344ff67efc03a896c163138b27f4b65d6c7830228c",
+    "app\\storage.py": "0e1c6b62b1114a09639ebb02b8c66d9169ab0b2cd7b866cbfc002bb8109a30de",
+    "app\\tracking.py": "759b594d563d32ad31af0a8a858d1a61e23409b9b693df69f7c78b7009adf942",
+    "app\\types.py": "7b6cf6a2dcf1d80276010ff1d30e79d7823ff2006bbefed8a74604e24f54d957"
+  },
+  "four_channel_replay": {
+    "path": "outputs\\benchmarks\\run-2026-11-17T141102-119925+0000",
+    "seconds": 45,
+    "source": "same industrial user file replayed four times",
+    "physical_cameras": false,
+    "browser_connected": false,
+    "channels": {
+      "cam1": {
+        "mean_inference_fps": 2.01,
+        "maximum_queue": 1,
+        "maximum_observation_age_s": 1.407,
+        "final_p95_decode_to_encoded_ms": 926.50000002468,
+        "final_drops": 2771
+      },
+      "cam2": {
+        "mean_inference_fps": 2.0102857142857142,
+        "maximum_queue": 1,
+        "maximum_observation_age_s": 1.407,
+        "final_p95_decode_to_encoded_ms": 922.0000000204891,
+        "final_drops": 2773
+      },
+      "cam3": {
+        "mean_inference_fps": 2.0102857142857142,
+        "maximum_queue": 1,
+        "maximum_observation_age_s": 1.454,
+        "final_p95_decode_to_encoded_ms": 922.0000000204891,
+        "final_drops": 2772
+      },
+      "cam4": {
+        "mean_inference_fps": 2.0108571428571427,
+        "maximum_queue": 1,
+        "maximum_observation_age_s": 1.407,
+        "final_p95_decode_to_encoded_ms": 922.0000000204891,
+        "final_drops": 2775
+      }
+    },
+    "peak_process_ram_gb": 3.507,
+    "peak_vram_gb": 10.276,
+    "acceptance": false
+  }
+}

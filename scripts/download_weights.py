@@ -4,7 +4,7 @@ import urllib.request
 from app.common import ROOT,sha256,write_json
 
 if __name__=="__main__":
-    p=argparse.ArgumentParser();p.add_argument("--model",choices=["yolo26s.pt","yolo26n.pt","yolo26n-pose.pt","yolo11s.pt"],default="yolo26s.pt");a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument("--model",choices=["yolo26s.pt","yolo26n.pt","yolo26x.pt","yolo26n-pose.pt","yolo26x-pose.pt","yolo11s.pt","yolo11x.pt"],default="yolo26s.pt");a=p.parse_args()
     url="https://github.com/ultralytics/assets/releases/download/v8.4.0/"+a.model
     target=ROOT/"models"/a.model;target.parent.mkdir(parents=True,exist_ok=True)
     if not target.exists():

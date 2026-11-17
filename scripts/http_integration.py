@@ -28,7 +28,9 @@ def run():
     process=subprocess.Popen([sys.executable,"-m","app.main"],cwd=ROOT,env=environment,stdout=log,stderr=log)
     client=httpx.Client(base_url="http://127.0.0.1:8766",timeout=8,trust_env=False)
     try:
-        deadline=time.monotonic()+90
+        # Detail-model CUDA warmup covers large landscape shapes and can take
+        # several minutes on first load; this is not steady-state latency.
+        deadline=time.monotonic()+300
         while time.monotonic()<deadline:
             try:
                 state=client.get('/api/system').json()

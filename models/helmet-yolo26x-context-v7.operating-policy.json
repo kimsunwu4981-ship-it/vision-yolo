@@ -1,0 +1,8 @@
+{
+  "run_id": "helmet-yolo26x-context-v7",
+  "status": "stopped_not_deployed",
+  "reason": "Stopped after validation collapse and helmet false positives on legs/structures.",
+  "user_video_used_for_training": false,
+  "field_acceptance": false,
+  "report": "docs/far-cctv-repair-20261117.md"
+}

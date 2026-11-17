@@ -13,6 +13,20 @@ been independently verified. No source images or videos are distributed in Git.
 The local warehouse incomplete archive and unlabeled/overlaid field photographs
 are excluded from training. Their original licenses are not asserted here.
 
+Additional existing local labeled archives (no dataset download in this task):
+Hard Hat Workers v10, provided by Northeastern University - China:
+https://universe.roboflow.com/object-detection/hard-hat-workers
+https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/7CBGOS
+Archive README declares Public Domain. Existing helmet/head rectangles are
+converted to helmet/bare_head; person-only incomplete head annotations are excluded.
+Safety Vests v7, Roboflow Universe Projects:
+https://universe.roboflow.com/roboflow-universe-projects/safety-vests
+Archive README declares CC BY 4.0. Existing vest/no-vest rectangles are converted
+to safety_vest/bare_torso. Source images, videos and annotation archives remain
+local and are not included in the repository or release bundles. Dataset source
+hashes, declared licenses, split exclusions and transformations are in manifests.
+These metadata statements do not certify every original contributor's rights.
+
 PyTorch and torchvision: BSD-style licenses in installed distributions.
 PyAV: BSD-3-Clause. Its bundled FFmpeg/codec configuration has separate licensing.
 OpenCV: Apache-2.0. FastAPI/Pydantic: MIT. Uvicorn: BSD-3-Clause.

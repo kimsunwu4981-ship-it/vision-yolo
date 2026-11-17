@@ -24,7 +24,7 @@ def benchmark(seconds,cameras,channels=4,microbatch=1,exercise_zones=False):
     runtime.start()
     samples=[]
     try:
-        deadline=time.monotonic()+120
+        deadline=time.monotonic()+300
         while runtime.loading and time.monotonic()<deadline:time.sleep(.2)
         if not runtime.detector.ready:raise RuntimeError(runtime.detector.error)
         write_json(run/"run_manifest.json",{"duration_s":seconds,"channels":channels,"config":cfg,"zones":runtime.zones,"config_revision":runtime.config_revision,"backend":runtime.detector.status(),"hardware":runtime.system.value,"browser_connected":False,"physical_camera_latency":False,

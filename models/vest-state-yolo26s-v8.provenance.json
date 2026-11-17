@@ -1,0 +1,70 @@
+{
+  "run_id": "vest-state-yolo26s-v8",
+  "status": "completed",
+  "started_at": "2026-11-17T13:33:31.514437+00:00",
+  "parameters": {
+    "data": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\data\\derived\\vest-state-yolo26s-v8\\data.yaml",
+    "epochs": 10,
+    "imgsz": 640,
+    "batch": 24,
+    "device": 0,
+    "workers": 0,
+    "seed": 83,
+    "deterministic": true,
+    "optimizer": "AdamW",
+    "lr0": 0.0002,
+    "warmup_bias_lr": 0.0002,
+    "warmup_epochs": 1,
+    "weight_decay": 0.0001,
+    "freeze": 6,
+    "nms": false,
+    "patience": 10,
+    "project": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\outputs\\training",
+    "name": "vest-state-yolo26s-v8",
+    "exist_ok": true,
+    "cache": false,
+    "plots": true,
+    "amp": true,
+    "mosaic": 0.1,
+    "mixup": 0.0,
+    "scale": 0.25,
+    "translate": 0.08,
+    "degrees": 15,
+    "fliplr": 0.5,
+    "close_mosaic": 3,
+    "max_det": 300,
+    "verbose": false
+  },
+  "manifest_sha256": {
+    "train": "aa85f8e5a30f5a169cc5d52aa4d06f9dc57270e8d9fe7d6e70b7b8349fb0722d",
+    "validation": "1388f909a6e5b5ca77d653d2006a4cbd71e9a215e12252832e28186cc938775d",
+    "test": "32b6e32c002be90293934f7c5a906a8524b481c39e1eaa7d7133752ca7fc9abc"
+  },
+  "manifest_paths": {
+    "train": "data\\manifests\\vest-state-yolo26s-v8\\train.json",
+    "validation": "data\\manifests\\vest-state-yolo26s-v8\\validation.json",
+    "test": "data\\manifests\\vest-state-yolo26s-v8\\test.json"
+  },
+  "initial_weights_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+  "initial_weights_source": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26s.pt",
+  "parent_checkpoint_sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+  "parent_run_id": "ppe-yolo26s-v2",
+  "strategy": "Retain project PPE positive class row; learn explicit existing bare-head/bare-torso labels. Native archive images; early feature layers and BN statistics frozen.",
+  "class_names": [
+    "safety_vest",
+    "bare_torso"
+  ],
+  "packages": {
+    "torch": "2.10.0+cu128",
+    "torchvision": "0.25.0+cu128",
+    "ultralytics": "8.4.215"
+  },
+  "gpu": "NVIDIA GeForce RTX 5070 Ti",
+  "user_video_used_for_training": false,
+  "new_external_download": false,
+  "field_acceptance": false,
+  "completed_at": "2026-11-17T13:42:22.611831+00:00",
+  "checkpoint": "outputs\\training\\vest-state-yolo26s-v8\\weights\\best.pt",
+  "checkpoint_sha256": "3bcef8af117a6f99da132eec62e26d946d028d992fb3d6ce4379486a415be447",
+  "checkpoint_selection": "existing archive development validation fitness"
+}

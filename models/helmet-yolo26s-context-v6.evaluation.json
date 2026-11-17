@@ -1,0 +1,176 @@
+{
+  "run_id": "helmet-yolo26s-context-v6",
+  "checkpoint_sha256": "235ff8d85e2e5d3d048eb44ecc3c40b5a8316cd13019f35cdd5a4571e1ce1388",
+  "evaluated_at": "2026-11-17T12:44:41.912003+00:00",
+  "validation_heads": {
+    "one_to_many": {
+      "nms": true,
+      "metrics": {
+        "precision": 0.9011466011466012,
+        "recall": 0.8044692737430168,
+        "AP50": 0.815130930672358,
+        "AP50_95": 0.4134844541843033
+      },
+      "operating_point": {
+        "confidence": 0.35535535535535534,
+        "F1": 0.8533216858041873
+      },
+      "fixed_thresholds": {
+        "0.25": {
+          "precision": 0.8112857600277975,
+          "recall": 0.8184357541899442
+        },
+        "0.5": {
+          "precision": 0.9340812367862604,
+          "recall": 0.7124694526929164
+        },
+        "0.7": {
+          "precision": 0.990890027403789,
+          "recall": 0.303830806065443
+        },
+        "0.8": {
+          "precision": 1.0,
+          "recall": 0.019357541899441326
+        }
+      },
+      "image_count": null
+    },
+    "one_to_one": {
+      "nms": false,
+      "metrics": {
+        "precision": 0.8830889054573853,
+        "recall": 0.7681564245810056,
+        "AP50": 0.7913357336308788,
+        "AP50_95": 0.394884710071254
+      },
+      "operating_point": {
+        "confidence": 0.30930930930930933,
+        "F1": 0.8231189331387879
+      },
+      "fixed_thresholds": {
+        "0.25": {
+          "precision": 0.8401239606879937,
+          "recall": 0.7905027932960894
+        },
+        "0.5": {
+          "precision": 0.9101922159862074,
+          "recall": 0.5945065176908753
+        },
+        "0.7": {
+          "precision": 0.963523194362889,
+          "recall": 0.35195530726256985
+        },
+        "0.8": {
+          "precision": 1.0,
+          "recall": 0.13500558286405553
+        }
+      },
+      "image_count": null
+    }
+  },
+  "selected_head": "one_to_many",
+  "selected_nms": true,
+  "selected_operating_point": {
+    "confidence": 0.35535535535535534,
+    "F1": 0.8533216858041873
+  },
+  "context_test": {
+    "nms": true,
+    "metrics": {
+      "precision": 0.66333706111122,
+      "recall": 0.6676505423746042,
+      "AP50": 0.6636626812665967,
+      "AP50_95": 0.28786372424904333
+    },
+    "operating_point": {
+      "confidence": 0.34134134134134136,
+      "F1": 0.6702059665470304
+    },
+    "fixed_thresholds": {
+      "0.25": {
+        "precision": 0.5600791319129305,
+        "recall": 0.7328849268694743
+      },
+      "0.5": {
+        "precision": 0.8076998882973566,
+        "recall": 0.4983443708609272
+      },
+      "0.7": {
+        "precision": 0.9075094195067454,
+        "recall": 0.20250280633834722
+      },
+      "0.8": {
+        "precision": 0.9037744287066777,
+        "recall": 0.04143046652244588
+      }
+    },
+    "image_count": null
+  },
+  "native_test": {
+    "nms": true,
+    "metrics": {
+      "precision": 0.572813081397635,
+      "recall": 0.5831238486423274,
+      "AP50": 0.5903503136767579,
+      "AP50_95": 0.2744078462699004
+    },
+    "operating_point": {
+      "confidence": 0.3353353353353353,
+      "F1": 0.5811035599748601
+    },
+    "fixed_thresholds": {
+      "0.25": {
+        "precision": 0.48024049949607484,
+        "recall": 0.6576964477933261
+      },
+      "0.5": {
+        "precision": 0.6921301338765065,
+        "recall": 0.4231734425491154
+      },
+      "0.7": {
+        "precision": 0.8724860792576264,
+        "recall": 0.22217155260750532
+      },
+      "0.8": {
+        "precision": 0.9753242642267032,
+        "recall": 0.04255328166343592
+      }
+    },
+    "image_count": null
+  },
+  "baseline_native_test": {
+    "nms": true,
+    "metrics": {
+      "precision": 0.6959023144901976,
+      "recall": 0.6910656620021528,
+      "AP50": 0.7130551521554861,
+      "AP50_95": 0.3533436522209895
+    },
+    "operating_point": {
+      "confidence": 0.5195195195195195,
+      "F1": 0.6948029391331282
+    },
+    "fixed_thresholds": {
+      "0.25": {
+        "precision": 0.630622518859773,
+        "recall": 0.7373801289301828
+      },
+      "0.5": {
+        "precision": 0.691181054953827,
+        "recall": 0.6941570203141786
+      },
+      "0.7": {
+        "precision": 0.773058164255891,
+        "recall": 0.5909580193756727
+      },
+      "0.8": {
+        "precision": 0.8911429631165475,
+        "recall": 0.45231431646932146
+      }
+    },
+    "image_count": null
+  },
+  "user_video_used_for_training": false,
+  "field_acceptance": false,
+  "limitation": "Existing development splits; context crops share source images. Not independent field recall. Threshold still needs bare-head false-positive checks."
+}

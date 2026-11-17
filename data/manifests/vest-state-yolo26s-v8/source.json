@@ -1,0 +1,18 @@
+{
+  "path": "D:\\vigent_private_data\\public_ppe\\roboflow\\safety_vests.zip",
+  "sha256": "655f48d132e622a8db68ae62899b56116a2639272f55799d88a22eab54852000",
+  "bytes": 433881228,
+  "modified_before_task": 1790510571.8576908,
+  "documentation": {
+    "README.dataset.txt": "# Safety Vests > 2023-05-02 9:05am\nhttps://universe.roboflow.com/roboflow-universe-projects/safety-vests\n\nProvided by a Roboflow user\nLicense: CC BY 4.0\n\n",
+    "README.roboflow.txt": "\nSafety Vests - v7 2023-05-02 9:05am\n==============================\n\nThis dataset was exported via roboflow.com on May 8, 2023 at 7:30 PM GMT\n\nRoboflow is an end-to-end computer vision platform that helps you\n* collaborate with your team on computer vision projects\n* collect & organize images\n* understand and search unstructured image data\n* annotate, and create datasets\n* export, train, and deploy computer vision models\n* use active learning to improve your dataset over time\n\nFor state of the art Computer Vision training notebooks you can use with this dataset,\nvisit https://github.com/roboflow/notebooks\n\nTo find over 100k other datasets and pre-trained models, visit https://universe.roboflow.com\n\nThe dataset includes 3897 images.\nVest-ppe are annotated in COCO format.\n\nThe following pre-processing was applied to each image:\n* Auto-orientation of pixel data (with EXIF-orientation stripping)\n\nNo image augmentation techniques were applied.\n\n\n"
+  },
+  "class_mapping": {
+    "2": 0,
+    "1": 1
+  },
+  "names": [
+    "safety_vest",
+    "bare_torso"
+  ]
+}

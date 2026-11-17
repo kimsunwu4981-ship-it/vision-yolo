@@ -1,0 +1,27 @@
+{
+  "statistics": {
+    "train": {
+      "rows": 3746,
+      "source_images": 1276,
+      "helmets": 5926,
+      "negative_crops": 346
+    },
+    "validation": {
+      "rows": 422,
+      "source_images": 240,
+      "helmets": 358,
+      "negative_crops": 3
+    },
+    "test": {
+      "rows": 642,
+      "source_images": 240,
+      "helmets": 906,
+      "negative_crops": 142
+    }
+  },
+  "manifest_sha256": {
+    "train": "2541bfc02ba95d4414da866d7d5110d0a3d7ce055ab65bf0bafa75390041c4ff",
+    "validation": "64903dcbf28e9dc840e8f937390b1b5c4115ff335c0d46dec2f0158b7a7435a6",
+    "test": "56ff1c2be103cb97b463434b7016570d6aaa6cece285123a173590e981d0c28a"
+  }
+}

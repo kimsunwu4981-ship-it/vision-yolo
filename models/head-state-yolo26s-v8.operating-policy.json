@@ -1,0 +1,8 @@
+{
+  "run_id": "head-state-yolo26s-v8",
+  "status": "development_evaluated",
+  "reason": "Native existing helmet/bare-head labels; bounded multi-context current-person crops. Far CCTV remains incomplete.",
+  "user_video_used_for_training": false,
+  "field_acceptance": false,
+  "report": "docs/far-cctv-repair-20261117.md"
+}
