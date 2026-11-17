@@ -10,7 +10,7 @@ from datetime import datetime,timezone,timedelta
 from pathlib import Path
 import av
 import psutil
-from app.common import ROOT,sha256,write_json,utc_now
+from app.common import ROOT,sha256,write_json,utc_now,revision
 from app.config import load_config
 from app.inference import Detector
 from app.tracking import TrackerBank
@@ -22,15 +22,20 @@ from app.monitoring import SystemMonitor
 from app.orientation import decode_bgr
 
 
-def replay(paths,output,source_mode='REPLAY',camera_file=None,no_zones=False):
-    config=load_config(camera_file);detector=Detector(config["runtime"]);detector.load()
+def replay(paths,output,source_mode='REPLAY',camera_file=None,no_zones=False,registry_path=None):
+    config=load_config(camera_file)
+    if registry_path is not None:
+        registry_path=Path(registry_path).resolve()
+        config['model_registry_sha256']=sha256(registry_path)
+        config['revision']=revision({k:config[k] for k in ('runtime','rules','cameras','model_registry_sha256')})
+    detector=Detector(config["runtime"],registry_path);detector.load()
     if not detector.ready:raise RuntimeError(detector.error)
     output=Path(output);output.mkdir(parents=True,exist_ok=False)
     write_json(output/"inputs_manifest.json",{"inputs":[{"camera_id":f"cam{i+1}","path":str(Path(p).resolve()),"sha256":sha256(p)} for i,p in enumerate(paths)]})
     monitor=SystemMonitor();monitor.thread.start()
     time.sleep(.1)
     write_json(output/"run_manifest.json",{"mode":"OFFLINE_EXHAUSTIVE","source_mode":source_mode,"started_at":utc_now(),"config":config,"backend":detector.status(),"hardware":monitor.value or {"os":platform.platform()},"dropped_frames":0,
-        "zones_disabled":no_zones,"entrypoint_sha256":sha256(__file__),
+        "zones_disabled":no_zones,"entrypoint_sha256":sha256(__file__),"registry_path":str(detector.registry_path),
         "observation_clock":"virtual source PTS; received timestamps use replay origin plus PTS, actual decode time is in preprocess_transform",
         "source_code_sha256":{str(p.relative_to(ROOT)):sha256(p) for p in sorted((ROOT/'app').glob('*.py'))}})
     settings=config['rules'];tracker=TrackerBank(config['runtime']['observation_ttl_s'],config['runtime'].get('confidence',.25),config['runtime'].get('tracking_low_confidence',.1))
@@ -73,4 +78,4 @@ def replay(paths,output,source_mode='REPLAY',camera_file=None,no_zones=False):
     print(str(output))
 
 if __name__=="__main__":
-    p=argparse.ArgumentParser();p.add_argument("videos",nargs="+");p.add_argument("--output",required=True);p.add_argument('--source-mode',choices=['REPLAY','DEMO'],default='REPLAY');p.add_argument('--cameras');p.add_argument('--no-zones',action='store_true');a=p.parse_args();replay(a.videos,a.output,a.source_mode,a.cameras,a.no_zones)
+    p=argparse.ArgumentParser();p.add_argument("videos",nargs="+");p.add_argument("--output",required=True);p.add_argument('--source-mode',choices=['REPLAY','DEMO'],default='REPLAY');p.add_argument('--cameras');p.add_argument('--no-zones',action='store_true');p.add_argument('--registry',help='Explicit candidate registry for isolated offline evaluation');a=p.parse_args();replay(a.videos,a.output,a.source_mode,a.cameras,a.no_zones,a.registry)

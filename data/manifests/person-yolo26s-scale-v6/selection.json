@@ -1,0 +1,48 @@
+{
+  "kind": "person",
+  "statistics": {
+    "train": {
+      "images": 1209,
+      "source_images": 403,
+      "object_counts": {
+        "0": 12606
+      },
+      "height_percentiles": [
+        44.16796875,
+        80.084375,
+        142.0
+      ]
+    },
+    "validation": {
+      "images": 600,
+      "source_images": 240,
+      "object_counts": {
+        "0": 3254
+      },
+      "height_percentiles": [
+        70.4134375,
+        92.5390625,
+        177.56203125
+      ]
+    },
+    "test": {
+      "images": 600,
+      "source_images": 240,
+      "object_counts": {
+        "0": 6420
+      },
+      "height_percentiles": [
+        35.20531250000001,
+        80.6046875,
+        177.48000000000013
+      ]
+    }
+  },
+  "manifest_sha256": {
+    "train": "b10d3dab9734295d36f3ed1fa480e135809490b9515cba92e9943bea86167ddf",
+    "validation": "653683a341ec5b93ae2e30f694f3a5fdaa2adde2a6d297788c5721d669808605",
+    "test": "a2a07ec2e9ba20283b1adf6dfd650a37861c5d0a932700f4eba8db181e847eea"
+  },
+  "seed": 61,
+  "user_video_used_for_training": false
+}

@@ -10,7 +10,7 @@ from app.types import Frame,Detection
 from app.runtime import render
 
 
-def run(source,before,after,before_video=None):
+def run(source,before,after,before_video=None,output_prefix=None):
     source=Path(source);before=Path(before);after=Path(after)
     digest=sha256(source)
     for directory in (before,after):
@@ -58,7 +58,10 @@ def run(source,before,after,before_video=None):
         for packet in stream.encode():container.mux(packet)
         container.close()
     assert frame_count==len(rows[0])
-    outputs=[after/'crane-inspection-improved.mp4',after/'crane-inspection-before-after.mp4'];qa={}
+    if output_prefix is not None:
+        import re
+        if not re.fullmatch(r'[A-Za-z0-9_-]+',output_prefix):raise ValueError('invalid_output_prefix')
+    outputs=[after/(output_prefix+'-analyzed.mp4'),after/(output_prefix+'-before-after.mp4')] if output_prefix else [after/'crane-inspection-improved.mp4',after/'crane-inspection-before-after.mp4'];qa={}
     for silent,final in zip(paths,outputs):
         subprocess.run([shutil.which('ffmpeg'),'-hide_banner','-loglevel','error','-y','-i',str(silent),'-i',str(source),
             '-map','0:v:0','-map','1:a:0?','-c','copy','-metadata:s:v:0','rotate=0','-movflags','+faststart',str(final)],check=True)
@@ -76,5 +79,5 @@ def run(source,before,after,before_video=None):
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--source',required=True);p.add_argument('--before',required=True);p.add_argument('--after',required=True);p.add_argument('--before-video')
-    a=p.parse_args();run(a.source,a.before,a.after,a.before_video)
+    p=argparse.ArgumentParser();p.add_argument('--source',required=True);p.add_argument('--before',required=True);p.add_argument('--after',required=True);p.add_argument('--before-video');p.add_argument('--output-prefix')
+    a=p.parse_args();run(a.source,a.before,a.after,a.before_video,a.output_prefix)

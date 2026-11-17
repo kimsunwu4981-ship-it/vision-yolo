@@ -9,12 +9,13 @@ from scipy.optimize import linear_sum_assignment
 from app.common import ROOT,read_json,write_json,sha256
 
 
-def evaluate(output):
+def evaluate(output,before_registry=None,after_registry=None):
     from ultralytics import YOLO
     samples=read_json(ROOT/'data/manifests/test.json')['records']
-    names=['person','helmet','safety_vest'];registry=read_json(ROOT/'models/model_registry.json')
-    profiles={'before':[{'path':'models/ppe-yolo26s-v2.pt','active_classes':names,'inference':{'confidence':.25,'nms':True}}],
-        'after':[r for r in registry['models'] if r.get('enabled')]}
+    names=['person','helmet','safety_vest'];after_registry=after_registry or ROOT/'models/model_registry.json';registry=read_json(after_registry)
+    def main_models(records):return [r for r in records if r.get('enabled') and r.get('role','safety_detection')=='safety_detection']
+    profiles={'before':main_models(read_json(before_registry)['models']) if before_registry else [{'path':'models/ppe-yolo26s-v2.pt','active_classes':names,'inference':{'confidence':.25,'nms':True}}],
+        'after':main_models(registry['models'])}
     predictions={profile:[[] for _ in samples] for profile in profiles}
     model_info={}
     for profile,records in profiles.items():
@@ -54,9 +55,10 @@ def evaluate(output):
         metrics[profile]={name:{**c,'precision':c['tp']/max(1,c['tp']+c['fp']),'recall':c['tp']/max(1,c['tp']+c['fn'])} for name,c in classes.items()}
     report={'images':len(samples),'test_manifest_sha256':sha256(ROOT/'data/manifests/test.json'),
         'iou':.5,'precision_bits':16,'metrics':metrics,'models':model_info,'selection_performed':False,
+        'before_registry_sha256':sha256(before_registry) if before_registry else None,'after_registry_sha256':sha256(after_registry),
         'scope':'Fixed image operating points; weak track-association observations excluded; not field acceptance or event accuracy.'}
     write_json(output,report);print(metrics)
 
 
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('--output',required=True);evaluate(p.parse_args().output)
+    p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--before-registry');p.add_argument('--after-registry');a=p.parse_args();evaluate(a.output,a.before_registry,a.after_registry)

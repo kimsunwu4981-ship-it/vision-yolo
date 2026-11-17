@@ -8,8 +8,9 @@ from app.types import CLASSES,BODY_PART_CLASSES,Detection
 
 
 class Detector:
-    def __init__(self,config):
+    def __init__(self,config,registry_path=None):
         self.config=config;self.models=[];self.hashes=[];self.classes=set();self.error=None;self.policies=[]
+        self.registry_path=Path(registry_path) if registry_path is not None else ROOT/"models/model_registry.json"
         self.device="unavailable";self.provider="none";self.actual_device=None
         self.ready=False;self.degraded=True
         self.auxiliary_classes=set()
@@ -20,7 +21,7 @@ class Detector:
         from ultralytics import YOLO
         # Small CUDA inference batches benefit from avoiding CPU thread-pool overhead.
         torch.set_num_threads(max(1,int(self.config.get('inference_cpu_threads',1))))
-        registry=read_json(ROOT/"models/model_registry.json",{"models":[]})
+        registry=read_json(self.registry_path,{"models":[]})
         chosen=sorted([m for m in registry["models"] if m.get("enabled") and m.get("evaluation_status") in {"development_evaluated","accepted"}],key=lambda m:m.get('role') in {'body_parts','body_pose'})
         if not chosen: self.error="no_newly_trained_evaluated_model";return
         requested=self.config.get("device","auto")

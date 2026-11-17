@@ -1,0 +1,51 @@
+{
+  "kind": "ppe",
+  "statistics": {
+    "train": {
+      "images": 3024,
+      "source_images": 1008,
+      "object_counts": {
+        "0": 23788,
+        "1": 25577
+      },
+      "height_percentiles": [
+        5.875,
+        18.40625,
+        55.0
+      ]
+    },
+    "validation": {
+      "images": 600,
+      "source_images": 240,
+      "object_counts": {
+        "0": 2061,
+        "1": 2785
+      },
+      "height_percentiles": [
+        8.55,
+        25.728125000000002,
+        57.197656249999994
+      ]
+    },
+    "test": {
+      "images": 600,
+      "source_images": 240,
+      "object_counts": {
+        "1": 3965,
+        "0": 2882
+      },
+      "height_percentiles": [
+        7.32375,
+        24.4,
+        71.28437500000004
+      ]
+    }
+  },
+  "manifest_sha256": {
+    "train": "9b0edf19a7208c1e3119b15efb63e737a45582ba54281a3c9a204ec830217520",
+    "validation": "a9fda272dad76b99db1fda6254f4c7d1e7a895d55844156c7e6dd4b48f8920ee",
+    "test": "67b539ff02234852115c3fb45195cfcf66d77cf96b733c5b4f3ffac1a45f2515"
+  },
+  "seed": 61,
+  "user_video_used_for_training": false
+}

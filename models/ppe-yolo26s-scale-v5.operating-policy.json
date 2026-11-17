@@ -1,0 +1,135 @@
+{
+  "run_id": "ppe-yolo26s-scale-v5",
+  "checkpoint_sha256": "dae8ee7512f1da818fe97bca89735fa7061081c85fd568786cc17be4e03b0744",
+  "confidence": 0.25,
+  "basis": "Shared detector default 0.25 tested as recall-oriented development policy after inspecting F1/F2 tradeoffs; not validation-only selection or blind acceptance",
+  "alternatives": {
+    "validation_F1": 0.6606606606606606,
+    "validation_F2": 0.6206206206206206
+  },
+  "development_fixed_test": {
+    "images": 685,
+    "test_manifest_sha256": "d283172ec73be227debd3cc8cd992bcf3650f045054bd04bebb73c3e5707f31c",
+    "iou": 0.5,
+    "precision_bits": 16,
+    "metrics": {
+      "before": {
+        "person": {
+          "tp": 1374,
+          "fp": 87,
+          "fn": 123,
+          "precision": 0.9404517453798767,
+          "recall": 0.9178356713426854
+        },
+        "helmet": {
+          "tp": 632,
+          "fp": 259,
+          "fn": 297,
+          "precision": 0.7093153759820426,
+          "recall": 0.6803013993541442
+        },
+        "safety_vest": {
+          "tp": 820,
+          "fp": 121,
+          "fn": 221,
+          "precision": 0.871413390010627,
+          "recall": 0.7877041306436119
+        }
+      },
+      "after": {
+        "person": {
+          "tp": 1390,
+          "fp": 73,
+          "fn": 107,
+          "precision": 0.9501025290498974,
+          "recall": 0.9285237140948563
+        },
+        "helmet": {
+          "tp": 709,
+          "fp": 182,
+          "fn": 220,
+          "precision": 0.7957351290684624,
+          "recall": 0.7631862217438106
+        },
+        "safety_vest": {
+          "tp": 820,
+          "fp": 121,
+          "fn": 221,
+          "precision": 0.871413390010627,
+          "recall": 0.7877041306436119
+        }
+      }
+    },
+    "models": {
+      "before": [
+        {
+          "sha256": "315fe5bb703f3761523333aa6bef56b2899c92779f7f9a720c75ee6618580f2b",
+          "policy": {
+            "nms": true,
+            "confidence": 0.25,
+            "head_basis": "highest original validation mAP50-95; not diagnostic video or test"
+          },
+          "active_classes": [
+            "person"
+          ]
+        },
+        {
+          "sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+          "policy": {
+            "nms": true,
+            "confidence": 0.5365365365365365,
+            "threshold_basis": "existing validation-only bbox F1 selection; operational event acceptance remains unverified"
+          },
+          "active_classes": [
+            "helmet",
+            "safety_vest"
+          ]
+        }
+      ],
+      "after": [
+        {
+          "sha256": "3bd15c733eed1a9aa033719d2da2b3c889501f14c15ac1e668a6f2be5bcbcec9",
+          "policy": {
+            "nms": true,
+            "confidence": 0.25,
+            "head_basis": "Preserve NMS duplicate suppression after two near-identical person boxes appeared in full diagnostic replay; validation metrics for both heads are retained. Video is diagnostic, not a blind test.",
+            "threshold_basis": "existing person display threshold retained"
+          },
+          "active_classes": [
+            "person"
+          ]
+        },
+        {
+          "sha256": "dae8ee7512f1da818fe97bca89735fa7061081c85fd568786cc17be4e03b0744",
+          "policy": {
+            "nms": true,
+            "confidence": 0.25,
+            "head_basis": "native validation mAP50-95",
+            "threshold_basis": "Shared detector default 0.25 tested as recall-oriented development policy after inspecting F1/F2 tradeoffs; not validation-only selection or blind acceptance"
+          },
+          "active_classes": [
+            "helmet"
+          ]
+        },
+        {
+          "sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+          "policy": {
+            "nms": true,
+            "confidence": 0.5365365365365365,
+            "threshold_basis": "existing validation-only bbox F1 selection; operational event acceptance remains unverified"
+          },
+          "active_classes": [
+            "safety_vest"
+          ]
+        }
+      ]
+    },
+    "selection_performed": false,
+    "before_registry_sha256": "456b874ed366d6eb2741bb76e9f14046f09620ac34be0a42c144151b45d2aa9f",
+    "after_registry_sha256": "b7c933b5e22304f98b7ef545e0b7aa0bc2d519df39d37a548a7bc6b3f474a362",
+    "scope": "Fixed image operating points; weak track-association observations excluded; not field acceptance or event accuracy."
+  },
+  "independent_acceptance": false,
+  "status": "rejected_not_deployed",
+  "rejection": "At confidence 0.25 bare head falsely classified equipped for 5 frames in full inspection replay; high validation F1 threshold reduced native test helmet recall from 0.6803 to 0.6254. Retain previous PPE model."
+}

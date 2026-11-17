@@ -1,0 +1,233 @@
+{
+  "run_id": "ppe-yolo26s-scale-v5",
+  "checkpoint_sha256": "dae8ee7512f1da818fe97bca89735fa7061081c85fd568786cc17be4e03b0744",
+  "evaluated_at": "2026-11-17T07:42:10.210361+00:00",
+  "kind": "ppe",
+  "validation_heads": {
+    "one_to_many": {
+      "classes": {
+        "helmet": {
+          "precision": 0.9383462127364567,
+          "recall": 0.8305647840531561,
+          "AP50": 0.8572778442804274,
+          "AP50_95": 0.5190282455558559
+        },
+        "safety_vest": {
+          "precision": 0.9453110781523519,
+          "recall": 0.8375690607734807,
+          "AP50": 0.9526969908096496,
+          "AP50_95": 0.4464218635067052
+        }
+      },
+      "aggregate": {
+        "metrics/precision(B)": 0.9418286454444043,
+        "metrics/recall(B)": 0.8340669224133184,
+        "metrics/mAP50(B)": 0.9049874175450385,
+        "metrics/mAP50-95(B)": 0.48272505453128056,
+        "fitness": 0.48272505453128056
+      },
+      "nms": true,
+      "precision_bits": 16,
+      "fixed_confidence_025": {
+        "helmet": {
+          "precision": 0.7771097306402349,
+          "recall": 0.8521594684385382,
+          "iou": 0.5
+        },
+        "safety_vest": {
+          "precision": 0.8787711516925762,
+          "recall": 0.9248618784530387,
+          "iou": 0.5
+        }
+      },
+      "operating_point": {
+        "confidence": 0.6006006006006006,
+        "macro_f1": 0.8861243624047412,
+        "basis": "unchanged native validation groups bbox macro F1; not video/test"
+      },
+      "class_operating_points": {
+        "helmet": {
+          "confidence": 0.6606606606606606,
+          "F1": 0.8963430437941581
+        },
+        "safety_vest": {
+          "confidence": 0.3923923923923924,
+          "F1": 0.9045648019719977
+        }
+      }
+    },
+    "one_to_one": {
+      "classes": {
+        "helmet": {
+          "precision": 0.8840839026975583,
+          "recall": 0.7956810631229236,
+          "AP50": 0.8285752761963399,
+          "AP50_95": 0.5074576651365419
+        },
+        "safety_vest": {
+          "precision": 0.9394831656520478,
+          "recall": 0.8920058179726688,
+          "AP50": 0.94243089557951,
+          "AP50_95": 0.4363579529373044
+        }
+      },
+      "aggregate": {
+        "metrics/precision(B)": 0.9117835341748031,
+        "metrics/recall(B)": 0.8438434405477961,
+        "metrics/mAP50(B)": 0.8855030858879249,
+        "metrics/mAP50-95(B)": 0.4719078090369232,
+        "fitness": 0.4719078090369232
+      },
+      "nms": false,
+      "precision_bits": 16,
+      "fixed_confidence_025": {
+        "helmet": {
+          "precision": 0.8069537173521393,
+          "recall": 0.813953488372093,
+          "iou": 0.5
+        },
+        "safety_vest": {
+          "precision": 0.9110703587190518,
+          "recall": 0.9093922651933701,
+          "iou": 0.5
+        }
+      },
+      "operating_point": {
+        "confidence": 0.40540540540540543,
+        "macro_f1": 0.8779291755758223,
+        "basis": "unchanged native validation groups bbox macro F1; not video/test"
+      },
+      "class_operating_points": {
+        "helmet": {
+          "confidence": 0.40540540540540543,
+          "F1": 0.840766752544957
+        },
+        "safety_vest": {
+          "confidence": 0.36736736736736736,
+          "F1": 0.9169765960899716
+        }
+      }
+    }
+  },
+  "selected_head": "one_to_many",
+  "selected_nms": true,
+  "selected_operating_point": {
+    "confidence": 0.6006006006006006,
+    "macro_f1": 0.8861243624047412,
+    "basis": "unchanged native validation groups bbox macro F1; not video/test"
+  },
+  "mixed_test": {
+    "classes": {
+      "helmet": {
+        "precision": 0.561687645443281,
+        "recall": 0.45489243580846633,
+        "AP50": 0.4634636651227296,
+        "AP50_95": 0.2208781786368049
+      },
+      "safety_vest": {
+        "precision": 0.7725539452881293,
+        "recall": 0.5868852459016394,
+        "AP50": 0.6911695995277563,
+        "AP50_95": 0.36893025244172956
+      }
+    },
+    "aggregate": {
+      "metrics/precision(B)": 0.6671207953657051,
+      "metrics/recall(B)": 0.5208888408550528,
+      "metrics/mAP50(B)": 0.5773166323252429,
+      "metrics/mAP50-95(B)": 0.2949042155392672,
+      "fitness": 0.2949042155392672
+    },
+    "nms": true,
+    "precision_bits": 16,
+    "fixed_confidence_025": {
+      "helmet": {
+        "precision": 0.4796133920933601,
+        "recall": 0.48516655100624567,
+        "iou": 0.5
+      },
+      "safety_vest": {
+        "precision": 0.6836998765564202,
+        "recall": 0.6477931904161413,
+        "iou": 0.5
+      }
+    }
+  },
+  "native_test": {
+    "classes": {
+      "helmet": {
+        "precision": 0.8532305972035005,
+        "recall": 0.7133787986048481,
+        "AP50": 0.7816537045172889,
+        "AP50_95": 0.37950785233780854
+      },
+      "safety_vest": {
+        "precision": 0.8393564712785869,
+        "recall": 0.772953428933256,
+        "AP50": 0.8513068534397715,
+        "AP50_95": 0.48513158320039806
+      }
+    },
+    "aggregate": {
+      "metrics/precision(B)": 0.8462935342410437,
+      "metrics/recall(B)": 0.7431661137690521,
+      "metrics/mAP50(B)": 0.8164802789785301,
+      "metrics/mAP50-95(B)": 0.4323197177691034,
+      "fitness": 0.4323197177691034
+    },
+    "nms": true,
+    "precision_bits": 16,
+    "fixed_confidence_025": {
+      "helmet": {
+        "precision": 0.7892312290919392,
+        "recall": 0.759956942949408,
+        "iou": 0.5
+      },
+      "safety_vest": {
+        "precision": 0.7336366541002688,
+        "recall": 0.8318924111431316,
+        "iou": 0.5
+      }
+    }
+  },
+  "user_video_used_for_training": false,
+  "field_acceptance": false,
+  "limitation": "Synthetic composites have correlated source objects. Native development test has been inspected for previous candidates; not independent acceptance.",
+  "baseline_native_test": {
+    "classes": {
+      "helmet": {
+        "precision": 0.6749574232932046,
+        "recall": 0.7018593315238454,
+        "AP50": 0.7131428970193641,
+        "AP50_95": 0.3533454979053369
+      },
+      "safety_vest": {
+        "precision": 0.833847991814854,
+        "recall": 0.8251681075888568,
+        "AP50": 0.8718912178095606,
+        "AP50_95": 0.5049690140945792
+      }
+    },
+    "aggregate": {
+      "metrics/precision(B)": 0.7544027075540294,
+      "metrics/recall(B)": 0.7635137195563511,
+      "metrics/mAP50(B)": 0.7925170574144623,
+      "metrics/mAP50-95(B)": 0.42915725599995813,
+      "fitness": 0.42915725599995813
+    },
+    "nms": true,
+    "precision_bits": 16,
+    "fixed_confidence_025": {
+      "helmet": {
+        "precision": 0.630622518859773,
+        "recall": 0.7373801289301828,
+        "iou": 0.5
+      },
+      "safety_vest": {
+        "precision": 0.7634005487970768,
+        "recall": 0.866474543707973,
+        "iou": 0.5
+      }
+    }
+  }
+}

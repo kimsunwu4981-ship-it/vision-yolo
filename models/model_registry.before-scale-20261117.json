@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "models": [
+    {
+      "run_id": "person-yolo26s-v5",
+      "path": "models\\person-yolo26s-v5.pt",
+      "sha256": "315fe5bb703f3761523333aa6bef56b2899c92779f7f9a720c75ee6618580f2b",
+      "classes": [
+        "person"
+      ],
+      "active_classes": [
+        "person"
+      ],
+      "enabled": true,
+      "evaluation_status": "development_evaluated",
+      "initial_weights_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+      "initial_weights_source": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26s.pt",
+      "manifest_sha256": {
+        "train": "1ed61a5b2736188e4c6b0b8093cab96d37b5cce6273e5daf3ac7dcf1febd8c4e",
+        "validation": "69cd7f2473c0e6d62f378eda08e28f86fa59c79870d7503821e71ebf81331e1b",
+        "test": "7a6ce1ffcff6df24ac3938abd0fa491dde999d39fbee1cd85696bbebab781a02"
+      },
+      "evaluation": {
+        "run_id": "person-yolo26s-v5",
+        "checkpoint_sha256": "315fe5bb703f3761523333aa6bef56b2899c92779f7f9a720c75ee6618580f2b",
+        "evaluated_at": "2026-11-16T12:03:25.926495+00:00",
+        "validation_heads": {
+          "one_to_one": {
+            "classes": {
+              "person": {
+                "precision": 0.9926165575369379,
+                "recall": 0.9751992925568055,
+                "AP50": 0.9846949113002237,
+                "AP50_95": 0.5578268317704949
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.9926165575369379,
+              "metrics/recall(B)": 0.9751992925568055,
+              "metrics/mAP50(B)": 0.9846949113002237,
+              "metrics/mAP50-95(B)": 0.5578268317704949,
+              "fitness": 0.5578268317704949
+            },
+            "nms": false,
+            "precision_bits": 16
+          },
+          "one_to_many": {
+            "classes": {
+              "person": {
+                "precision": 0.9951445017061415,
+                "recall": 0.9813471502590674,
+                "AP50": 0.984538710393147,
+                "AP50_95": 0.5901927630992981
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.9951445017061415,
+              "metrics/recall(B)": 0.9813471502590674,
+              "metrics/mAP50(B)": 0.984538710393147,
+              "metrics/mAP50-95(B)": 0.5901927630992981,
+              "fitness": 0.5901927630992981
+            },
+            "nms": true,
+            "precision_bits": 16
+          }
+        },
+        "selected_head": "one_to_many",
+        "selected_nms": true,
+        "head_selection": "highest original validation mAP50-95; not diagnostic video or test",
+        "test": {
+          "classes": {
+            "person": {
+              "precision": 0.926102327725948,
+              "recall": 0.8770875083500334,
+              "AP50": 0.9346279953994375,
+              "AP50_95": 0.5535868373514715
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.926102327725948,
+            "metrics/recall(B)": 0.8770875083500334,
+            "metrics/mAP50(B)": 0.9346279953994375,
+            "metrics/mAP50-95(B)": 0.5535868373514715,
+            "fitness": 0.5535868373514715
+          },
+          "nms": true,
+          "precision_bits": 16
+        },
+        "field_independent_test": false,
+        "user_video_used_for_training": false,
+        "deployment_acceptance": false,
+        "test_scope": "Existing development image split, not a fresh blind acceptance set; multiple candidates are reported."
+      },
+      "inference": {
+        "nms": true,
+        "confidence": 0.25,
+        "head_basis": "highest original validation mAP50-95; not diagnostic video or test"
+      },
+      "license": "AGPL-3.0; source dataset CC-BY-4.0 attribution also retained"
+    },
+    {
+      "run_id": "ppe-yolo26s-v2",
+      "path": "models\\ppe-yolo26s-v2.pt",
+      "sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+      "classes": [
+        "person",
+        "helmet",
+        "safety_vest"
+      ],
+      "enabled": true,
+      "evaluation_status": "development_evaluated",
+      "initial_weights_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+      "initial_weights_source": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26s.pt",
+      "manifest_sha256": {
+        "train": "c5eb2b777338dce36fcb403f627cf8ddadc99b080eb5c11881cf6b47e1e13f39",
+        "validation": "61febcca19901bb92a59656d2efddf9b0fc67f5f7bc6ad271bd9a3f4e59a7ec7",
+        "test": "d283172ec73be227debd3cc8cd992bcf3650f045054bd04bebb73c3e5707f31c"
+      },
+      "evaluation": {
+        "run_id": "ppe-yolo26s-v2",
+        "checkpoint_sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+        "evaluated_at": "2026-11-16T09:47:19.504471+00:00",
+        "splits": {
+          "val": {
+            "classes": {
+              "person": {
+                "precision": 0.9780733959864412,
+                "recall": 0.9088082901554404,
+                "AP50": 0.9599726604354977,
+                "AP50_95": 0.8145805312370455
+              },
+              "helmet": {
+                "precision": 0.940486065323662,
+                "recall": 0.8438538205980066,
+                "AP50": 0.8536714529018855,
+                "AP50_95": 0.5332772536052002
+              },
+              "safety_vest": {
+                "precision": 0.962842176077149,
+                "recall": 0.9162338371992603,
+                "AP50": 0.9798584531962665,
+                "AP50_95": 0.44397779281045624
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.9604672124624174,
+              "metrics/recall(B)": 0.8896319826509025,
+              "metrics/mAP50(B)": 0.9311675221778831,
+              "metrics/mAP50-95(B)": 0.5972785258842342,
+              "fitness": 0.5972785258842342
+            },
+            "images": 930
+          },
+          "test": {
+            "classes": {
+              "person": {
+                "precision": 0.9003404001092419,
+                "recall": 0.7762191048764195,
+                "AP50": 0.844531048006415,
+                "AP50_95": 0.600481764070741
+              },
+              "helmet": {
+                "precision": 0.6714986957574313,
+                "recall": 0.70411308001226,
+                "AP50": 0.7128486113346291,
+                "AP50_95": 0.3540291781864064
+              },
+              "safety_vest": {
+                "precision": 0.8239863488128655,
+                "recall": 0.8319451387057265,
+                "AP50": 0.8716404554047852,
+                "AP50_95": 0.5040190884409832
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.7986084815598461,
+              "metrics/recall(B)": 0.7707591078648021,
+              "metrics/mAP50(B)": 0.8096733715819431,
+              "metrics/mAP50-95(B)": 0.4861766768993769,
+              "fitness": 0.4861766768993769
+            },
+            "images": 685
+          }
+        },
+        "field_independent_test": false,
+        "night_occlusion_event_metrics": "not evaluated: no annotated source videos",
+        "small_object_metrics": "object-size annotations available; separate subset not yet evaluated",
+        "forklift": "not trained: complete labeled source missing",
+        "deployment_acceptance": false
+      },
+      "license": "AGPL-3.0; source dataset CC-BY-4.0 attribution also retained",
+      "active_classes": [
+        "helmet",
+        "safety_vest"
+      ],
+      "inference": {
+        "nms": true,
+        "confidence": 0.5365365365365365,
+        "threshold_basis": "existing validation-only bbox F1 selection; operational event acceptance remains unverified"
+      }
+    },
+    {
+      "run_id": "body-pose-yolo26n-v2",
+      "role": "body_pose",
+      "path": "models\\body-pose-yolo26n-v2.pt",
+      "sha256": "f6db8b1b1eb46c639a1136a8406fc4f0a3b425cad837e5ff8a1385bb701bfe6c",
+      "classes": [
+        "person"
+      ],
+      "active_classes": [
+        "head",
+        "torso"
+      ],
+      "enabled": true,
+      "evaluation_status": "development_evaluated",
+      "initial_weights_sha256": "eb3bb8268828aeaf515cec23a4bfafd793944a86fe9af94ba7823609c14522a9",
+      "initial_weights_source": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26n-pose.pt",
+      "manifest_sha256": {
+        "train": "1ed61a5b2736188e4c6b0b8093cab96d37b5cce6273e5daf3ac7dcf1febd8c4e",
+        "validation": "69cd7f2473c0e6d62f378eda08e28f86fa59c79870d7503821e71ebf81331e1b",
+        "test": "7a6ce1ffcff6df24ac3938abd0fa491dde999d39fbee1cd85696bbebab781a02"
+      },
+      "evaluation": {
+        "run_id": "body-pose-yolo26n-v2",
+        "checkpoint_sha256": "f6db8b1b1eb46c639a1136a8406fc4f0a3b425cad837e5ff8a1385bb701bfe6c",
+        "keypoint_metrics": null,
+        "limitation": "No independent keypoint ground truth. Box metrics only.",
+        "splits": {
+          "val": {
+            "metrics/precision(B)": 0.9368222641739041,
+            "metrics/recall(B)": 0.9219708508805401,
+            "metrics/mAP50(B)": 0.9115153155104412,
+            "metrics/mAP50-95(B)": 0.3006130045071457,
+            "fitness": 0.3006130045071457
+          },
+          "test": {
+            "metrics/precision(B)": 0.9178722972222788,
+            "metrics/recall(B)": 0.8036072144288577,
+            "metrics/mAP50(B)": 0.8579528462551222,
+            "metrics/mAP50-95(B)": 0.4489529074326161,
+            "fitness": 0.4489529074326161
+          }
+        }
+      },
+      "inference": {
+        "nms": false,
+        "confidence": 0.25,
+        "keypoint_confidence": 0.5,
+        "imgsz": 640,
+        "input": "current_frame_person_crops",
+        "threshold_basis": "explicit conservative development thresholds; not calibrated keypoint probabilities",
+        "output": "head/torso ROI estimates from visible landmarks; no part detector AP claim"
+      },
+      "license": "AGPL-3.0; training source CC-BY-4.0 attribution retained"
+    }
+  ],
+  "status": "Separated newly trained person and PPE development models; no forklift or field acceptance"
+}

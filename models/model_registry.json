@@ -2,9 +2,9 @@
   "schema_version": 1,
   "models": [
     {
-      "run_id": "person-yolo26s-v5",
-      "path": "models\\person-yolo26s-v5.pt",
-      "sha256": "315fe5bb703f3761523333aa6bef56b2899c92779f7f9a720c75ee6618580f2b",
+      "run_id": "person-yolo26s-scale-v7",
+      "path": "models\\person-yolo26s-scale-v7.pt",
+      "sha256": "3bd15c733eed1a9aa033719d2da2b3c889501f14c15ac1e668a6f2be5bcbcec9",
       "classes": [
         "person"
       ],
@@ -16,85 +16,213 @@
       "initial_weights_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
       "initial_weights_source": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26s.pt",
       "manifest_sha256": {
-        "train": "1ed61a5b2736188e4c6b0b8093cab96d37b5cce6273e5daf3ac7dcf1febd8c4e",
-        "validation": "69cd7f2473c0e6d62f378eda08e28f86fa59c79870d7503821e71ebf81331e1b",
-        "test": "7a6ce1ffcff6df24ac3938abd0fa491dde999d39fbee1cd85696bbebab781a02"
+        "train": "25e8a2faa041fe901fea0349a5715dcce7e680033df1b69f0e48feeacd100b74",
+        "validation": "50b2c711c49c66a7235e336703b18b8b5b0c3c0dae96baa66bc7417df3cb5678",
+        "test": "b3af9d5ceecefd023900bc9fac716c861fb21bb89db6f630e62d84b3c408faa0"
       },
       "evaluation": {
-        "run_id": "person-yolo26s-v5",
-        "checkpoint_sha256": "315fe5bb703f3761523333aa6bef56b2899c92779f7f9a720c75ee6618580f2b",
-        "evaluated_at": "2026-11-16T12:03:25.926495+00:00",
+        "run_id": "person-yolo26s-scale-v7",
+        "checkpoint_sha256": "3bd15c733eed1a9aa033719d2da2b3c889501f14c15ac1e668a6f2be5bcbcec9",
+        "evaluated_at": "2026-11-17T07:44:11.324965+00:00",
+        "kind": "person",
         "validation_heads": {
-          "one_to_one": {
-            "classes": {
-              "person": {
-                "precision": 0.9926165575369379,
-                "recall": 0.9751992925568055,
-                "AP50": 0.9846949113002237,
-                "AP50_95": 0.5578268317704949
-              }
-            },
-            "aggregate": {
-              "metrics/precision(B)": 0.9926165575369379,
-              "metrics/recall(B)": 0.9751992925568055,
-              "metrics/mAP50(B)": 0.9846949113002237,
-              "metrics/mAP50-95(B)": 0.5578268317704949,
-              "fitness": 0.5578268317704949
-            },
-            "nms": false,
-            "precision_bits": 16
-          },
           "one_to_many": {
             "classes": {
               "person": {
-                "precision": 0.9951445017061415,
-                "recall": 0.9813471502590674,
-                "AP50": 0.984538710393147,
-                "AP50_95": 0.5901927630992981
+                "precision": 0.9982213679578945,
+                "recall": 0.9865284974093265,
+                "AP50": 0.985,
+                "AP50_95": 0.7054594495536147
               }
             },
             "aggregate": {
-              "metrics/precision(B)": 0.9951445017061415,
-              "metrics/recall(B)": 0.9813471502590674,
-              "metrics/mAP50(B)": 0.984538710393147,
-              "metrics/mAP50-95(B)": 0.5901927630992981,
-              "fitness": 0.5901927630992981
+              "metrics/precision(B)": 0.9982213679578945,
+              "metrics/recall(B)": 0.9865284974093265,
+              "metrics/mAP50(B)": 0.985,
+              "metrics/mAP50-95(B)": 0.7054594495536147,
+              "fitness": 0.7054594495536147
             },
             "nms": true,
-            "precision_bits": 16
+            "precision_bits": 16,
+            "fixed_confidence_025": {
+              "person": {
+                "precision": 0.9782815181896328,
+                "recall": 0.9865284974093265,
+                "iou": 0.5
+              }
+            },
+            "operating_point": {
+              "confidence": 0.5205205205205206,
+              "macro_f1": 0.9926984518522166,
+              "basis": "unchanged native validation groups bbox macro F1; not video/test"
+            },
+            "class_operating_points": {
+              "person": {
+                "confidence": 0.5205205205205206,
+                "F1": 0.9926984518522166
+              }
+            }
+          },
+          "one_to_one": {
+            "classes": {
+              "person": {
+                "precision": 0.998914968171568,
+                "recall": 0.9854922279792746,
+                "AP50": 0.985,
+                "AP50_95": 0.7100046211150404
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.998914968171568,
+              "metrics/recall(B)": 0.9854922279792746,
+              "metrics/mAP50(B)": 0.985,
+              "metrics/mAP50-95(B)": 0.7100046211150404,
+              "fitness": 0.7100046211150404
+            },
+            "nms": false,
+            "precision_bits": 16,
+            "fixed_confidence_025": {
+              "person": {
+                "precision": 0.9794624778996108,
+                "recall": 0.9865284974093265,
+                "iou": 0.5
+              }
+            },
+            "operating_point": {
+              "confidence": 0.6436436436436437,
+              "macro_f1": 0.992686269213629,
+              "basis": "unchanged native validation groups bbox macro F1; not video/test"
+            },
+            "class_operating_points": {
+              "person": {
+                "confidence": 0.6436436436436437,
+                "F1": 0.992686269213629
+              }
+            }
           }
         },
         "selected_head": "one_to_many",
         "selected_nms": true,
-        "head_selection": "highest original validation mAP50-95; not diagnostic video or test",
-        "test": {
+        "selected_operating_point": {
+          "confidence": 0.5205205205205206,
+          "macro_f1": 0.9926984518522166,
+          "basis": "unchanged native validation groups bbox macro F1; not video/test"
+        },
+        "head_selection_reason": "Preserve NMS duplicate suppression after two near-identical person boxes appeared in full diagnostic replay; validation metrics for both heads are retained. Video is diagnostic, not a blind test.",
+        "diagnostic_video_used_for_head_policy": true,
+        "mixed_test": {
+          "classes": {
+            "person": {
+              "precision": 0.9083577497996991,
+              "recall": 0.8193146417445483,
+              "AP50": 0.895012246333885,
+              "AP50_95": 0.5051413606485894
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.9083577497996991,
+            "metrics/recall(B)": 0.8193146417445483,
+            "metrics/mAP50(B)": 0.895012246333885,
+            "metrics/mAP50-95(B)": 0.5051413606485894,
+            "fitness": 0.5051413606485894
+          },
+          "nms": true,
+          "precision_bits": 16,
+          "fixed_confidence_025": {
+            "person": {
+              "precision": 0.9091777864387749,
+              "recall": 0.8186906142903028,
+              "iou": 0.5
+            }
+          }
+        },
+        "native_test": {
+          "classes": {
+            "person": {
+              "precision": 0.9564713550272125,
+              "recall": 0.9247314252727378,
+              "AP50": 0.9653813004216357,
+              "AP50_95": 0.5546266287563744
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.9564713550272125,
+            "metrics/recall(B)": 0.9247314252727378,
+            "metrics/mAP50(B)": 0.9653813004216357,
+            "metrics/mAP50-95(B)": 0.5546266287563744,
+            "fitness": 0.5546266287563744
+          },
+          "nms": true,
+          "precision_bits": 16,
+          "fixed_confidence_025": {
+            "person": {
+              "precision": 0.9398656509255761,
+              "recall": 0.9365397461589846,
+              "iou": 0.5
+            }
+          }
+        },
+        "user_video_used_for_training": false,
+        "field_acceptance": false,
+        "limitation": "Synthetic composites have correlated source objects. Native development test has been inspected for previous candidates; not independent acceptance.",
+        "baseline_native_test": {
           "classes": {
             "person": {
               "precision": 0.926102327725948,
               "recall": 0.8770875083500334,
-              "AP50": 0.9346279953994375,
-              "AP50_95": 0.5535868373514715
+              "AP50": 0.9345687045785489,
+              "AP50_95": 0.5535307256242362
             }
           },
           "aggregate": {
             "metrics/precision(B)": 0.926102327725948,
             "metrics/recall(B)": 0.8770875083500334,
-            "metrics/mAP50(B)": 0.9346279953994375,
-            "metrics/mAP50-95(B)": 0.5535868373514715,
-            "fitness": 0.5535868373514715
+            "metrics/mAP50(B)": 0.9345687045785489,
+            "metrics/mAP50-95(B)": 0.5535307256242362,
+            "fitness": 0.5535307256242362
           },
           "nms": true,
-          "precision_bits": 16
+          "precision_bits": 16,
+          "fixed_confidence_025": {
+            "person": {
+              "precision": 0.8783699613305948,
+              "recall": 0.8984748924333977,
+              "iou": 0.5
+            }
+          }
         },
-        "field_independent_test": false,
-        "user_video_used_for_training": false,
-        "deployment_acceptance": false,
-        "test_scope": "Existing development image split, not a fresh blind acceptance set; multiple candidates are reported."
+        "baseline_mixed_test": {
+          "classes": {
+            "person": {
+              "precision": 0.7350862857716126,
+              "recall": 0.7935449468159749,
+              "AP50": 0.8136128321201076,
+              "AP50_95": 0.4302211989422574
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.7350862857716126,
+            "metrics/recall(B)": 0.7935449468159749,
+            "metrics/mAP50(B)": 0.8136128321201076,
+            "metrics/mAP50-95(B)": 0.4302211989422574,
+            "fitness": 0.4302211989422574
+          },
+          "nms": true,
+          "precision_bits": 16,
+          "fixed_confidence_025": {
+            "person": {
+              "precision": 0.7377526018630577,
+              "recall": 0.7901869158878505,
+              "iou": 0.5
+            }
+          }
+        }
       },
       "inference": {
         "nms": true,
         "confidence": 0.25,
-        "head_basis": "highest original validation mAP50-95; not diagnostic video or test"
+        "head_basis": "Preserve NMS duplicate suppression after two near-identical person boxes appeared in full diagnostic replay; validation metrics for both heads are retained. Video is diagnostic, not a blind test.",
+        "threshold_basis": "existing person display threshold retained"
       },
       "license": "AGPL-3.0; source dataset CC-BY-4.0 attribution also retained"
     },
@@ -254,5 +382,9 @@
       "license": "AGPL-3.0; training source CC-BY-4.0 attribution retained"
     }
   ],
-  "status": "Separated newly trained person and PPE development models; no forklift or field acceptance"
+  "status": "Development person image and near-field improvement only; distant CCTV and new PPE detector improvement unresolved",
+  "operational_parent_sha256": "456b874ed366d6eb2741bb76e9f14046f09620ac34be0a42c144151b45d2aa9f",
+  "updated_at": "2026-11-17T07:48:17.378710+00:00",
+  "change_scope": "Person v7 with NMS adopted; existing PPE v2 and pose v2 retained. New PPE candidates rejected after video regression.",
+  "diagnostic_video_used_for_training": false
 }

@@ -1,0 +1,2108 @@
+{
+  "recorded_at": "2026-11-17T08:03:23.517758+00:00",
+  "experiments": {
+    "person-yolo26s-scale-v6": {
+      "provenance": {
+        "run_id": "person-yolo26s-scale-v6",
+        "status": "completed",
+        "started_at": "2026-11-17T07:13:24.104174+00:00",
+        "parameters": {
+          "data": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\data\\derived\\person-yolo26s-scale-v6\\data.yaml",
+          "epochs": 20,
+          "imgsz": 640,
+          "batch": 12,
+          "device": 0,
+          "workers": 0,
+          "seed": 63,
+          "deterministic": true,
+          "optimizer": "AdamW",
+          "lr0": 0.0001,
+          "warmup_bias_lr": 0.0001,
+          "warmup_epochs": 1,
+          "weight_decay": 0.0001,
+          "freeze": 0,
+          "nms": false,
+          "patience": 8,
+          "project": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\outputs\\training",
+          "name": "person-yolo26s-scale-v6",
+          "exist_ok": true,
+          "cache": false,
+          "plots": true,
+          "amp": true,
+          "mosaic": 0.0,
+          "mixup": 0.0,
+          "scale": 0.2,
+          "translate": 0.1,
+          "degrees": 25,
+          "shear": 3,
+          "perspective": 0.0003,
+          "fliplr": 0.5,
+          "close_mosaic": 0,
+          "max_det": 600,
+          "verbose": false
+        },
+        "manifest_sha256": {
+          "train": "b10d3dab9734295d36f3ed1fa480e135809490b9515cba92e9943bea86167ddf",
+          "validation": "653683a341ec5b93ae2e30f694f3a5fdaa2adde2a6d297788c5721d669808605",
+          "test": "a2a07ec2e9ba20283b1adf6dfd650a37861c5d0a932700f4eba8db181e847eea"
+        },
+        "manifest_paths": {
+          "train": "data/manifests/person-yolo26s-scale-v6/train.json",
+          "validation": "data/manifests/person-yolo26s-scale-v6/validation.json",
+          "test": "data/manifests/person-yolo26s-scale-v6/test.json"
+        },
+        "statistics": {
+          "train": {
+            "images": 1209,
+            "source_images": 403,
+            "object_counts": {
+              "0": 12606
+            },
+            "height_percentiles": [
+              44.16796875,
+              80.084375,
+              142.0
+            ]
+          },
+          "validation": {
+            "images": 600,
+            "source_images": 240,
+            "object_counts": {
+              "0": 3254
+            },
+            "height_percentiles": [
+              70.4134375,
+              92.5390625,
+              177.56203125
+            ]
+          },
+          "test": {
+            "images": 600,
+            "source_images": 240,
+            "object_counts": {
+              "0": 6420
+            },
+            "height_percentiles": [
+              35.20531250000001,
+              80.6046875,
+              177.48000000000013
+            ]
+          }
+        },
+        "initial_checkpoint": "models\\person-yolo26s-v5.pt",
+        "initial_checkpoint_sha256": "315fe5bb703f3761523333aa6bef56b2899c92779f7f9a720c75ee6618580f2b",
+        "parent_run_id": "person-yolo26s-v5",
+        "initial_weights_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+        "initial_weights_source": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26s.pt",
+        "strategy": "Unfreeze all layers; mix native scenes with label-preserving shrunk scenes and grids, varied angle/scale/sharpness.",
+        "packages": {
+          "torch": "2.10.0+cu128",
+          "torchvision": "0.25.0+cu128",
+          "ultralytics": "8.4.215"
+        },
+        "gpu": "NVIDIA GeForce RTX 5070 Ti",
+        "user_video_used_for_training": false,
+        "external_dataset_used": false,
+        "field_acceptance": false,
+        "validation_scope": "Native and synthetic-small images from existing validation groups; test/video never select checkpoints.",
+        "completed_at": "2026-11-17T07:17:08.470938+00:00",
+        "checkpoint": "outputs\\training\\person-yolo26s-scale-v6\\weights\\best.pt",
+        "checkpoint_sha256": "b37af79a0222f679e092b17e61c77b8d29e6437a07432e15b99aca16158435c4",
+        "checkpoint_selection": "best mixed-validation fitness"
+      },
+      "evaluation": {
+        "run_id": "person-yolo26s-scale-v6",
+        "checkpoint_sha256": "b37af79a0222f679e092b17e61c77b8d29e6437a07432e15b99aca16158435c4",
+        "evaluated_at": "2026-11-17T07:24:23.146983+00:00",
+        "kind": "person",
+        "validation_heads": {
+          "one_to_many": {
+            "classes": {
+              "person": {
+                "precision": 0.9820669143178712,
+                "recall": 0.9761049367591316,
+                "AP50": 0.9828414345104779,
+                "AP50_95": 0.57684234217536
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.9820669143178712,
+              "metrics/recall(B)": 0.9761049367591316,
+              "metrics/mAP50(B)": 0.9828414345104779,
+              "metrics/mAP50-95(B)": 0.57684234217536,
+              "fitness": 0.57684234217536
+            },
+            "nms": true,
+            "precision_bits": 16,
+            "operating_point": {
+              "confidence": 0.46346346346346345,
+              "macro_f1": 0.9794553834161062,
+              "basis": "mixed validation bbox macro F1; not video/test"
+            }
+          },
+          "one_to_one": {
+            "classes": {
+              "person": {
+                "precision": 0.9854492079320312,
+                "recall": 0.9782005935458097,
+                "AP50": 0.9864556111978504,
+                "AP50_95": 0.5880855638239699
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.9854492079320312,
+              "metrics/recall(B)": 0.9782005935458097,
+              "metrics/mAP50(B)": 0.9864556111978504,
+              "metrics/mAP50-95(B)": 0.5880855638239699,
+              "fitness": 0.5880855638239699
+            },
+            "nms": false,
+            "precision_bits": 16,
+            "operating_point": {
+              "confidence": 0.34434434434434436,
+              "macro_f1": 0.9819545765793689,
+              "basis": "mixed validation bbox macro F1; not video/test"
+            }
+          }
+        },
+        "selected_head": "one_to_one",
+        "selected_nms": false,
+        "selected_operating_point": {
+          "confidence": 0.34434434434434436,
+          "macro_f1": 0.9819545765793689,
+          "basis": "mixed validation bbox macro F1; not video/test"
+        },
+        "mixed_test": {
+          "classes": {
+            "person": {
+              "precision": 0.8607864005339866,
+              "recall": 0.7300421137648552,
+              "AP50": 0.8197350824127525,
+              "AP50_95": 0.3901852461558307
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.8607864005339866,
+            "metrics/recall(B)": 0.7300421137648552,
+            "metrics/mAP50(B)": 0.8197350824127525,
+            "metrics/mAP50-95(B)": 0.3901852461558307,
+            "fitness": 0.3901852461558307
+          },
+          "nms": false,
+          "precision_bits": 16
+        },
+        "native_test": {
+          "classes": {
+            "person": {
+              "precision": 0.90345997336331,
+              "recall": 0.8857715430861723,
+              "AP50": 0.9137462949078722,
+              "AP50_95": 0.4149233773747708
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.90345997336331,
+            "metrics/recall(B)": 0.8857715430861723,
+            "metrics/mAP50(B)": 0.9137462949078722,
+            "metrics/mAP50-95(B)": 0.4149233773747708,
+            "fitness": 0.4149233773747708
+          },
+          "nms": false,
+          "precision_bits": 16
+        },
+        "user_video_used_for_training": false,
+        "field_acceptance": false,
+        "limitation": "Synthetic composites have correlated source objects. Native development test has been inspected for previous candidates; not independent acceptance.",
+        "baseline_native_test": {
+          "classes": {
+            "person": {
+              "precision": 0.926102327725948,
+              "recall": 0.8770875083500334,
+              "AP50": 0.9345687045785489,
+              "AP50_95": 0.5535307256242362
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.926102327725948,
+            "metrics/recall(B)": 0.8770875083500334,
+            "metrics/mAP50(B)": 0.9345687045785489,
+            "metrics/mAP50-95(B)": 0.5535307256242362,
+            "fitness": 0.5535307256242362
+          },
+          "nms": true,
+          "precision_bits": 16
+        },
+        "baseline_mixed_test": {
+          "classes": {
+            "person": {
+              "precision": 0.7350862857716126,
+              "recall": 0.7935449468159749,
+              "AP50": 0.8136128321201076,
+              "AP50_95": 0.4302211989422574
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.7350862857716126,
+            "metrics/recall(B)": 0.7935449468159749,
+            "metrics/mAP50(B)": 0.8136128321201076,
+            "metrics/mAP50-95(B)": 0.4302211989422574,
+            "fitness": 0.4302211989422574
+          },
+          "nms": true,
+          "precision_bits": 16
+        }
+      },
+      "source_audit": {
+        "run_id": "person-yolo26s-scale-v6",
+        "audited_at": "2026-11-17T07:36:56.390010+00:00",
+        "splits": {
+          "train": {
+            "rows": 1209,
+            "unique_source_images": 403,
+            "source_groups": 29,
+            "annotation_rows_in_manifest_labels": 12606,
+            "manifest_sha256": "b10d3dab9734295d36f3ed1fa480e135809490b9515cba92e9943bea86167ddf"
+          },
+          "validation": {
+            "rows": 600,
+            "unique_source_images": 240,
+            "source_groups": 1,
+            "annotation_rows_in_manifest_labels": 3254,
+            "manifest_sha256": "653683a341ec5b93ae2e30f694f3a5fdaa2adde2a6d297788c5721d669808605"
+          },
+          "test": {
+            "rows": 600,
+            "unique_source_images": 240,
+            "source_groups": 5,
+            "annotation_rows_in_manifest_labels": 6420,
+            "manifest_sha256": "a2a07ec2e9ba20283b1adf6dfd650a37861c5d0a932700f4eba8db181e847eea"
+          }
+        },
+        "pairwise_split_overlap": {
+          "train-validation": {
+            "image_hash_overlap": 0,
+            "source_group_overlap": 0
+          },
+          "train-test": {
+            "image_hash_overlap": 0,
+            "source_group_overlap": 0
+          },
+          "validation-test": {
+            "image_hash_overlap": 0,
+            "source_group_overlap": 0
+          }
+        },
+        "verified_files": 6584,
+        "user_video_used_for_training": false,
+        "limitation": "Verifies declared source isolation and file integrity; does not certify completeness or correctness of source annotations."
+      },
+      "adopted": false
+    },
+    "person-yolo26s-scale-v7": {
+      "provenance": {
+        "run_id": "person-yolo26s-scale-v7",
+        "status": "completed",
+        "started_at": "2026-11-17T07:32:58.719410+00:00",
+        "parameters": {
+          "data": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\data\\derived\\person-yolo26s-scale-v7\\data.yaml",
+          "epochs": 10,
+          "imgsz": 640,
+          "batch": 12,
+          "device": 0,
+          "workers": 0,
+          "seed": 67,
+          "deterministic": true,
+          "optimizer": "AdamW",
+          "lr0": 2e-05,
+          "warmup_bias_lr": 2e-05,
+          "warmup_epochs": 1,
+          "weight_decay": 0.0001,
+          "freeze": 10,
+          "nms": false,
+          "patience": 10,
+          "project": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\outputs\\training",
+          "name": "person-yolo26s-scale-v7",
+          "exist_ok": true,
+          "cache": false,
+          "plots": true,
+          "amp": true,
+          "mosaic": 0.0,
+          "mixup": 0.0,
+          "scale": 0.1,
+          "translate": 0.05,
+          "degrees": 10,
+          "shear": 0,
+          "perspective": 0,
+          "fliplr": 0.5,
+          "close_mosaic": 0,
+          "max_det": 600,
+          "verbose": false
+        },
+        "manifest_sha256": {
+          "train": "25e8a2faa041fe901fea0349a5715dcce7e680033df1b69f0e48feeacd100b74",
+          "validation": "50b2c711c49c66a7235e336703b18b8b5b0c3c0dae96baa66bc7417df3cb5678",
+          "test": "b3af9d5ceecefd023900bc9fac716c861fb21bb89db6f630e62d84b3c408faa0"
+        },
+        "manifest_paths": {
+          "train": "data\\manifests\\person-yolo26s-scale-v7\\train.json",
+          "validation": "data\\manifests\\person-yolo26s-scale-v7\\validation.json",
+          "test": "data\\manifests\\person-yolo26s-scale-v7\\test.json"
+        },
+        "initial_checkpoint": "models\\person-yolo26s-v5.pt",
+        "initial_checkpoint_sha256": "315fe5bb703f3761523333aa6bef56b2899c92779f7f9a720c75ee6618580f2b",
+        "parent_run_id": "person-yolo26s-v5",
+        "initial_weights_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+        "initial_weights_source": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26s.pt",
+        "selection_data": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\data\\derived\\person-yolo26s-scale-v7\\data.yaml",
+        "evaluation_data": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\data\\derived\\person-yolo26s-scale-v6\\data.yaml",
+        "validation_basis": "unchanged native validation groups",
+        "training_rows": 1841,
+        "native_source_images": 403,
+        "background_crops": 121,
+        "strategy": "Native 3x; existing naturally small images 9x; shrunk scene 1x; annotated background crops; frozen backbone parameters and batch normalization statistics.",
+        "user_video_used_for_training": false,
+        "field_acceptance": false,
+        "external_dataset_used": false,
+        "packages": {
+          "torch": "2.10.0+cu128",
+          "torchvision": "0.25.0+cu128",
+          "ultralytics": "8.4.215"
+        },
+        "gpu": "NVIDIA GeForce RTX 5070 Ti",
+        "frozen_backbone_max_delta": 0.0,
+        "completed_at": "2026-11-17T07:37:22.199897+00:00",
+        "checkpoint": "outputs\\training\\person-yolo26s-scale-v7\\weights\\best.pt",
+        "checkpoint_sha256": "3bd15c733eed1a9aa033719d2da2b3c889501f14c15ac1e668a6f2be5bcbcec9",
+        "checkpoint_selection": "best native validation fitness"
+      },
+      "evaluation": {
+        "run_id": "person-yolo26s-scale-v7",
+        "checkpoint_sha256": "3bd15c733eed1a9aa033719d2da2b3c889501f14c15ac1e668a6f2be5bcbcec9",
+        "evaluated_at": "2026-11-17T07:44:11.324965+00:00",
+        "kind": "person",
+        "validation_heads": {
+          "one_to_many": {
+            "classes": {
+              "person": {
+                "precision": 0.9982213679578945,
+                "recall": 0.9865284974093265,
+                "AP50": 0.985,
+                "AP50_95": 0.7054594495536147
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.9982213679578945,
+              "metrics/recall(B)": 0.9865284974093265,
+              "metrics/mAP50(B)": 0.985,
+              "metrics/mAP50-95(B)": 0.7054594495536147,
+              "fitness": 0.7054594495536147
+            },
+            "nms": true,
+            "precision_bits": 16,
+            "fixed_confidence_025": {
+              "person": {
+                "precision": 0.9782815181896328,
+                "recall": 0.9865284974093265,
+                "iou": 0.5
+              }
+            },
+            "operating_point": {
+              "confidence": 0.5205205205205206,
+              "macro_f1": 0.9926984518522166,
+              "basis": "unchanged native validation groups bbox macro F1; not video/test"
+            },
+            "class_operating_points": {
+              "person": {
+                "confidence": 0.5205205205205206,
+                "F1": 0.9926984518522166
+              }
+            }
+          },
+          "one_to_one": {
+            "classes": {
+              "person": {
+                "precision": 0.998914968171568,
+                "recall": 0.9854922279792746,
+                "AP50": 0.985,
+                "AP50_95": 0.7100046211150404
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.998914968171568,
+              "metrics/recall(B)": 0.9854922279792746,
+              "metrics/mAP50(B)": 0.985,
+              "metrics/mAP50-95(B)": 0.7100046211150404,
+              "fitness": 0.7100046211150404
+            },
+            "nms": false,
+            "precision_bits": 16,
+            "fixed_confidence_025": {
+              "person": {
+                "precision": 0.9794624778996108,
+                "recall": 0.9865284974093265,
+                "iou": 0.5
+              }
+            },
+            "operating_point": {
+              "confidence": 0.6436436436436437,
+              "macro_f1": 0.992686269213629,
+              "basis": "unchanged native validation groups bbox macro F1; not video/test"
+            },
+            "class_operating_points": {
+              "person": {
+                "confidence": 0.6436436436436437,
+                "F1": 0.992686269213629
+              }
+            }
+          }
+        },
+        "selected_head": "one_to_many",
+        "selected_nms": true,
+        "selected_operating_point": {
+          "confidence": 0.5205205205205206,
+          "macro_f1": 0.9926984518522166,
+          "basis": "unchanged native validation groups bbox macro F1; not video/test"
+        },
+        "head_selection_reason": "Preserve NMS duplicate suppression after two near-identical person boxes appeared in full diagnostic replay; validation metrics for both heads are retained. Video is diagnostic, not a blind test.",
+        "diagnostic_video_used_for_head_policy": true,
+        "mixed_test": {
+          "classes": {
+            "person": {
+              "precision": 0.9083577497996991,
+              "recall": 0.8193146417445483,
+              "AP50": 0.895012246333885,
+              "AP50_95": 0.5051413606485894
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.9083577497996991,
+            "metrics/recall(B)": 0.8193146417445483,
+            "metrics/mAP50(B)": 0.895012246333885,
+            "metrics/mAP50-95(B)": 0.5051413606485894,
+            "fitness": 0.5051413606485894
+          },
+          "nms": true,
+          "precision_bits": 16,
+          "fixed_confidence_025": {
+            "person": {
+              "precision": 0.9091777864387749,
+              "recall": 0.8186906142903028,
+              "iou": 0.5
+            }
+          }
+        },
+        "native_test": {
+          "classes": {
+            "person": {
+              "precision": 0.9564713550272125,
+              "recall": 0.9247314252727378,
+              "AP50": 0.9653813004216357,
+              "AP50_95": 0.5546266287563744
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.9564713550272125,
+            "metrics/recall(B)": 0.9247314252727378,
+            "metrics/mAP50(B)": 0.9653813004216357,
+            "metrics/mAP50-95(B)": 0.5546266287563744,
+            "fitness": 0.5546266287563744
+          },
+          "nms": true,
+          "precision_bits": 16,
+          "fixed_confidence_025": {
+            "person": {
+              "precision": 0.9398656509255761,
+              "recall": 0.9365397461589846,
+              "iou": 0.5
+            }
+          }
+        },
+        "user_video_used_for_training": false,
+        "field_acceptance": false,
+        "limitation": "Synthetic composites have correlated source objects. Native development test has been inspected for previous candidates; not independent acceptance.",
+        "baseline_native_test": {
+          "classes": {
+            "person": {
+              "precision": 0.926102327725948,
+              "recall": 0.8770875083500334,
+              "AP50": 0.9345687045785489,
+              "AP50_95": 0.5535307256242362
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.926102327725948,
+            "metrics/recall(B)": 0.8770875083500334,
+            "metrics/mAP50(B)": 0.9345687045785489,
+            "metrics/mAP50-95(B)": 0.5535307256242362,
+            "fitness": 0.5535307256242362
+          },
+          "nms": true,
+          "precision_bits": 16,
+          "fixed_confidence_025": {
+            "person": {
+              "precision": 0.8783699613305948,
+              "recall": 0.8984748924333977,
+              "iou": 0.5
+            }
+          }
+        },
+        "baseline_mixed_test": {
+          "classes": {
+            "person": {
+              "precision": 0.7350862857716126,
+              "recall": 0.7935449468159749,
+              "AP50": 0.8136128321201076,
+              "AP50_95": 0.4302211989422574
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.7350862857716126,
+            "metrics/recall(B)": 0.7935449468159749,
+            "metrics/mAP50(B)": 0.8136128321201076,
+            "metrics/mAP50-95(B)": 0.4302211989422574,
+            "fitness": 0.4302211989422574
+          },
+          "nms": true,
+          "precision_bits": 16,
+          "fixed_confidence_025": {
+            "person": {
+              "precision": 0.7377526018630577,
+              "recall": 0.7901869158878505,
+              "iou": 0.5
+            }
+          }
+        }
+      },
+      "source_audit": {
+        "run_id": "person-yolo26s-scale-v7",
+        "audited_at": "2026-11-17T07:37:05.437751+00:00",
+        "splits": {
+          "train": {
+            "rows": 1841,
+            "unique_source_images": 403,
+            "source_groups": 29,
+            "annotation_rows_in_manifest_labels": 2398,
+            "manifest_sha256": "25e8a2faa041fe901fea0349a5715dcce7e680033df1b69f0e48feeacd100b74"
+          },
+          "validation": {
+            "rows": 930,
+            "unique_source_images": 930,
+            "source_groups": 1,
+            "annotation_rows_in_manifest_labels": 965,
+            "manifest_sha256": "50b2c711c49c66a7235e336703b18b8b5b0c3c0dae96baa66bc7417df3cb5678"
+          },
+          "test": {
+            "rows": 685,
+            "unique_source_images": 685,
+            "source_groups": 5,
+            "annotation_rows_in_manifest_labels": 1497,
+            "manifest_sha256": "b3af9d5ceecefd023900bc9fac716c861fb21bb89db6f630e62d84b3c408faa0"
+          }
+        },
+        "pairwise_split_overlap": {
+          "train-validation": {
+            "image_hash_overlap": 0,
+            "source_group_overlap": 0
+          },
+          "train-test": {
+            "image_hash_overlap": 0,
+            "source_group_overlap": 0
+          },
+          "validation-test": {
+            "image_hash_overlap": 0,
+            "source_group_overlap": 0
+          }
+        },
+        "verified_files": 5890,
+        "user_video_used_for_training": false,
+        "limitation": "Verifies declared source isolation and file integrity; does not certify completeness or correctness of source annotations."
+      },
+      "adopted": true
+    },
+    "ppe-yolo26s-scale-v4": {
+      "provenance": {
+        "run_id": "ppe-yolo26s-scale-v4",
+        "status": "completed",
+        "started_at": "2026-11-17T07:18:14.975764+00:00",
+        "parameters": {
+          "data": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\data\\derived\\ppe-yolo26s-scale-v4\\data.yaml",
+          "epochs": 20,
+          "imgsz": 640,
+          "batch": 12,
+          "device": 0,
+          "workers": 0,
+          "seed": 63,
+          "deterministic": true,
+          "optimizer": "AdamW",
+          "lr0": 0.0001,
+          "warmup_bias_lr": 0.0001,
+          "warmup_epochs": 1,
+          "weight_decay": 0.0001,
+          "freeze": 0,
+          "nms": false,
+          "patience": 8,
+          "project": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\outputs\\training",
+          "name": "ppe-yolo26s-scale-v4",
+          "exist_ok": true,
+          "cache": false,
+          "plots": true,
+          "amp": true,
+          "mosaic": 0.0,
+          "mixup": 0.0,
+          "scale": 0.2,
+          "translate": 0.1,
+          "degrees": 25,
+          "shear": 3,
+          "perspective": 0.0003,
+          "fliplr": 0.5,
+          "close_mosaic": 0,
+          "max_det": 600,
+          "verbose": false
+        },
+        "manifest_sha256": {
+          "train": "9b0edf19a7208c1e3119b15efb63e737a45582ba54281a3c9a204ec830217520",
+          "validation": "a9fda272dad76b99db1fda6254f4c7d1e7a895d55844156c7e6dd4b48f8920ee",
+          "test": "67b539ff02234852115c3fb45195cfcf66d77cf96b733c5b4f3ffac1a45f2515"
+        },
+        "manifest_paths": {
+          "train": "data/manifests/ppe-yolo26s-scale-v4/train.json",
+          "validation": "data/manifests/ppe-yolo26s-scale-v4/validation.json",
+          "test": "data/manifests/ppe-yolo26s-scale-v4/test.json"
+        },
+        "statistics": {
+          "train": {
+            "images": 3024,
+            "source_images": 1008,
+            "object_counts": {
+              "0": 23788,
+              "1": 25577
+            },
+            "height_percentiles": [
+              5.875,
+              18.40625,
+              55.0
+            ]
+          },
+          "validation": {
+            "images": 600,
+            "source_images": 240,
+            "object_counts": {
+              "0": 2061,
+              "1": 2785
+            },
+            "height_percentiles": [
+              8.55,
+              25.728125000000002,
+              57.197656249999994
+            ]
+          },
+          "test": {
+            "images": 600,
+            "source_images": 240,
+            "object_counts": {
+              "1": 3965,
+              "0": 2882
+            },
+            "height_percentiles": [
+              7.32375,
+              24.4,
+              71.28437500000004
+            ]
+          }
+        },
+        "initial_checkpoint": "models\\ppe-yolo26s-v2.pt",
+        "initial_checkpoint_sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+        "parent_run_id": "ppe-yolo26s-v2",
+        "initial_weights_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+        "initial_weights_source": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26s.pt",
+        "strategy": "Unfreeze all layers; mix native scenes with label-preserving shrunk scenes and grids, varied angle/scale/sharpness.",
+        "packages": {
+          "torch": "2.10.0+cu128",
+          "torchvision": "0.25.0+cu128",
+          "ultralytics": "8.4.215"
+        },
+        "gpu": "NVIDIA GeForce RTX 5070 Ti",
+        "user_video_used_for_training": false,
+        "external_dataset_used": false,
+        "field_acceptance": false,
+        "validation_scope": "Native and synthetic-small images from existing validation groups; test/video never select checkpoints.",
+        "completed_at": "2026-11-17T07:24:31.640919+00:00",
+        "checkpoint": "outputs\\training\\ppe-yolo26s-scale-v4\\weights\\best.pt",
+        "checkpoint_sha256": "ae2edc6b39a903af16c5c27e4309d901a83a3cee7fa845b3a0ec725cf1eee5d0",
+        "checkpoint_selection": "best mixed-validation fitness"
+      },
+      "evaluation": {
+        "run_id": "ppe-yolo26s-scale-v4",
+        "checkpoint_sha256": "ae2edc6b39a903af16c5c27e4309d901a83a3cee7fa845b3a0ec725cf1eee5d0",
+        "evaluated_at": "2026-11-17T07:31:13.223433+00:00",
+        "kind": "ppe",
+        "validation_heads": {
+          "one_to_many": {
+            "classes": {
+              "helmet": {
+                "precision": 0.8664103383629017,
+                "recall": 0.47161572052401746,
+                "AP50": 0.5892425984764265,
+                "AP50_95": 0.2495594744451156
+              },
+              "safety_vest": {
+                "precision": 0.8513845134111732,
+                "recall": 0.9141831238779174,
+                "AP50": 0.9293459739444603,
+                "AP50_95": 0.35296393226001044
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.8588974258870374,
+              "metrics/recall(B)": 0.6928994222009675,
+              "metrics/mAP50(B)": 0.7592942862104434,
+              "metrics/mAP50-95(B)": 0.301261703352563,
+              "fitness": 0.301261703352563
+            },
+            "nms": true,
+            "precision_bits": 16,
+            "operating_point": {
+              "confidence": 0.38038038038038036,
+              "macro_f1": 0.7471274301749627,
+              "basis": "mixed validation bbox macro F1; not video/test"
+            }
+          },
+          "one_to_one": {
+            "classes": {
+              "helmet": {
+                "precision": 0.7232461289424597,
+                "recall": 0.4623968947113052,
+                "AP50": 0.5474162935860476,
+                "AP50_95": 0.2317093888711966
+              },
+              "safety_vest": {
+                "precision": 0.8158971404298846,
+                "recall": 0.8746858168761221,
+                "AP50": 0.8951396593133297,
+                "AP50_95": 0.33779359497800443
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.7695716346861721,
+              "metrics/recall(B)": 0.6685413557937137,
+              "metrics/mAP50(B)": 0.7212779764496886,
+              "metrics/mAP50-95(B)": 0.2847514919246005,
+              "fitness": 0.2847514919246005
+            },
+            "nms": false,
+            "precision_bits": 16,
+            "operating_point": {
+              "confidence": 0.37037037037037035,
+              "macro_f1": 0.7079583464630816,
+              "basis": "mixed validation bbox macro F1; not video/test"
+            }
+          }
+        },
+        "selected_head": "one_to_many",
+        "selected_nms": true,
+        "selected_operating_point": {
+          "confidence": 0.38038038038038036,
+          "macro_f1": 0.7471274301749627,
+          "basis": "mixed validation bbox macro F1; not video/test"
+        },
+        "mixed_test": {
+          "classes": {
+            "helmet": {
+              "precision": 0.6270445200525415,
+              "recall": 0.4583622484385843,
+              "AP50": 0.482809235693139,
+              "AP50_95": 0.22893911134044295
+            },
+            "safety_vest": {
+              "precision": 0.786724257722364,
+              "recall": 0.6063051702395965,
+              "AP50": 0.7044182476408771,
+              "AP50_95": 0.3718722299334939
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.7068843888874528,
+            "metrics/recall(B)": 0.5323337093390904,
+            "metrics/mAP50(B)": 0.5936137416670081,
+            "metrics/mAP50-95(B)": 0.30040567063696844,
+            "fitness": 0.30040567063696844
+          },
+          "nms": true,
+          "precision_bits": 16
+        },
+        "native_test": {
+          "classes": {
+            "helmet": {
+              "precision": 0.8648776201141717,
+              "recall": 0.7096579221848329,
+              "AP50": 0.7950417996107726,
+              "AP50_95": 0.3915905503201203
+            },
+            "safety_vest": {
+              "precision": 0.8559455957170695,
+              "recall": 0.7819688885170794,
+              "AP50": 0.8350938548941422,
+              "AP50_95": 0.4598263991635211
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.8604116079156205,
+            "metrics/recall(B)": 0.7458134053509562,
+            "metrics/mAP50(B)": 0.8150678272524574,
+            "metrics/mAP50-95(B)": 0.42570847474182055,
+            "fitness": 0.42570847474182055
+          },
+          "nms": true,
+          "precision_bits": 16
+        },
+        "user_video_used_for_training": false,
+        "field_acceptance": false,
+        "limitation": "Synthetic composites have correlated source objects. Native development test has been inspected for previous candidates; not independent acceptance.",
+        "baseline_native_test": {
+          "classes": {
+            "helmet": {
+              "precision": 0.6749574232932046,
+              "recall": 0.7018593315238454,
+              "AP50": 0.7131428970193641,
+              "AP50_95": 0.3533454979053369
+            },
+            "safety_vest": {
+              "precision": 0.833847991814854,
+              "recall": 0.8251681075888568,
+              "AP50": 0.8718912178095606,
+              "AP50_95": 0.5049690140945792
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.7544027075540294,
+            "metrics/recall(B)": 0.7635137195563511,
+            "metrics/mAP50(B)": 0.7925170574144623,
+            "metrics/mAP50-95(B)": 0.42915725599995813,
+            "fitness": 0.42915725599995813
+          },
+          "nms": true,
+          "precision_bits": 16
+        }
+      },
+      "source_audit": {
+        "run_id": "ppe-yolo26s-scale-v4",
+        "audited_at": "2026-11-17T07:37:13.683630+00:00",
+        "splits": {
+          "train": {
+            "rows": 3024,
+            "unique_source_images": 1008,
+            "source_groups": 74,
+            "annotation_rows_in_manifest_labels": 49365,
+            "manifest_sha256": "9b0edf19a7208c1e3119b15efb63e737a45582ba54281a3c9a204ec830217520"
+          },
+          "validation": {
+            "rows": 600,
+            "unique_source_images": 239,
+            "source_groups": 2,
+            "annotation_rows_in_manifest_labels": 4846,
+            "manifest_sha256": "a9fda272dad76b99db1fda6254f4c7d1e7a895d55844156c7e6dd4b48f8920ee"
+          },
+          "test": {
+            "rows": 600,
+            "unique_source_images": 240,
+            "source_groups": 10,
+            "annotation_rows_in_manifest_labels": 6847,
+            "manifest_sha256": "67b539ff02234852115c3fb45195cfcf66d77cf96b733c5b4f3ffac1a45f2515"
+          }
+        },
+        "pairwise_split_overlap": {
+          "train-validation": {
+            "image_hash_overlap": 0,
+            "source_group_overlap": 0
+          },
+          "train-test": {
+            "image_hash_overlap": 0,
+            "source_group_overlap": 0
+          },
+          "validation-test": {
+            "image_hash_overlap": 0,
+            "source_group_overlap": 0
+          }
+        },
+        "verified_files": 11424,
+        "user_video_used_for_training": false,
+        "limitation": "Verifies declared source isolation and file integrity; does not certify completeness or correctness of source annotations."
+      },
+      "adopted": false
+    },
+    "ppe-yolo26s-scale-v5": {
+      "provenance": {
+        "run_id": "ppe-yolo26s-scale-v5",
+        "status": "completed",
+        "started_at": "2026-11-17T07:35:02.260622+00:00",
+        "parameters": {
+          "data": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\data\\derived\\ppe-yolo26s-scale-v5\\data.yaml",
+          "epochs": 10,
+          "imgsz": 640,
+          "batch": 12,
+          "device": 0,
+          "workers": 0,
+          "seed": 68,
+          "deterministic": true,
+          "optimizer": "AdamW",
+          "lr0": 2e-05,
+          "warmup_bias_lr": 2e-05,
+          "warmup_epochs": 1,
+          "weight_decay": 0.0001,
+          "freeze": 10,
+          "nms": false,
+          "patience": 10,
+          "project": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\outputs\\training",
+          "name": "ppe-yolo26s-scale-v5",
+          "exist_ok": true,
+          "cache": false,
+          "plots": true,
+          "amp": true,
+          "mosaic": 0.0,
+          "mixup": 0.0,
+          "scale": 0.1,
+          "translate": 0.05,
+          "degrees": 10,
+          "shear": 0,
+          "perspective": 0,
+          "fliplr": 0.5,
+          "close_mosaic": 0,
+          "max_det": 600,
+          "verbose": false
+        },
+        "manifest_sha256": {
+          "train": "96b0ae6c734229f4f4c3d08ec6b6722e9b55ee13cfe39fbc6b45b8dadfbc7bda",
+          "validation": "06fdca472f28abadf65b7a6c799fc3662e1ab571a553c1ce11a8cf1390111dba",
+          "test": "3c9040819e6919e4c8af71568ece24fa4e7d5adbde4cba3fa7787c93b06beb89"
+        },
+        "manifest_paths": {
+          "train": "data\\manifests\\ppe-yolo26s-scale-v5\\train.json",
+          "validation": "data\\manifests\\ppe-yolo26s-scale-v5\\validation.json",
+          "test": "data\\manifests\\ppe-yolo26s-scale-v5\\test.json"
+        },
+        "initial_checkpoint": "outputs\\training\\ppe-yolo26s-scale-v4\\weights\\best.pt",
+        "initial_checkpoint_sha256": "ae2edc6b39a903af16c5c27e4309d901a83a3cee7fa845b3a0ec725cf1eee5d0",
+        "parent_run_id": "ppe-yolo26s-scale-v4",
+        "initial_weights_sha256": "646f8bc3fe0a656803d95c294f7852321748cb29d13466a1af8862e2db384a1b",
+        "initial_weights_source": "https://github.com/ultralytics/assets/releases/download/v8.4.0/yolo26s.pt",
+        "selection_data": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\data\\derived\\ppe-yolo26s-scale-v5\\data.yaml",
+        "evaluation_data": "C:\\Users\\shgus\\OneDrive\\바탕 화면\\vision\\industrial-safety-yolo\\data\\derived\\ppe-yolo26s-scale-v4\\data.yaml",
+        "validation_basis": "unchanged native validation groups",
+        "training_rows": 3023,
+        "strategy": "Native upper 5x; existing lower native PPE 1x; upper shrunk 1x; frozen backbone parameters and batch normalization statistics.",
+        "user_video_used_for_training": false,
+        "field_acceptance": false,
+        "external_dataset_used": false,
+        "packages": {
+          "torch": "2.10.0+cu128",
+          "torchvision": "0.25.0+cu128",
+          "ultralytics": "8.4.215"
+        },
+        "gpu": "NVIDIA GeForce RTX 5070 Ti",
+        "frozen_backbone_max_delta": 0.0,
+        "completed_at": "2026-11-17T07:41:51.896360+00:00",
+        "checkpoint": "outputs\\training\\ppe-yolo26s-scale-v5\\weights\\best.pt",
+        "checkpoint_sha256": "dae8ee7512f1da818fe97bca89735fa7061081c85fd568786cc17be4e03b0744",
+        "checkpoint_selection": "best native validation fitness"
+      },
+      "evaluation": {
+        "run_id": "ppe-yolo26s-scale-v5",
+        "checkpoint_sha256": "dae8ee7512f1da818fe97bca89735fa7061081c85fd568786cc17be4e03b0744",
+        "evaluated_at": "2026-11-17T07:42:10.210361+00:00",
+        "kind": "ppe",
+        "validation_heads": {
+          "one_to_many": {
+            "classes": {
+              "helmet": {
+                "precision": 0.9383462127364567,
+                "recall": 0.8305647840531561,
+                "AP50": 0.8572778442804274,
+                "AP50_95": 0.5190282455558559
+              },
+              "safety_vest": {
+                "precision": 0.9453110781523519,
+                "recall": 0.8375690607734807,
+                "AP50": 0.9526969908096496,
+                "AP50_95": 0.4464218635067052
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.9418286454444043,
+              "metrics/recall(B)": 0.8340669224133184,
+              "metrics/mAP50(B)": 0.9049874175450385,
+              "metrics/mAP50-95(B)": 0.48272505453128056,
+              "fitness": 0.48272505453128056
+            },
+            "nms": true,
+            "precision_bits": 16,
+            "fixed_confidence_025": {
+              "helmet": {
+                "precision": 0.7771097306402349,
+                "recall": 0.8521594684385382,
+                "iou": 0.5
+              },
+              "safety_vest": {
+                "precision": 0.8787711516925762,
+                "recall": 0.9248618784530387,
+                "iou": 0.5
+              }
+            },
+            "operating_point": {
+              "confidence": 0.6006006006006006,
+              "macro_f1": 0.8861243624047412,
+              "basis": "unchanged native validation groups bbox macro F1; not video/test"
+            },
+            "class_operating_points": {
+              "helmet": {
+                "confidence": 0.6606606606606606,
+                "F1": 0.8963430437941581
+              },
+              "safety_vest": {
+                "confidence": 0.3923923923923924,
+                "F1": 0.9045648019719977
+              }
+            }
+          },
+          "one_to_one": {
+            "classes": {
+              "helmet": {
+                "precision": 0.8840839026975583,
+                "recall": 0.7956810631229236,
+                "AP50": 0.8285752761963399,
+                "AP50_95": 0.5074576651365419
+              },
+              "safety_vest": {
+                "precision": 0.9394831656520478,
+                "recall": 0.8920058179726688,
+                "AP50": 0.94243089557951,
+                "AP50_95": 0.4363579529373044
+              }
+            },
+            "aggregate": {
+              "metrics/precision(B)": 0.9117835341748031,
+              "metrics/recall(B)": 0.8438434405477961,
+              "metrics/mAP50(B)": 0.8855030858879249,
+              "metrics/mAP50-95(B)": 0.4719078090369232,
+              "fitness": 0.4719078090369232
+            },
+            "nms": false,
+            "precision_bits": 16,
+            "fixed_confidence_025": {
+              "helmet": {
+                "precision": 0.8069537173521393,
+                "recall": 0.813953488372093,
+                "iou": 0.5
+              },
+              "safety_vest": {
+                "precision": 0.9110703587190518,
+                "recall": 0.9093922651933701,
+                "iou": 0.5
+              }
+            },
+            "operating_point": {
+              "confidence": 0.40540540540540543,
+              "macro_f1": 0.8779291755758223,
+              "basis": "unchanged native validation groups bbox macro F1; not video/test"
+            },
+            "class_operating_points": {
+              "helmet": {
+                "confidence": 0.40540540540540543,
+                "F1": 0.840766752544957
+              },
+              "safety_vest": {
+                "confidence": 0.36736736736736736,
+                "F1": 0.9169765960899716
+              }
+            }
+          }
+        },
+        "selected_head": "one_to_many",
+        "selected_nms": true,
+        "selected_operating_point": {
+          "confidence": 0.6006006006006006,
+          "macro_f1": 0.8861243624047412,
+          "basis": "unchanged native validation groups bbox macro F1; not video/test"
+        },
+        "mixed_test": {
+          "classes": {
+            "helmet": {
+              "precision": 0.561687645443281,
+              "recall": 0.45489243580846633,
+              "AP50": 0.4634636651227296,
+              "AP50_95": 0.2208781786368049
+            },
+            "safety_vest": {
+              "precision": 0.7725539452881293,
+              "recall": 0.5868852459016394,
+              "AP50": 0.6911695995277563,
+              "AP50_95": 0.36893025244172956
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.6671207953657051,
+            "metrics/recall(B)": 0.5208888408550528,
+            "metrics/mAP50(B)": 0.5773166323252429,
+            "metrics/mAP50-95(B)": 0.2949042155392672,
+            "fitness": 0.2949042155392672
+          },
+          "nms": true,
+          "precision_bits": 16,
+          "fixed_confidence_025": {
+            "helmet": {
+              "precision": 0.4796133920933601,
+              "recall": 0.48516655100624567,
+              "iou": 0.5
+            },
+            "safety_vest": {
+              "precision": 0.6836998765564202,
+              "recall": 0.6477931904161413,
+              "iou": 0.5
+            }
+          }
+        },
+        "native_test": {
+          "classes": {
+            "helmet": {
+              "precision": 0.8532305972035005,
+              "recall": 0.7133787986048481,
+              "AP50": 0.7816537045172889,
+              "AP50_95": 0.37950785233780854
+            },
+            "safety_vest": {
+              "precision": 0.8393564712785869,
+              "recall": 0.772953428933256,
+              "AP50": 0.8513068534397715,
+              "AP50_95": 0.48513158320039806
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.8462935342410437,
+            "metrics/recall(B)": 0.7431661137690521,
+            "metrics/mAP50(B)": 0.8164802789785301,
+            "metrics/mAP50-95(B)": 0.4323197177691034,
+            "fitness": 0.4323197177691034
+          },
+          "nms": true,
+          "precision_bits": 16,
+          "fixed_confidence_025": {
+            "helmet": {
+              "precision": 0.7892312290919392,
+              "recall": 0.759956942949408,
+              "iou": 0.5
+            },
+            "safety_vest": {
+              "precision": 0.7336366541002688,
+              "recall": 0.8318924111431316,
+              "iou": 0.5
+            }
+          }
+        },
+        "user_video_used_for_training": false,
+        "field_acceptance": false,
+        "limitation": "Synthetic composites have correlated source objects. Native development test has been inspected for previous candidates; not independent acceptance.",
+        "baseline_native_test": {
+          "classes": {
+            "helmet": {
+              "precision": 0.6749574232932046,
+              "recall": 0.7018593315238454,
+              "AP50": 0.7131428970193641,
+              "AP50_95": 0.3533454979053369
+            },
+            "safety_vest": {
+              "precision": 0.833847991814854,
+              "recall": 0.8251681075888568,
+              "AP50": 0.8718912178095606,
+              "AP50_95": 0.5049690140945792
+            }
+          },
+          "aggregate": {
+            "metrics/precision(B)": 0.7544027075540294,
+            "metrics/recall(B)": 0.7635137195563511,
+            "metrics/mAP50(B)": 0.7925170574144623,
+            "metrics/mAP50-95(B)": 0.42915725599995813,
+            "fitness": 0.42915725599995813
+          },
+          "nms": true,
+          "precision_bits": 16,
+          "fixed_confidence_025": {
+            "helmet": {
+              "precision": 0.630622518859773,
+              "recall": 0.7373801289301828,
+              "iou": 0.5
+            },
+            "safety_vest": {
+              "precision": 0.7634005487970768,
+              "recall": 0.866474543707973,
+              "iou": 0.5
+            }
+          }
+        }
+      },
+      "source_audit": {
+        "run_id": "ppe-yolo26s-scale-v5",
+        "audited_at": "2026-11-17T07:37:19.482042+00:00",
+        "splits": {
+          "train": {
+            "rows": 3023,
+            "unique_source_images": 1008,
+            "source_groups": 74,
+            "annotation_rows_in_manifest_labels": 6125,
+            "manifest_sha256": "96b0ae6c734229f4f4c3d08ec6b6722e9b55ee13cfe39fbc6b45b8dadfbc7bda"
+          },
+          "validation": {
+            "rows": 930,
+            "unique_source_images": 930,
+            "source_groups": 1,
+            "annotation_rows_in_manifest_labels": 2472,
+            "manifest_sha256": "06fdca472f28abadf65b7a6c799fc3662e1ab571a553c1ce11a8cf1390111dba"
+          },
+          "test": {
+            "rows": 685,
+            "unique_source_images": 685,
+            "source_groups": 5,
+            "annotation_rows_in_manifest_labels": 3467,
+            "manifest_sha256": "3c9040819e6919e4c8af71568ece24fa4e7d5adbde4cba3fa7787c93b06beb89"
+          }
+        },
+        "pairwise_split_overlap": {
+          "train-validation": {
+            "image_hash_overlap": 0,
+            "source_group_overlap": 0
+          },
+          "train-test": {
+            "image_hash_overlap": 0,
+            "source_group_overlap": 0
+          },
+          "validation-test": {
+            "image_hash_overlap": 0,
+            "source_group_overlap": 0
+          }
+        },
+        "verified_files": 8068,
+        "user_video_used_for_training": false,
+        "limitation": "Verifies declared source isolation and file integrity; does not certify completeness or correctness of source annotations."
+      },
+      "adopted": false
+    }
+  },
+  "operational_registry_sha256": "ab9c297c54f0eaefe64716c2935b23f7ee99a4cd94fd45db5aad072651a01462",
+  "fixed_operating_points": {
+    "images": 685,
+    "test_manifest_sha256": "d283172ec73be227debd3cc8cd992bcf3650f045054bd04bebb73c3e5707f31c",
+    "iou": 0.5,
+    "precision_bits": 16,
+    "metrics": {
+      "before": {
+        "person": {
+          "tp": 1374,
+          "fp": 87,
+          "fn": 123,
+          "precision": 0.9404517453798767,
+          "recall": 0.9178356713426854
+        },
+        "helmet": {
+          "tp": 632,
+          "fp": 259,
+          "fn": 297,
+          "precision": 0.7093153759820426,
+          "recall": 0.6803013993541442
+        },
+        "safety_vest": {
+          "tp": 820,
+          "fp": 121,
+          "fn": 221,
+          "precision": 0.871413390010627,
+          "recall": 0.7877041306436119
+        }
+      },
+      "after": {
+        "person": {
+          "tp": 1390,
+          "fp": 73,
+          "fn": 107,
+          "precision": 0.9501025290498974,
+          "recall": 0.9285237140948563
+        },
+        "helmet": {
+          "tp": 632,
+          "fp": 259,
+          "fn": 297,
+          "precision": 0.7093153759820426,
+          "recall": 0.6803013993541442
+        },
+        "safety_vest": {
+          "tp": 820,
+          "fp": 121,
+          "fn": 221,
+          "precision": 0.871413390010627,
+          "recall": 0.7877041306436119
+        }
+      }
+    },
+    "models": {
+      "before": [
+        {
+          "sha256": "315fe5bb703f3761523333aa6bef56b2899c92779f7f9a720c75ee6618580f2b",
+          "policy": {
+            "nms": true,
+            "confidence": 0.25,
+            "head_basis": "highest original validation mAP50-95; not diagnostic video or test"
+          },
+          "active_classes": [
+            "person"
+          ]
+        },
+        {
+          "sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+          "policy": {
+            "nms": true,
+            "confidence": 0.5365365365365365,
+            "threshold_basis": "existing validation-only bbox F1 selection; operational event acceptance remains unverified"
+          },
+          "active_classes": [
+            "helmet",
+            "safety_vest"
+          ]
+        }
+      ],
+      "after": [
+        {
+          "sha256": "3bd15c733eed1a9aa033719d2da2b3c889501f14c15ac1e668a6f2be5bcbcec9",
+          "policy": {
+            "nms": true,
+            "confidence": 0.25,
+            "head_basis": "Preserve NMS duplicate suppression after two near-identical person boxes appeared in full diagnostic replay; validation metrics for both heads are retained. Video is diagnostic, not a blind test.",
+            "threshold_basis": "existing person display threshold retained"
+          },
+          "active_classes": [
+            "person"
+          ]
+        },
+        {
+          "sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+          "policy": {
+            "nms": true,
+            "confidence": 0.5365365365365365,
+            "threshold_basis": "existing validation-only bbox F1 selection; operational event acceptance remains unverified"
+          },
+          "active_classes": [
+            "helmet",
+            "safety_vest"
+          ]
+        }
+      ]
+    },
+    "selection_performed": false,
+    "before_registry_sha256": "456b874ed366d6eb2741bb76e9f14046f09620ac34be0a42c144151b45d2aa9f",
+    "after_registry_sha256": "ab9c297c54f0eaefe64716c2935b23f7ee99a4cd94fd45db5aad072651a01462",
+    "scope": "Fixed image operating points; weak track-association observations excluded; not field acceptance or event accuracy."
+  },
+  "rejected_helmet_low_threshold": {
+    "images": 685,
+    "test_manifest_sha256": "d283172ec73be227debd3cc8cd992bcf3650f045054bd04bebb73c3e5707f31c",
+    "iou": 0.5,
+    "precision_bits": 16,
+    "metrics": {
+      "before": {
+        "person": {
+          "tp": 1374,
+          "fp": 87,
+          "fn": 123,
+          "precision": 0.9404517453798767,
+          "recall": 0.9178356713426854
+        },
+        "helmet": {
+          "tp": 632,
+          "fp": 259,
+          "fn": 297,
+          "precision": 0.7093153759820426,
+          "recall": 0.6803013993541442
+        },
+        "safety_vest": {
+          "tp": 820,
+          "fp": 121,
+          "fn": 221,
+          "precision": 0.871413390010627,
+          "recall": 0.7877041306436119
+        }
+      },
+      "after": {
+        "person": {
+          "tp": 1390,
+          "fp": 73,
+          "fn": 107,
+          "precision": 0.9501025290498974,
+          "recall": 0.9285237140948563
+        },
+        "helmet": {
+          "tp": 709,
+          "fp": 182,
+          "fn": 220,
+          "precision": 0.7957351290684624,
+          "recall": 0.7631862217438106
+        },
+        "safety_vest": {
+          "tp": 820,
+          "fp": 121,
+          "fn": 221,
+          "precision": 0.871413390010627,
+          "recall": 0.7877041306436119
+        }
+      }
+    },
+    "models": {
+      "before": [
+        {
+          "sha256": "315fe5bb703f3761523333aa6bef56b2899c92779f7f9a720c75ee6618580f2b",
+          "policy": {
+            "nms": true,
+            "confidence": 0.25,
+            "head_basis": "highest original validation mAP50-95; not diagnostic video or test"
+          },
+          "active_classes": [
+            "person"
+          ]
+        },
+        {
+          "sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+          "policy": {
+            "nms": true,
+            "confidence": 0.5365365365365365,
+            "threshold_basis": "existing validation-only bbox F1 selection; operational event acceptance remains unverified"
+          },
+          "active_classes": [
+            "helmet",
+            "safety_vest"
+          ]
+        }
+      ],
+      "after": [
+        {
+          "sha256": "3bd15c733eed1a9aa033719d2da2b3c889501f14c15ac1e668a6f2be5bcbcec9",
+          "policy": {
+            "nms": true,
+            "confidence": 0.25,
+            "head_basis": "Preserve NMS duplicate suppression after two near-identical person boxes appeared in full diagnostic replay; validation metrics for both heads are retained. Video is diagnostic, not a blind test.",
+            "threshold_basis": "existing person display threshold retained"
+          },
+          "active_classes": [
+            "person"
+          ]
+        },
+        {
+          "sha256": "dae8ee7512f1da818fe97bca89735fa7061081c85fd568786cc17be4e03b0744",
+          "policy": {
+            "nms": true,
+            "confidence": 0.25,
+            "head_basis": "native validation mAP50-95",
+            "threshold_basis": "Shared detector default 0.25 tested as recall-oriented development policy after inspecting F1/F2 tradeoffs; not validation-only selection or blind acceptance"
+          },
+          "active_classes": [
+            "helmet"
+          ]
+        },
+        {
+          "sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+          "policy": {
+            "nms": true,
+            "confidence": 0.5365365365365365,
+            "threshold_basis": "existing validation-only bbox F1 selection; operational event acceptance remains unverified"
+          },
+          "active_classes": [
+            "safety_vest"
+          ]
+        }
+      ]
+    },
+    "selection_performed": false,
+    "before_registry_sha256": "456b874ed366d6eb2741bb76e9f14046f09620ac34be0a42c144151b45d2aa9f",
+    "after_registry_sha256": "b7c933b5e22304f98b7ef545e0b7aa0bc2d519df39d37a548a7bc6b3f474a362",
+    "scope": "Fixed image operating points; weak track-association observations excluded; not field acceptance or event accuracy."
+  },
+  "rejected_helmet_high_threshold": {
+    "images": 685,
+    "test_manifest_sha256": "d283172ec73be227debd3cc8cd992bcf3650f045054bd04bebb73c3e5707f31c",
+    "iou": 0.5,
+    "precision_bits": 16,
+    "metrics": {
+      "before": {
+        "person": {
+          "tp": 1374,
+          "fp": 87,
+          "fn": 123,
+          "precision": 0.9404517453798767,
+          "recall": 0.9178356713426854
+        },
+        "helmet": {
+          "tp": 632,
+          "fp": 259,
+          "fn": 297,
+          "precision": 0.7093153759820426,
+          "recall": 0.6803013993541442
+        },
+        "safety_vest": {
+          "tp": 820,
+          "fp": 121,
+          "fn": 221,
+          "precision": 0.871413390010627,
+          "recall": 0.7877041306436119
+        }
+      },
+      "after": {
+        "person": {
+          "tp": 1390,
+          "fp": 73,
+          "fn": 107,
+          "precision": 0.9501025290498974,
+          "recall": 0.9285237140948563
+        },
+        "helmet": {
+          "tp": 581,
+          "fp": 59,
+          "fn": 348,
+          "precision": 0.9078125,
+          "recall": 0.6254036598493004
+        },
+        "safety_vest": {
+          "tp": 820,
+          "fp": 121,
+          "fn": 221,
+          "precision": 0.871413390010627,
+          "recall": 0.7877041306436119
+        }
+      }
+    },
+    "models": {
+      "before": [
+        {
+          "sha256": "315fe5bb703f3761523333aa6bef56b2899c92779f7f9a720c75ee6618580f2b",
+          "policy": {
+            "nms": true,
+            "confidence": 0.25,
+            "head_basis": "highest original validation mAP50-95; not diagnostic video or test"
+          },
+          "active_classes": [
+            "person"
+          ]
+        },
+        {
+          "sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+          "policy": {
+            "nms": true,
+            "confidence": 0.5365365365365365,
+            "threshold_basis": "existing validation-only bbox F1 selection; operational event acceptance remains unverified"
+          },
+          "active_classes": [
+            "helmet",
+            "safety_vest"
+          ]
+        }
+      ],
+      "after": [
+        {
+          "sha256": "3bd15c733eed1a9aa033719d2da2b3c889501f14c15ac1e668a6f2be5bcbcec9",
+          "policy": {
+            "nms": true,
+            "confidence": 0.25,
+            "head_basis": "Preserve NMS duplicate suppression after two near-identical person boxes appeared in full diagnostic replay; validation metrics for both heads are retained. Video is diagnostic, not a blind test.",
+            "threshold_basis": "existing person display threshold retained"
+          },
+          "active_classes": [
+            "person"
+          ]
+        },
+        {
+          "sha256": "dae8ee7512f1da818fe97bca89735fa7061081c85fd568786cc17be4e03b0744",
+          "policy": {
+            "nms": true,
+            "confidence": 0.6606606606606606,
+            "head_basis": "native validation mAP50-95",
+            "threshold_basis": "helmet F1 on unchanged native validation only"
+          },
+          "active_classes": [
+            "helmet"
+          ]
+        },
+        {
+          "sha256": "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+          "policy": {
+            "nms": true,
+            "confidence": 0.5365365365365365,
+            "threshold_basis": "existing validation-only bbox F1 selection; operational event acceptance remains unverified"
+          },
+          "active_classes": [
+            "safety_vest"
+          ]
+        }
+      ]
+    },
+    "selection_performed": false,
+    "before_registry_sha256": "456b874ed366d6eb2741bb76e9f14046f09620ac34be0a42c144151b45d2aa9f",
+    "after_registry_sha256": "5a2302c87f0a278fdebdc074031c77a7ce7240a096ba6013c6fd0e7d209fa862",
+    "scope": "Fixed image operating points; weak track-association observations excluded; not field acceptance or event accuracy."
+  },
+  "accepted_videos": {
+    "crane-inspection-accepted-20261117": {
+      "result": {
+        "frames": 546,
+        "person_frames": 546,
+        "person_observations": 546,
+        "observations": {
+          "torso": 546,
+          "head": 514,
+          "person": 546,
+          "helmet": 20
+        },
+        "ppe_states": {
+          "helmet": {
+            "unknown": 128,
+            "missing": 418
+          },
+          "safety_vest": {
+            "unknown": 36,
+            "missing": 510
+          }
+        },
+        "three_box_frames": 418,
+        "processing_ms": {
+          "mean": 18.98282252782154,
+          "p95": 19.823274968075566
+        },
+        "field_accuracy_evaluated": false,
+        "limitation": "Box/frame counts are observations, not labeled accuracy. Processing timing excludes load/decode/encode."
+      },
+      "video_qa": {
+        "source_sha256_unchanged": "5b20c7c4175b7db1fd6482cd48ce68bdfacf4d7b615098c90c5885964cee5cd1",
+        "before_video_sha256": "bf21e1b368df45f0044e955ee8dcf5bd40e540be8ca9cc2a0f22b3b0f4070b42",
+        "videos": {
+          "crane-inspection-analyzed.mp4": {
+            "frames": 546,
+            "width": 720,
+            "height": 1280,
+            "duration_s": 22.75,
+            "audio_streams": 1,
+            "pts_increasing": true,
+            "sha256": "d3a8ecf3d95d319b5547195431e18f2f93b0da5f8113a9e95324693718bb8d44"
+          },
+          "crane-inspection-before-after.mp4": {
+            "frames": 546,
+            "width": 1440,
+            "height": 1280,
+            "duration_s": 22.75,
+            "audio_streams": 1,
+            "pts_increasing": true,
+            "sha256": "763e558d8259278261c55fb99ec3233d7f7bc7445fa943581a9515424a6b5213"
+          }
+        }
+      },
+      "execution": {
+        "completed_at": "2026-11-17T08:00:18.325510+00:00",
+        "source_sha256_before_and_after": "5b20c7c4175b7db1fd6482cd48ce68bdfacf4d7b615098c90c5885964cee5cd1",
+        "combined_run": "outputs\\crane-candidates-accepted-20261117",
+        "process_seconds_two_videos_including_load": 61.98989560001064,
+        "operational_registry_unchanged": "ab9c297c54f0eaefe64716c2935b23f7ee99a4cd94fd45db5aad072651a01462",
+        "registry_sha256": "ab9c297c54f0eaefe64716c2935b23f7ee99a4cd94fd45db5aad072651a01462",
+        "training_performed_on_source": false,
+        "scope": "Partition of sequential exhaustive CUDA evaluation; not independent labeled field acceptance"
+      }
+    },
+    "crane-accident-accepted-20261117": {
+      "result": {
+        "frames": 1092,
+        "person_frames": 28,
+        "person_observations": 33,
+        "observations": {
+          "person": 33,
+          "torso": 9
+        },
+        "ppe_states": {
+          "helmet": {
+            "unknown": 14
+          },
+          "safety_vest": {
+            "unknown": 14
+          }
+        },
+        "three_box_frames": 0,
+        "processing_ms": {
+          "mean": 11.755858699901152,
+          "p95": 17.863155019585975
+        },
+        "field_accuracy_evaluated": false,
+        "limitation": "Box/frame counts are observations, not labeled accuracy. Processing timing excludes load/decode/encode."
+      },
+      "video_qa": {
+        "source_sha256_unchanged": "677ca613f67ab47455a23f911f3d9f3c1ca1a4011277b54c6024f7867c822cb6",
+        "before_video_sha256": "5553c11b85424136c7221e2bb6f4cf58c025e34364838e0a2c69f1e1b636602c",
+        "videos": {
+          "crane-accident-analyzed.mp4": {
+            "frames": 1092,
+            "width": 1280,
+            "height": 720,
+            "duration_s": 45.97,
+            "audio_streams": 1,
+            "pts_increasing": true,
+            "sha256": "3818c07c1c038afdd71dab818e81afab6341b4b2ef2d173c1e14513a3995b9bb"
+          },
+          "crane-accident-before-after.mp4": {
+            "frames": 1092,
+            "width": 2560,
+            "height": 720,
+            "duration_s": 45.97,
+            "audio_streams": 1,
+            "pts_increasing": true,
+            "sha256": "cfbb0cb88f7885025ce66dd62c76240be245a68fe595730adbc3b419b4a0a49f"
+          }
+        }
+      },
+      "execution": {
+        "completed_at": "2026-11-17T08:00:18.385888+00:00",
+        "source_sha256_before_and_after": "677ca613f67ab47455a23f911f3d9f3c1ca1a4011277b54c6024f7867c822cb6",
+        "combined_run": "outputs\\crane-candidates-accepted-20261117",
+        "process_seconds_two_videos_including_load": 62.0508361000102,
+        "operational_registry_unchanged": "ab9c297c54f0eaefe64716c2935b23f7ee99a4cd94fd45db5aad072651a01462",
+        "registry_sha256": "ab9c297c54f0eaefe64716c2935b23f7ee99a4cd94fd45db5aad072651a01462",
+        "training_performed_on_source": false,
+        "scope": "Partition of sequential exhaustive CUDA evaluation; not independent labeled field acceptance"
+      }
+    }
+  },
+  "rejected_low_threshold_video": {
+    "frames": 546,
+    "person_frames": 546,
+    "person_observations": 546,
+    "observations": {
+      "torso": 546,
+      "head": 514,
+      "person": 546,
+      "helmet": 63
+    },
+    "ppe_states": {
+      "helmet": {
+        "unknown": 339,
+        "missing": 202,
+        "equipped": 5
+      },
+      "safety_vest": {
+        "unknown": 36,
+        "missing": 510
+      }
+    },
+    "three_box_frames": 202,
+    "processing_ms": {
+      "mean": 26.266600915223133,
+      "p95": 28.82930001942441
+    },
+    "field_accuracy_evaluated": false,
+    "limitation": "Box/frame counts are observations, not labeled accuracy. Processing timing excludes load/decode/encode."
+  },
+  "tests": {
+    "pytest_passed": 48,
+    "http_integration": {
+      "started_at": "2026-11-17T08:00:51.275524+00:00",
+      "fixture": "generated still-photo videos, not real surveillance video",
+      "checks": {
+        "actual_cuda_model": true,
+        "partial_model_not_operational_ready": true,
+        "four_mjpeg_actual_model_frames": true,
+        "stopped_camera_isolation": true,
+        "restart_new_session": true,
+        "roi_save_reload": true,
+        "actual_model_event_ack": true,
+        "evidence_http_and_video_decode": true,
+        "websocket_reconnect": true
+      },
+      "stop_isolation_measurement": {
+        "before": {
+          "cam1": 4,
+          "cam2": 4,
+          "cam3": 4,
+          "cam4": 4
+        },
+        "after": {
+          "cam1": 25,
+          "cam2": 25,
+          "cam3": 25,
+          "cam4": 5
+        },
+        "observation_age_s": {
+          "cam1": 0.157,
+          "cam2": 0.157,
+          "cam3": 0.141,
+          "cam4": 1.641
+        }
+      },
+      "final_state": {
+        "time": "2026-11-17T08:01:35.234931+00:00",
+        "config_revision": "4fa80b94cbcd3f75",
+        "cameras": [
+          {
+            "id": "cam1",
+            "name": "DEMO 1 · 정지 사진 전송 시험",
+            "mode": "DEMO",
+            "status": "connected",
+            "error": null,
+            "configured": true,
+            "session_id": "2506f2357dc647069c759d3dc229a19e",
+            "zones": 1,
+            "analysis_live": true,
+            "capture_decode_fps": 24.79,
+            "captured_frames": 1058,
+            "frame_drops": 982,
+            "queue_size": 1,
+            "source_size": [
+              2560,
+              1440
+            ],
+            "source_fps": 25.0,
+            "codec": "h264",
+            "receive_age_s": 0.032,
+            "inference_fps": 9.38,
+            "preview_fps": 9.03,
+            "inferred_frames": 69,
+            "last_observation_age_s": 0.188,
+            "frame_key": [
+              "cam1",
+              "2506f2357dc647069c759d3dc229a19e",
+              54
+            ],
+            "decode_ready_to_encoded_ms": {
+              "p50": 148.49999998114072,
+              "p95": 202.24999998172274,
+              "p99": 246.4799999992829
+            },
+            "browser_display_latency_ms": null,
+            "physical_end_to_end_ms": null,
+            "ppe_unknown_ratio": 0.0,
+            "observation_gap_p95_s": 0.16675000001559964,
+            "processing_mean_ms": 95.74447391112672
+          },
+          {
+            "id": "cam2",
+            "name": "DEMO 2 · 정지 사진 전송 시험",
+            "mode": "DEMO",
+            "status": "connected",
+            "error": null,
+            "configured": true,
+            "session_id": "d4bbb916740646cf8cd1127a28eb976c",
+            "zones": 0,
+            "analysis_live": true,
+            "capture_decode_fps": 24.79,
+            "captured_frames": 1054,
+            "frame_drops": 979,
+            "queue_size": 0,
+            "source_size": [
+              2560,
+              1440
+            ],
+            "source_fps": 25.0,
+            "codec": "h264",
+            "receive_age_s": 0.047,
+            "inference_fps": 9.58,
+            "preview_fps": 9.26,
+            "inferred_frames": 70,
+            "last_observation_age_s": 0.157,
+            "frame_key": [
+              "cam2",
+              "d4bbb916740646cf8cd1127a28eb976c",
+              51
+            ],
+            "decode_ready_to_encoded_ms": {
+              "p50": 156.00000001722947,
+              "p95": 219.0000000409782,
+              "p99": 240.70000002742748
+            },
+            "browser_display_latency_ms": null,
+            "physical_end_to_end_ms": null,
+            "ppe_unknown_ratio": 1.0,
+            "observation_gap_p95_s": 0.15600000001722947,
+            "processing_mean_ms": 96.55570999769095
+          },
+          {
+            "id": "cam3",
+            "name": "DEMO 3 · 정지 사진 전송 시험",
+            "mode": "DEMO",
+            "status": "connected",
+            "error": null,
+            "configured": true,
+            "session_id": "82a15632025c46ff85e10b5fcb3415a1",
+            "zones": 0,
+            "analysis_live": true,
+            "capture_decode_fps": 24.71,
+            "captured_frames": 1062,
+            "frame_drops": 986,
+            "queue_size": 0,
+            "source_size": [
+              2560,
+              1440
+            ],
+            "source_fps": 25.0,
+            "codec": "h264",
+            "receive_age_s": 0.047,
+            "inference_fps": 9.58,
+            "preview_fps": 8.85,
+            "inferred_frames": 70,
+            "last_observation_age_s": 0.172,
+            "frame_key": [
+              "cam3",
+              "82a15632025c46ff85e10b5fcb3415a1",
+              59
+            ],
+            "decode_ready_to_encoded_ms": {
+              "p50": 156.00000001722947,
+              "p95": 219.0000000409782,
+              "p99": 253.79999999422574
+            },
+            "browser_display_latency_ms": null,
+            "physical_end_to_end_ms": null,
+            "ppe_unknown_ratio": 0.0,
+            "observation_gap_p95_s": 0.1815999999991617,
+            "processing_mean_ms": 97.62963285736207
+          },
+          {
+            "id": "cam4",
+            "name": "DEMO 4 · 정지 사진 전송 시험",
+            "mode": "DEMO",
+            "status": "connected",
+            "error": null,
+            "configured": true,
+            "session_id": "27bf760fb390481799e25b65f5d362b6",
+            "zones": 0,
+            "analysis_live": true,
+            "capture_decode_fps": 25.17,
+            "captured_frames": 1024,
+            "frame_drops": 969,
+            "queue_size": 1,
+            "source_size": [
+              2560,
+              1440
+            ],
+            "source_fps": 25.0,
+            "codec": "h264",
+            "receive_age_s": 0.016,
+            "inference_fps": 9.3,
+            "preview_fps": 9.17,
+            "inferred_frames": 48,
+            "last_observation_age_s": 0.188,
+            "frame_key": [
+              "cam4",
+              "27bf760fb390481799e25b65f5d362b6",
+              115
+            ],
+            "decode_ready_to_encoded_ms": {
+              "p50": 172.0000000204891,
+              "p95": 229.50000001001166,
+              "p99": 266.7400000093039
+            },
+            "browser_display_latency_ms": null,
+            "physical_end_to_end_ms": null,
+            "ppe_unknown_ratio": 1.0,
+            "observation_gap_p95_s": 0.1720000000204891,
+            "processing_mean_ms": 107.69263750019793
+          }
+        ],
+        "model": {
+          "ready": true,
+          "provider": "PyTorch CUDA",
+          "device": "cuda:0",
+          "actual_device": "cuda:0",
+          "classes": [
+            "helmet",
+            "person",
+            "safety_vest"
+          ],
+          "missing_classes": [
+            "forklift"
+          ],
+          "model_hashes": [
+            "3bd15c733eed1a9aa033719d2da2b3c889501f14c15ac1e668a6f2be5bcbcec9",
+            "03c3efe5908fd7e25c21bbc0b92200787bdff7c961995c2a03d36c29afcf81dd",
+            "f6db8b1b1eb46c639a1136a8406fc4f0a3b425cad837e5ff8a1385bb701bfe6c"
+          ],
+          "body_part_classes": [
+            "head",
+            "torso"
+          ],
+          "body_part_input": "current_frame_person_crops",
+          "max_body_people_per_frame": 8,
+          "degraded": true,
+          "error": null,
+          "model_policies": [
+            {
+              "active_classes": [
+                "person"
+              ],
+              "nms": true,
+              "confidence": 0.25,
+              "imgsz": 640,
+              "role": "safety_detection",
+              "keypoint_confidence": 0.5
+            },
+            {
+              "active_classes": [
+                "helmet",
+                "safety_vest"
+              ],
+              "nms": true,
+              "confidence": 0.5365365365365365,
+              "imgsz": 640,
+              "role": "safety_detection",
+              "keypoint_confidence": 0.5
+            },
+            {
+              "active_classes": [
+                "head",
+                "torso"
+              ],
+              "nms": false,
+              "confidence": 0.25,
+              "imgsz": 640,
+              "role": "body_pose",
+              "keypoint_confidence": 0.5
+            }
+          ],
+          "inference_cpu_threads": 1,
+          "nms_setting": null,
+          "tracking_low_confidence": 0.1,
+          "active_head_modes": [
+            "one_to_many",
+            "one_to_many",
+            "one_to_one"
+          ]
+        },
+        "system": {
+          "os": "Windows-10-10.0.26200-SP0",
+          "python": "3.11.9",
+          "cpu": "AMD64 Family 26 Model 68 Stepping 0, AuthenticAMD",
+          "ram_total_gb": 61.38,
+          "ram_used_gb": 30.52,
+          "process_ram_gb": 3.692,
+          "cpu_percent": 57.6,
+          "gpu": {
+            "name": "NVIDIA GeForce RTX 5070 Ti",
+            "driver": "610.88",
+            "vram_used_gb": 3.583,
+            "vram_total_gb": 15.921,
+            "utilization_percent": 29
+          }
+        },
+        "storage": {
+          "error": null,
+          "queued": 0,
+          "dropped": 0,
+          "failed_jobs": 0,
+          "compressed_buffer_bytes": 4887463
+        },
+        "loading": false,
+        "error": null
+      },
+      "passed": true
+    }
+  },
+  "unresolved": [
+    "Distant overhead CCTV person recall",
+    "New PPE detector deployment",
+    "Independent field and event acceptance"
+  ],
+  "user_video_used_for_training": false
+}

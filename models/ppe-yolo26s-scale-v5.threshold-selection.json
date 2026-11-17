@@ -1,0 +1,11 @@
+{
+  "run_id": "ppe-yolo26s-scale-v5",
+  "checkpoint_sha256": "dae8ee7512f1da818fe97bca89735fa7061081c85fd568786cc17be4e03b0744",
+  "confidence": 0.6206206206206206,
+  "validation_precision": 0.9652507045405262,
+  "validation_recall": 0.8305583407327594,
+  "validation_F2": 0.8544032534184768,
+  "beta": 2,
+  "basis": "Native validation helmet F2 only; false negatives carry greater weight than F1. Development test was inspected before revising the objective, so it is not independent acceptance.",
+  "user_video_used_for_training": false
+}
