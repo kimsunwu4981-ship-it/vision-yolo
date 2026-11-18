@@ -10,6 +10,9 @@ from app.types import Frame
 from app.orientation import decode_bgr
 
 
+LIVE_DECODE_THREADS=2
+
+
 class LatestSlot:
     def __init__(self):
         self.lock=threading.Lock(); self.frame=None; self.dropped=0
@@ -29,6 +32,9 @@ class LatestSlot:
 class Capture:
     def __init__(self,config):
         self.config=config; self.slot=LatestSlot(); self.stop_event=threading.Event(); self.thread=None
+        # Newest decoded frame for display only. Like `slot` it holds one frame, so a
+        # slow viewer drops pictures instead of queueing them. Analysis never reads it.
+        self.view=LatestSlot()
         self.status="unconfigured"; self.error=None; self.session_id=None
         self.times=deque(maxlen=300); self.total=0; self.last_received=None
         self.shape=None; self.source_fps=None; self.codec=None
@@ -48,7 +54,7 @@ class Capture:
     def stop(self):
         self.stop_event.set()
         if self.thread: self.thread.join(timeout=7)
-        self.slot.clear(); self.status="stopped"
+        self.slot.clear(); self.view.clear(); self.status="stopped"
 
     def seek(self,seconds):
         if self.mode=="LIVE": raise ValueError("seek_requires_file")
@@ -57,13 +63,25 @@ class Capture:
     def run(self):
         retry=1.
         while not self.stop_event.is_set():
-            self.status="connecting"; self.slot.clear(); self.session_id=uuid.uuid4().hex
+            self.status="connecting"; self.slot.clear(); self.view.clear(); self.session_id=uuid.uuid4().hex
             try:
                 # FFmpeg network logs can contain credentials. Never enable them.
-                av.logging.set_level(av.logging.PANIC)
+                # None, not PANIC: any numeric level installs PyAV's Python log
+                # callback, which takes the GIL for every ERROR-level message, also
+                # from decoder worker threads. PyAV frees a codec context while
+                # holding the GIL and that free waits for those workers, so a decoder
+                # error during a close froze the whole process (stop requests hung,
+                # twice on 2026-11-18). None keeps FFmpeg's logs entirely in C.
+                av.logging.set_level(None)
                 options={"rtsp_transport":"tcp","fflags":"nobuffer","flags":"low_delay","reorder_queue_size":"0"} if self.mode=="LIVE" else {}
                 with av.open(self.source(),options=options,timeout=(4.,4.)) as container:
-                    stream=container.streams.video[0]; stream.thread_type="AUTO"
+                    stream=container.streams.video[0]
+                    # Frame threading holds back thread_count-1 frames. The automatic
+                    # count (16 on a 20-thread CPU) delayed every live 25 fps frame by
+                    # about 0.6 s before it was timestamped; two threads decode
+                    # 2560x1440 HEVC in real time with about one frame of delay.
+                    if self.mode=="LIVE": stream.codec_context.thread_count=LIVE_DECODE_THREADS
+                    stream.thread_type="AUTO"
                     self.source_fps=float(stream.average_rate) if stream.average_rate else None
                     self.codec=stream.codec_context.name; retry=1.; frame_id=0; first_pts=None; base=time.monotonic()
                     while not self.stop_event.is_set():
@@ -74,7 +92,7 @@ class Capture:
                                 seek=self.seek_request; self.seek_request=None
                             if seek is not None:
                                 container.seek(int(seek/float(stream.time_base)),stream=stream,backward=True)
-                                self.session_id=uuid.uuid4().hex; self.slot.clear();frame_id=0;first_pts=None;base=time.monotonic();restart=True;break
+                                self.session_id=uuid.uuid4().hex; self.slot.clear();self.view.clear();frame_id=0;first_pts=None;base=time.monotonic();restart=True;break
                             pts=float(decoded.pts*decoded.time_base) if decoded.pts is not None else None
                             if self.mode!="LIVE" and pts is not None:
                                 if first_pts is None: first_pts=pts
@@ -84,10 +102,10 @@ class Capture:
                             height,width=image.shape[:2]
                             frame=Frame(self.config["id"],self.session_id,frame_id,width,height,pts,utc_now(),now,image,preprocess_transform=transform,source_mode=self.mode)
                             self.shape=(width,height);self.last_received=now;self.total+=1;self.times.append(now)
-                            self.slot.put(frame);self.status="connected";self.error=None
+                            self.slot.put(frame);self.view.put(frame);self.status="connected";self.error=None
                         if restart: continue
                         break
-                self.slot.clear()
+                self.slot.clear();self.view.clear()
                 if self.stop_event.is_set(): break
                 if self.mode!="LIVE":
                     if self.config.get("loop",False): continue
@@ -95,7 +113,7 @@ class Capture:
                 raise ConnectionError("stream_ended")
             except Exception as error:
                 # Class name only: decoder exception messages may embed RTSP secrets.
-                self.error=type(error).__name__;self.status="offline";self.slot.clear()
+                self.error=type(error).__name__;self.status="offline";self.slot.clear();self.view.clear()
                 if self.stop_event.wait(retry): break
                 retry=min(15.,retry*2)
 

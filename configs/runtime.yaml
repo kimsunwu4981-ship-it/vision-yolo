@@ -11,7 +11,16 @@ max_body_people_per_frame: 8
 body_min_person_height: 90
 half: true
 preview_width: 960
-preview_fps: 12
+# Upper bound for displayed pictures per camera. It sits above the cameras' 25 fps
+# so that with live_preview every decoded frame can be shown.
+preview_fps: 30
+# Show every decoded frame and draw the newest analysis result on it, so the
+# picture does not wait for inference. Boxes then trail the picture by about one
+# analysis interval; the stamp on each frame says which frame they came from and
+# how much earlier, and boxes older than observation_ttl_s are not drawn at all.
+# Evidence images and clips still use analysed frames with their own boxes.
+# Set to false to show analysed frames only (the original behaviour, preview_fps 12).
+live_preview: true
 observation_ttl_s: 1.0
 storage:
   pre_seconds: 3

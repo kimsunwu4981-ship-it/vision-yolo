@@ -10,6 +10,7 @@ import numpy as np
 from app.capture import Capture,LatestSlot
 from app.common import ROOT,read_json,write_json,revision,utc_now
 from app.events import EventEngine
+from app.geometry import overlap_fraction
 from app.inference import Detector
 from app.monitoring import Metrics,SystemMonitor
 from app.ppe import PPE
@@ -39,17 +40,51 @@ def draw_labeled_box(image,box,label,color,below=False):
     cv2.putText(image,label,(left+padding,top+padding+text_height),font,font_scale,ink,1,cv2.LINE_AA)
 
 
-def render(frame,tracks,ppe,zones,width,model_ready):
+def near_person(box,person):
+    """True when most of a PPE box lies on a person box grown by 10% per side."""
+    x1,y1,x2,y2=person;dx=.1*(x2-x1);dy=.1*(y2-y1)
+    return overlap_fraction(box,(x1-dx,y1-dy,x2+dx,y2+dy))>.5
+
+
+def overlay_for(display,analysis,ttl_s):
+    """Choose the boxes for a displayed frame that was not itself analysed.
+
+    `analysis` is the camera's newest result as
+    (session_id,frame_id,received_monotonic,tracks,ppe). Its boxes are used only
+    when it comes from the same capture session and lies within the observation
+    TTL of the displayed frame; the stamp then says which frame they belong to.
+    Otherwise the picture is shown bare with a warning, so boxes that stopped
+    updating never look current. Returns (tracks,ppe,note,warning,age_s).
+    """
+    if analysis is not None:
+        session,frame_id,observed,tracks,ppe=analysis
+        age=display.received_monotonic-observed
+        if session==display.session_id and abs(age)<ttl_s:
+            age=max(0.,age)
+            return tracks,ppe,f"boxes: frame {frame_id}, {age*1000:.0f} ms earlier",None,age
+    return [],{},None,"NO CURRENT ANALYSIS",None
+
+
+def render(frame,tracks,ppe,zones,width,model_ready,note=None,warning=None,fast=False):
     source_h,source_w=frame.image.shape[:2]
     scale=min(1.,width/source_w)
-    image=cv2.resize(frame.image,(int(source_w*scale),int(source_h*scale)),interpolation=cv2.INTER_AREA) if scale<1 else frame.image.copy()
+    # Ultralytics turns OpenCV threading off, so area resampling of a 2560x1440
+    # frame takes about 13 ms here against about 2 ms for bilinear. `fast` is for
+    # the live picture only; evidence keeps the area filter.
+    method=cv2.INTER_LINEAR if fast else cv2.INTER_AREA
+    image=cv2.resize(frame.image,(int(source_w*scale),int(source_h*scale)),interpolation=method) if scale<1 else frame.image.copy()
     h,w=image.shape[:2]
     for zone in zones:
         points=np.asarray([[x*w,y*h] for x,y in zone["points"]],np.int32)
         cv2.polylines(image,[points],True,(80,180,255),2)
     colors={"person":(235,195,60),"helmet":(80,220,160),"safety_vest":(90,220,240),"forklift":(70,130,250)}
+    people=[t.xyxy for t in tracks if t.observed and t.class_name=="person"]
     for obj in tracks:
         if not obj.observed or obj.class_name not in colors:continue
+        # A helmet or vest matters only on a worker. One that lies mostly outside
+        # every observed person (a screen, a bag) is not drawn; this changes the
+        # picture only, never the detections or the PPE state.
+        if obj.class_name in {"helmet","safety_vest"} and not any(near_person(obj.xyxy,p) for p in people):continue
         x1,y1,x2,y2=(int(v*scale) for v in obj.xyxy);color=colors[obj.class_name]
         text=f"{obj.class_name} {obj.confidence:.2f}"+(f" #{obj.track_id}" if obj.track_id is not None else "")
         states=ppe.get(obj.key,{}) if obj.class_name=="person" and model_ready else {}
@@ -61,9 +96,10 @@ def render(frame,tracks,ppe,zones,width,model_ready):
                     draw_labeled_box(image,[v*scale for v in result['region_xyxy']],label,(0,0,255),below=kind=="safety_vest")
             continue
         cv2.rectangle(image,(x1,y1),(x2,y2),color,2);cv2.putText(image,text,(x1,max(16,y1-6)),cv2.FONT_HERSHEY_SIMPLEX,.45,color,1,cv2.LINE_AA)
-    stamp=f"{frame.camera_id} / {frame.session_id[:8]} / frame {frame.frame_id}"
+    stamp=f"{frame.camera_id} / {frame.session_id[:8]} / frame {frame.frame_id}"+(f" / {note}" if note else "")
     cv2.putText(image,stamp,(12,24),cv2.FONT_HERSHEY_SIMPLEX,.5,(255,255,255),1,cv2.LINE_AA)
     if not model_ready:cv2.putText(image,"MODEL NOT READY - NO SAFETY ANALYSIS",(12,52),cv2.FONT_HERSHEY_SIMPLEX,.5,(50,150,255),1)
+    elif warning:cv2.putText(image,warning,(12,52),cv2.FONT_HERSHEY_SIMPLEX,.5,(50,150,255),1)
     ok,jpeg=cv2.imencode(".jpg",image,[cv2.IMWRITE_JPEG_QUALITY,80])
     if not ok:raise RuntimeError("jpeg_encode_failed")
     return jpeg.tobytes()
@@ -83,12 +119,16 @@ class Runtime:
         self.system=SystemMonitor();self.zones={cid:read_json(ROOT/"configs/zones"/(cid+".json"),[]) for cid in self.cameras}
         self.thread=threading.Thread(target=self.run,name="gpu-scheduler",daemon=True)
         self.renderer=threading.Thread(target=self.render_loop,name="preview-encoder",daemon=True)
+        self.viewer=threading.Thread(target=self.view_loop,name="live-preview",daemon=True)
         self.error=None;self.loading=True
         self.evidence_render=queue.Queue(maxsize=16)
         self.evidence_requested=set()
         self.scheduler_cursor=0
         self.started=False;self.ownership=None
         self.rule_revision=None
+        # live_preview shows every decoded frame with the newest analysis drawn on
+        # it, so the picture no longer waits for inference. One result per camera.
+        self.live_preview=bool(config["runtime"].get("live_preview",False));self.analysis={};self.placeholders={}
 
     @property
     def config_revision(self):
@@ -109,6 +149,7 @@ class Runtime:
             self.ownership.close();self.ownership=None
             raise RuntimeError("another_process_owns_this_project_GPU_and_cameras_use_one_worker")
         self.store.thread.start();self.system.thread.start();self.renderer.start();self.thread.start()
+        if self.live_preview:self.viewer.start()
         self.started=True
         for capture in self.cameras.values():
             if capture.config.get("enabled"):capture.start()
@@ -116,7 +157,9 @@ class Runtime:
     def close(self):
         self.stop_event.set()
         for capture in list(self.cameras.values()):capture.stop()
-        self.thread.join(timeout=10);self.renderer.join(timeout=5);self.system.stop.set();self.system.thread.join(timeout=3);self.store.close()
+        self.thread.join(timeout=10);self.renderer.join(timeout=5)
+        if self.viewer.is_alive():self.viewer.join(timeout=5)
+        self.system.stop.set();self.system.thread.join(timeout=3);self.store.close()
         if self.ownership:self.ownership.close();self.ownership=None
         self.started=False
 
@@ -209,6 +252,7 @@ class Runtime:
                             except queue.Full:self.store.error="evidence_render_queue_full"
                     if len(self.evidence_requested)>10000:self.evidence_requested={e["id"] for e in self.events.states.values()}
                     self.render_slots[cid].put((frame,tracks,ppe,current_zones,[]))
+                    self.analysis[cid]=(frame.session_id,frame.frame_id,frame.received_monotonic,tracks,ppe)
                 except Exception as error:
                     self.error=type(error).__name__
                     for event in self.events.suspend_camera(cid):self.store.save_event(event)
@@ -250,13 +294,45 @@ class Runtime:
                 if frame.session_id!=self.cameras[cid].session_id:continue
                 try:
                     jpeg=render(frame,tracks,ppe,zones,self.config["runtime"]["preview_width"],self.detector.ready)
-                    self.latest[cid]=(frame,jpeg);self.metrics[cid].preview.append(time.monotonic())
                     last[cid]=max(now,last.get(cid,now))+1/self.config["runtime"]["preview_fps"]
-                    self.metrics[cid].latency.append((time.monotonic()-frame.received_monotonic)*1000)
+                    if not self.live_preview:
+                        self.latest[cid]=(frame,jpeg);self.metrics[cid].preview.append(time.monotonic())
+                        self.metrics[cid].latency.append((time.monotonic()-frame.received_monotonic)*1000)
+                    # Evidence clips are always built from analysed frames carrying
+                    # their own boxes, whatever the live picture shows.
                     self.store.add_frame(frame,jpeg)
                     for event in changes:self.store.save_event(event,frame,jpeg)
                 except Exception as error:self.error="render_or_evidence_"+type(error).__name__
             if not worked:self.stop_event.wait(.005)
+
+    def view_loop(self):
+        """Live picture: each decoded frame with the newest analysis drawn on it.
+
+        Runs apart from render_loop so a burst of evidence rendering cannot stall
+        the picture. It only reads analysis results and never feeds evidence.
+        """
+        shown={}
+        while not self.stop_event.is_set():
+            worked=False
+            for cid,capture in list(self.cameras.items()):
+                now=time.monotonic()
+                if now<shown.get(cid,0):continue
+                frame=capture.view.take()
+                if frame is None or frame.session_id!=capture.session_id:continue
+                worked=True
+                try:
+                    with self.lock:zones=list(self.zones[cid])
+                    tracks,ppe,note,warning,age=overlay_for(frame,self.analysis.get(cid),self.config["runtime"]["observation_ttl_s"])
+                    jpeg=render(frame,tracks,ppe,zones,self.config["runtime"]["preview_width"],self.detector.ready,note,warning,fast=True)
+                    self.latest[cid]=(frame,jpeg);self.metrics[cid].preview.append(time.monotonic())
+                    # Pace from the previous slot, not from `now`: adding the interval
+                    # to the moment of each take let poll and render time accumulate
+                    # until a source frame was skipped (25 fps in, about 20 shown).
+                    shown[cid]=max(now,shown.get(cid,now)+1/self.config["runtime"]["preview_fps"])
+                    self.metrics[cid].latency.append((time.monotonic()-frame.received_monotonic)*1000)
+                    if age is not None:self.metrics[cid].overlay_age.append(age*1000)
+                except Exception as error:self.error="live_preview_"+type(error).__name__
+            if not worked:self.stop_event.wait(.004)
 
     def preview(self,camera_id):
         item=self.latest.get(camera_id);capture=self.cameras[camera_id]
@@ -264,7 +340,12 @@ class Runtime:
             frame,jpeg=item
             if frame.session_id==capture.session_id and capture.status=="connected" and time.monotonic()-frame.received_monotonic<self.config["runtime"]["observation_ttl_s"]:
                 return frame.key,jpeg
+        # The placeholder changes once a second; viewers poll far more often, so
+        # build it once per key instead of on every poll. One entry per camera.
+        key=(camera_id,capture.status,int(time.monotonic()));cached=self.placeholders.get(camera_id)
+        if cached and cached[0]==key:return cached
         image=np.zeros((360,640,3),np.uint8);image[:]=(25,21,17)
         cv2.putText(image,camera_id+" / "+capture.status.upper(),(30,170),cv2.FONT_HERSHEY_SIMPLEX,.8,(160,175,190),1,cv2.LINE_AA)
         cv2.putText(image,"NO CURRENT OBSERVATION",(30,210),cv2.FONT_HERSHEY_SIMPLEX,.5,(100,120,140),1)
-        return (camera_id,capture.status,int(time.monotonic())),cv2.imencode(".jpg",image)[1].tobytes()
+        self.placeholders[camera_id]=(key,cv2.imencode(".jpg",image)[1].tobytes())
+        return self.placeholders[camera_id]

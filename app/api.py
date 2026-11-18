@@ -96,13 +96,24 @@ def create_app(config=None,runtime=None):
     async def stream(cid:str,request:Request):
         camera(cid)
         async def frames():
-            previous=None
-            while not await request.is_disconnected():
+            previous=None;checked=0.
+            # One check per frame interval, and no faster. Windows rounds the sleep up
+            # to its ~15.6 ms timer tick, so viewers receive somewhat fewer pictures
+            # than are rendered, but polling four times as often made this thread
+            # compete for the GIL so hard that inference fell from 8 to under 2 fps.
+            interval=1/config["runtime"]["preview_fps"]
+            while True:
+                # The disconnect probe is costly (a cancel scope per call), so ask
+                # only twice a second instead of on every tick.
+                now=time.monotonic()
+                if now-checked>=.5:
+                    if await request.is_disconnected():break
+                    checked=now
                 key,jpeg=runtime.preview(cid)
                 if key!=previous:
                     previous=key
                     yield b"--frame\r\nContent-Type: image/jpeg\r\nContent-Length: "+str(len(jpeg)).encode()+b"\r\nX-Frame-Key: "+str(key).encode()+b"\r\n\r\n"+jpeg+b"\r\n"
-                await asyncio.sleep(1/config["runtime"]["preview_fps"])
+                await asyncio.sleep(interval)
         return StreamingResponse(frames(),media_type="multipart/x-mixed-replace; boundary=frame",headers={"X-Accel-Buffering":"no"})
     @app.get("/api/events")
     async def events(camera:str|None=None,kind:str|None=None,status:str|None=None,limit:int=100):

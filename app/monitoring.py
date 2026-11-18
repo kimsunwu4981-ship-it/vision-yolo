@@ -12,6 +12,8 @@ class Metrics:
     def __init__(self):
         self.inference=deque(maxlen=600);self.preview=deque(maxlen=600);self.latency=deque(maxlen=2000)
         self.process_ms=deque(maxlen=2000);self.total=0;self.last=None;self.frame_key=None;self.ppe_unknown=0.;self.gaps=deque(maxlen=2000)
+        # live_preview only: how far the drawn boxes trail the displayed frame.
+        self.overlay_age=deque(maxlen=2000)
     def record(self,frame,elapsed_ms):
         now=time.monotonic()
         if self.last is not None:self.gaps.append(max(0,frame.received_monotonic-self.last))
@@ -22,8 +24,8 @@ class Metrics:
         def fps(values):
             stamps=[t for t in list(values) if now-t<5]
             return round((len(stamps)-1)/(stamps[-1]-stamps[0]),2) if len(stamps)>1 else 0.
-        values=list(self.latency)
-        return {"inference_fps":fps(self.inference),"preview_fps":fps(self.preview),"inferred_frames":self.total,
+        values=list(self.latency);ages=list(self.overlay_age)
+        return {"overlay_age_ms":dict(zip(("p50","p95"),map(float,np.percentile(ages,[50,95])))) if ages else None,"inference_fps":fps(self.inference),"preview_fps":fps(self.preview),"inferred_frames":self.total,
             "last_observation_age_s":None if self.last is None else round(now-self.last,3),"frame_key":self.frame_key,
             "decode_ready_to_encoded_ms":dict(zip(("p50","p95","p99"),map(float,np.percentile(values,[50,95,99])))) if values else None,
             "browser_display_latency_ms":None,"physical_end_to_end_ms":None,"ppe_unknown_ratio":self.ppe_unknown,
